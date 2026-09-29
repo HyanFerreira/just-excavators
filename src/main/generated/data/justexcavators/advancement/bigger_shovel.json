@@ -1,10 +1,10 @@
 {
   "criteria": {
-    "has_iron_excavator": {
+    "has_excavator": {
       "conditions": {
         "items": [
           {
-            "items": "justexcavators:iron_excavator"
+            "items": "#justexcavators:excavators"
           }
         ]
       },
@@ -12,12 +12,15 @@
     }
   },
   "display": {
-    "background": "minecraft:gui/advancements/backgrounds/stone",
+    "background": "minecraft:block/dirt",
     "description": {
       "translate": "advancement.justexcavators.bigger_shovel.description"
     },
     "icon": {
-      "id": "justexcavators:iron_excavator"
+      "components": {
+        "justexcavators:excavation_mode": "basic"
+      },
+      "id": "justexcavators:stone_excavator"
     },
     "title": {
       "translate": "advancement.justexcavators.bigger_shovel.title"
@@ -25,7 +28,7 @@
   },
   "requirements": [
     [
-      "has_iron_excavator"
+      "has_excavator"
     ]
   ],
   "sends_telemetry_event": true

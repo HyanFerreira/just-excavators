@@ -1,0 +1,39 @@
+{
+  "parent": "justexcavators:advanced_engineering",
+  "criteria": {
+    "has_profile": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "justexcavators:excavation_mode": "advanced"
+            },
+            "items": "#justexcavators:excavators"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.justexcavators.earthmover.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "components": {
+        "justexcavators:excavation_mode": "advanced"
+      },
+      "id": "justexcavators:diamond_excavator"
+    },
+    "title": {
+      "translate": "advancement.justexcavators.earthmover.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_profile"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

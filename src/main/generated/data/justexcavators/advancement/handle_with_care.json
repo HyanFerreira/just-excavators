@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "justexcavators:deep_excavation_core"
+            "items": "justexcavators:silk_core"
           }
         ]
       },
@@ -14,13 +14,13 @@
   },
   "display": {
     "description": {
-      "translate": "advancement.justexcavators.digging_deeper.description"
+      "translate": "advancement.justexcavators.handle_with_care.description"
     },
     "icon": {
-      "id": "justexcavators:deep_excavation_core"
+      "id": "justexcavators:silk_core"
     },
     "title": {
-      "translate": "advancement.justexcavators.digging_deeper.title"
+      "translate": "advancement.justexcavators.handle_with_care.title"
     }
   },
   "requirements": [

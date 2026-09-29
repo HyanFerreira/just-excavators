@@ -1,7 +1,7 @@
 {
-  "parent": "justexcavators:bigger_shovel",
+  "parent": "justexcavators:into_the_depths",
   "criteria": {
-    "has_wide_excavation_core": {
+    "has_core": {
       "conditions": {
         "items": [
           {
@@ -25,7 +25,7 @@
   },
   "requirements": [
     [
-      "has_wide_excavation_core"
+      "has_core"
     ]
   ],
   "sends_telemetry_event": true

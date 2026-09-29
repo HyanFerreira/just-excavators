@@ -1,0 +1,39 @@
+{
+  "parent": "justexcavators:digging_deeper",
+  "criteria": {
+    "has_profile": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "justexcavators:excavation_mode": "deep"
+            },
+            "items": "#justexcavators:excavators"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.justexcavators.into_the_depths.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "components": {
+        "justexcavators:excavation_mode": "deep"
+      },
+      "id": "justexcavators:iron_excavator"
+    },
+    "title": {
+      "translate": "advancement.justexcavators.into_the_depths.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_profile"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

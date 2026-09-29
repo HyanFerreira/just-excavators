@@ -31,11 +31,25 @@ public final class ModPortugueseLanguageProvider extends FabricLanguageProvider 
 		translations.add(ModItems.ADVANCED_EXCAVATION_CORE, "Núcleo de Escavação Avançada");
 		translations.add(ModItems.SILK_CORE, "Núcleo de Seda");
 		translations.add("advancement.justexcavators.bigger_shovel.title", "Pá Maior");
-		translations.add("advancement.justexcavators.bigger_shovel.description", "Fabrique uma Escavadora de Ferro");
+		translations.add("advancement.justexcavators.bigger_shovel.description", "Obtenha sua primeira Escavadora");
 		translations.add("advancement.justexcavators.digging_deeper.title", "Escavando Mais Fundo");
 		translations.add("advancement.justexcavators.digging_deeper.description", "Obtenha um Núcleo de Escavação Profunda");
+		translations.add("advancement.justexcavators.into_the_depths.title", "Rumo às Profundezas");
+		translations.add("advancement.justexcavators.into_the_depths.description", "Coloque um Núcleo Profundo para trabalhar em uma Escavadora");
 		translations.add("advancement.justexcavators.wide_open.title", "Tudo Aberto");
 		translations.add("advancement.justexcavators.wide_open.description", "Obtenha um Núcleo de Escavação Ampla");
+		translations.add("advancement.justexcavators.clear_the_way.title", "Abra Caminho");
+		translations.add("advancement.justexcavators.clear_the_way.description", "Construa uma Escavadora feita para limpar superfícies inteiras");
+		translations.add("advancement.justexcavators.advanced_engineering.title", "Três Dimensões à Frente");
+		translations.add("advancement.justexcavators.advanced_engineering.description", "Obtenha um Núcleo de Escavação Avançada");
+		translations.add("advancement.justexcavators.earthmover.title", "Move-Terras");
+		translations.add("advancement.justexcavators.earthmover.description", "Domine uma Escavadora Avançada 5x5x3");
+		translations.add("advancement.justexcavators.handle_with_care.title", "Manuseie com Cuidado");
+		translations.add("advancement.justexcavators.handle_with_care.description", "Obtenha um Núcleo de Seda");
+		translations.add("advancement.justexcavators.silken_touch.title", "Sem Deixar Rastros");
+		translations.add("advancement.justexcavators.silken_touch.description", "Aprimore uma Escavadora com Toque Suave");
+		translations.add("advancement.justexcavators.master_of_the_earth.title", "Mestre da Terra");
+		translations.add("advancement.justexcavators.master_of_the_earth.description", "Colecione Escavadoras de Netherita Básica, Profunda, Ampla e Avançada");
 
 		translations.add("itemGroup.justexcavators", "Just Excavators");
 		translations.add("excavation_mode.justexcavators.basic", "Básico");
@@ -44,6 +58,7 @@ public final class ModPortugueseLanguageProvider extends FabricLanguageProvider 
 		translations.add("excavation_mode.justexcavators.advanced", "Avançado");
 		translations.add("tooltip.justexcavators.mode", "Modo: %s");
 		translations.add("tooltip.justexcavators.area", "Área de Escavação: %sx%sx%s");
+		translations.add("tooltip.justexcavators.enhancement.silk_touch", "Melhoria: Toque Suave");
 		translations.add("tooltip.justexcavators.precision", "Segure Shift para desativar a escavação em área");
 	}
 }

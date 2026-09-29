@@ -38,12 +38,27 @@ public final class ModEnglishLanguageProvider extends FabricLanguageProvider {
 		translations.add("excavation_mode.justexcavators.advanced", "Advanced");
 		translations.add("tooltip.justexcavators.mode", "Mode: %s");
 		translations.add("tooltip.justexcavators.area", "Excavation Area: %sx%sx%s");
+		translations.add("tooltip.justexcavators.enhancement.silk_touch", "Enhancement: Silk Touch");
 		translations.add("tooltip.justexcavators.precision", "Hold Shift to disable area mining");
 		translations.add("advancement.justexcavators.bigger_shovel.title", "Bigger Shovel");
-		translations.add("advancement.justexcavators.bigger_shovel.description", "Craft an Iron Excavator");
+		translations.add("advancement.justexcavators.bigger_shovel.description", "Obtain your first Excavator");
 		translations.add("advancement.justexcavators.digging_deeper.title", "Digging Deeper");
 		translations.add("advancement.justexcavators.digging_deeper.description", "Obtain a Deep Excavation Core");
+		translations.add("advancement.justexcavators.into_the_depths.title", "Into the Depths");
+		translations.add("advancement.justexcavators.into_the_depths.description", "Put a Deep Core to work in an Excavator");
 		translations.add("advancement.justexcavators.wide_open.title", "Wide Open");
 		translations.add("advancement.justexcavators.wide_open.description", "Obtain a Wide Excavation Core");
+		translations.add("advancement.justexcavators.clear_the_way.title", "Clear the Way");
+		translations.add("advancement.justexcavators.clear_the_way.description", "Build an Excavator made to clear entire surfaces");
+		translations.add("advancement.justexcavators.advanced_engineering.title", "Three Dimensions Ahead");
+		translations.add("advancement.justexcavators.advanced_engineering.description", "Obtain an Advanced Excavation Core");
+		translations.add("advancement.justexcavators.earthmover.title", "Earthmover");
+		translations.add("advancement.justexcavators.earthmover.description", "Command a 5x5x3 Advanced Excavator");
+		translations.add("advancement.justexcavators.handle_with_care.title", "Handle With Care");
+		translations.add("advancement.justexcavators.handle_with_care.description", "Obtain a Silk Core");
+		translations.add("advancement.justexcavators.silken_touch.title", "Leave No Trace");
+		translations.add("advancement.justexcavators.silken_touch.description", "Enhance an Excavator with Silk Touch");
+		translations.add("advancement.justexcavators.master_of_the_earth.title", "Master of the Earth");
+		translations.add("advancement.justexcavators.master_of_the_earth.description", "Collect Basic, Deep, Wide, and Advanced Netherite Excavators");
 	}
 }

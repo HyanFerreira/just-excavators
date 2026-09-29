@@ -1,0 +1,36 @@
+{
+  "parent": "justexcavators:handle_with_care",
+  "criteria": {
+    "has_silk_excavator": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "justexcavators:enhancements": true
+            },
+            "items": "#justexcavators:excavators"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.justexcavators.silken_touch.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "id": "justexcavators:diamond_excavator"
+    },
+    "title": {
+      "translate": "advancement.justexcavators.silken_touch.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_silk_excavator"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

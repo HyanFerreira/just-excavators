@@ -1,11 +1,11 @@
 {
-  "parent": "justexcavators:bigger_shovel",
+  "parent": "justexcavators:clear_the_way",
   "criteria": {
     "has_core": {
       "conditions": {
         "items": [
           {
-            "items": "justexcavators:deep_excavation_core"
+            "items": "justexcavators:advanced_excavation_core"
           }
         ]
       },
@@ -14,13 +14,13 @@
   },
   "display": {
     "description": {
-      "translate": "advancement.justexcavators.digging_deeper.description"
+      "translate": "advancement.justexcavators.advanced_engineering.description"
     },
     "icon": {
-      "id": "justexcavators:deep_excavation_core"
+      "id": "justexcavators:advanced_excavation_core"
     },
     "title": {
-      "translate": "advancement.justexcavators.digging_deeper.title"
+      "translate": "advancement.justexcavators.advanced_engineering.title"
     }
   },
   "requirements": [

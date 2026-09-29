@@ -1,0 +1,39 @@
+{
+  "parent": "justexcavators:wide_open",
+  "criteria": {
+    "has_profile": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "justexcavators:excavation_mode": "wide"
+            },
+            "items": "#justexcavators:excavators"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.justexcavators.clear_the_way.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "components": {
+        "justexcavators:excavation_mode": "wide"
+      },
+      "id": "justexcavators:iron_excavator"
+    },
+    "title": {
+      "translate": "advancement.justexcavators.clear_the_way.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_profile"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
