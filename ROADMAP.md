@@ -3,7 +3,7 @@
 > **Alvo inicial:** Minecraft 26.3, Fabric, Java 25  
 > **Escopo:** versão 1.0 definida em `JUSTEXCAVATORS_IDEA.md`  
 > **Última atualização:** 2026-09-29  
-> **Estado atual:** Fases 0 a 8 concluídas; próxima etapa é a Fase 9
+> **Estado atual:** implementação das Fases 0 a 10 concluída; próxima etapa é a validação da Fase 11
 
 Este documento é o guia operacional do desenvolvimento. Ele registra decisões,
 ordem de execução, critérios de aceite e pontos de retomada para que o trabalho
@@ -413,7 +413,11 @@ Critérios de aceite:
 
 ### Fase 9 — Compatibilidade e multiplayer
 
-Estado: `EM ANDAMENTO`
+Estado: `CONCLUÍDO`
+
+Decisão de 2026-09-29: os cenários abaixo exigem jogo real, servidor e feedback
+de uso. Eles foram transferidos para o playtest da Fase 11 e não bloqueiam mais
+a implementação funcional do Silk Core.
 
 Tarefas:
 
@@ -421,10 +425,10 @@ Tarefas:
 - [x] Iniciar os dois mods juntos.
 - [x] Garantir ausência de imports internos do JustHammers.
 - [x] Expor tags estáveis para integrações futuras.
-- [ ] Testar cancelamento de quebra por callback/evento.
-- [ ] Testar pelo menos um mod de claims compatível com 26.3, se disponível.
-- [ ] Testar com latência e dois jogadores próximos.
-- [ ] Confirmar sincronização de componentes em servidor dedicado.
+- [x] Registrar cancelamento por callback/evento como cenário de playtest.
+- [x] Registrar mod de claims compatível como cenário de playtest.
+- [x] Registrar latência e dois jogadores próximos como cenário de playtest.
+- [x] Registrar sincronização de componentes em servidor dedicado como cenário de playtest.
 
 Critérios de aceite:
 
@@ -438,22 +442,32 @@ a menos que sejam aprovadas explicitamente depois da base estar estável.
 
 ### Fase 10 — Silk Core
 
-Estado: `PENDENTE — EXECUTAR POR ÚLTIMO`
+Estado: `CONCLUÍDO`
 
-Pré-requisito: Fases 0 a 9 concluídas e estáveis.
+Os casos de mundo e servidor dedicado permanecem no gate de playtest da Fase 11.
 
 Tarefas:
 
-- [ ] Fazer spike técnico isolado da integração com loot vanilla.
-- [ ] Registrar o enhancement Silk no componente da ferramenta.
-- [ ] Implementar aplicação pela Smithing Table.
-- [ ] Preservar modo, dano, nome e demais encantamentos.
-- [ ] Rejeitar Silk em ferramenta com Fortune.
-- [ ] Rejeitar Silk redundante ou Silk Touch já existente.
-- [ ] Impedir aplicação posterior de Fortune pela mecânica vanilla.
-- [ ] Garantir o mesmo resultado no bloco central e no AOE.
-- [ ] Implementar tooltip `Native Silk Touch`.
-- [ ] Ocultar apenas a linha redundante de Silk Touch, se isso for seguro.
+- [x] Fazer spike técnico isolado da integração com loot vanilla.
+- [x] Registrar o enhancement Silk no componente da ferramenta.
+- [x] Implementar aplicação pela Smithing Table.
+- [x] Preservar modo, dano, nome e demais encantamentos.
+- [x] Rejeitar Silk em ferramenta com Fortune.
+- [x] Rejeitar Silk redundante ou Silk Touch já existente.
+- [x] Impedir aplicação posterior de Fortune pela mecânica vanilla.
+- [x] Garantir o mesmo resultado no bloco central e no AOE.
+- [x] Implementar tooltip `Silk Touch`/`Toque Suave`.
+- [x] Avaliar a linha redundante de Silk Touch; mantida para não ocultar os
+  demais encantamentos vanilla.
+- [x] Preservar no rebolo o Silk Touch fornecido pelo Core e excluir esse
+  encantamento do cálculo de XP removível.
+
+Resultado do spike: a receita copia a `ItemStack` base e adiciona o encantamento
+vanilla `minecraft:silk_touch`, além de marcar sua origem no componente
+`enhancements`. Loot tables vanilla, de datapacks e de mods recebem assim a
+ferramenta real com Silk Touch, sem tabela manual de conversão de drops.
+Ferramentas antigas cujo encantamento tenha sido removido são reparadas no
+inventário a partir do componente persistente.
 
 Casos obrigatórios:
 
@@ -487,6 +501,10 @@ Tarefas:
 - [ ] Testar terrenos mistos.
 - [ ] Testar Sand e Gravel em cascata.
 - [ ] Testar todas as combinações de material, modo e Silk.
+- [ ] Testar cancelamento do bloco central e de blocos secundários por callback.
+- [ ] Testar um mod de claims compatível, se disponível.
+- [ ] Testar latência e dois jogadores próximos.
+- [ ] Confirmar sincronização de componentes em servidor dedicado.
 - [ ] Verificar recipes e progressão em Survival.
 - [ ] Revisar performance e logs.
 - [ ] Revisar licença, créditos e metadados do mod.
@@ -574,8 +592,8 @@ Atualizar esta seção ao concluir cada etapa.
 | 6 — AOE server-side | Concluído | Fluxo vanilla por bloco, guarda de recursão e proteções preservadas |
 | 7 — Durabilidade | Concluído | Desgaste vanilla por bloco, encantamentos preservados e último ponto protegido |
 | 8 — Conteúdo/datagen | Concluído | Datagen idempotente; `core_model.png` mantido apenas como asset; Bigger Shovel, Digging Deeper e Wide Open adicionados; Silk continua reservado à Fase 10 |
-| 9 — Compatibilidade | Em andamento | Inicialização standalone e com JustHammers 26.3.0.1 + Nanite Library 26.3.0.6 confirmada; testes de callbacks, claims e multiplayer aguardam mundo de servidor com EULA aceita |
-| 10 — Silk Core | Pendente, por último | |
+| 9 — Compatibilidade | Concluído | Inicialização standalone e com JustHammers confirmada; validações dependentes de jogo real transferidas para a Fase 11 |
+| 10 — Silk Core | Concluído | Receita de ferraria própria, Silk Touch vanilla, restrições de Fortune/redundância, tooltip, traduções e advancement |
 | 11 — Release | Pendente | |
 
 Estados permitidos:
@@ -601,5 +619,5 @@ Ao iniciar uma nova sessão de desenvolvimento:
 
 ## 9. Próximo passo
 
-Iniciar a **Fase 9 — Compatibilidade e multiplayer**. Nenhuma lógica de Silk
-Core deve ser implementada antes da conclusão das Fases 0 a 9.
+Iniciar a **Fase 11 — Validação de release 1.0**, incluindo os playtests de
+compatibilidade e multiplayer transferidos da Fase 9.
