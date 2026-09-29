@@ -3,7 +3,7 @@
 > **Alvo inicial:** Minecraft 26.3, Fabric, Java 25  
 > **Escopo:** versão 1.0 definida em `JUSTEXCAVATORS_IDEA.md`  
 > **Última atualização:** 2026-09-29  
-> **Estado atual:** Fases 0 a 3 concluídas; próxima etapa é a Fase 4
+> **Estado atual:** Fases 0 a 4 concluídas; próxima etapa é a Fase 5
 
 Este documento é o guia operacional do desenvolvimento. Ele registra decisões,
 ordem de execução, critérios de aceite e pontos de retomada para que o trabalho
@@ -291,16 +291,16 @@ Critérios de aceite:
 
 ### Fase 4 — Geometria pura e testes unitários
 
-Estado: `PENDENTE`
+Estado: `CONCLUÍDO`
 
 Tarefas:
 
-- [ ] Implementar `ExcavationAreaCalculator` sem acesso ao mundo.
-- [ ] Cobrir as seis direções de face.
-- [ ] Centralizar corretamente áreas 3x3 e 5x5.
-- [ ] Fazer Deep avançar para dentro da face atingida.
-- [ ] Definir ordem determinística: profundidade e distância ao centro.
-- [ ] Adicionar testes unitários para todos os modos e direções.
+- [x] Implementar `ExcavationAreaCalculator` sem acesso ao mundo.
+- [x] Cobrir as seis direções de face.
+- [x] Centralizar corretamente áreas 3x3 e 5x5.
+- [x] Fazer Deep avançar para dentro da face atingida.
+- [x] Definir ordem determinística: profundidade e distância ao centro.
+- [x] Adicionar testes unitários para todos os modos e direções.
 
 Critérios de aceite:
 
@@ -566,7 +566,7 @@ Atualizar esta seção ao concluir cada etapa.
 | 1 — Registries | Concluído | Oito itens, creative tab e tags geradas; durabilidade inicial 3x vanilla |
 | 2 — Components | Concluído | Modo persistente/sincronizado, modelos dinâmicos, tooltips e traduções |
 | 3 — Receitas | Concluído | Dez receitas/advancements; perfis substituíveis e upgrade Netherite |
-| 4 — Geometria | Pendente | |
+| 4 — Geometria | Concluído | Seis faces testadas; áreas centralizadas e ordenadas centro-para-fora |
 | 5 — Validação | Pendente | |
 | 6 — AOE server-side | Pendente | |
 | 7 — Durabilidade | Pendente | |
@@ -598,5 +598,5 @@ Ao iniciar uma nova sessão de desenvolvimento:
 
 ## 9. Próximo passo
 
-Iniciar a **Fase 4 — Geometria pura e testes unitários**. Nenhuma lógica de Silk
+Iniciar a **Fase 5 — Validação de alvos**. Nenhuma lógica de Silk
 Core deve ser implementada antes da conclusão das Fases 0 a 9.
