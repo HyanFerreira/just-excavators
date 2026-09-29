@@ -3,7 +3,7 @@
 > **Alvo inicial:** Minecraft 26.3, Fabric, Java 25  
 > **Escopo:** versão 1.0 definida em `JUSTEXCAVATORS_IDEA.md`  
 > **Última atualização:** 2026-09-29  
-> **Estado atual:** Fases 0 a 4 concluídas; próxima etapa é a Fase 5
+> **Estado atual:** Fases 0 a 5 concluídas; próxima etapa é a Fase 6
 
 Este documento é o guia operacional do desenvolvimento. Ele registra decisões,
 ordem de execução, critérios de aceite e pontos de retomada para que o trabalho
@@ -313,17 +313,17 @@ Critérios de aceite:
 
 ### Fase 5 — Validação de alvos
 
-Estado: `PENDENTE`
+Estado: `CONCLUÍDO`
 
 Tarefas:
 
-- [ ] Validar o bloco central antes de ativar AOE.
-- [ ] Exigir `#minecraft:mineable/shovel` nos alvos secundários.
-- [ ] Verificar que a ferramenta é adequada para drops.
-- [ ] Rejeitar blocos inquebráveis.
-- [ ] Ignorar block entities por segurança.
-- [ ] Criar `justexcavators:excavator_no_aoe` para exclusões data-driven.
-- [ ] Definir e testar a política para fluidos e blocos waterlogged.
+- [x] Validar o bloco central antes de ativar AOE.
+- [x] Exigir `#minecraft:mineable/shovel` nos alvos secundários.
+- [x] Verificar que a ferramenta é adequada para drops.
+- [x] Rejeitar blocos inquebráveis.
+- [x] Ignorar block entities por segurança.
+- [x] Criar `justexcavators:excavator_no_aoe` para exclusões data-driven.
+- [x] Definir e testar a política para fluidos e blocos waterlogged.
 
 Critérios de aceite:
 
@@ -567,7 +567,7 @@ Atualizar esta seção ao concluir cada etapa.
 | 2 — Components | Concluído | Modo persistente/sincronizado, modelos dinâmicos, tooltips e traduções |
 | 3 — Receitas | Concluído | Dez receitas/advancements; perfis substituíveis e upgrade Netherite |
 | 4 — Geometria | Concluído | Seis faces testadas; áreas centralizadas e ordenadas centro-para-fora |
-| 5 — Validação | Pendente | |
+| 5 — Validação | Concluído | Política testada; block entities, fluidos e tag de exclusão protegidos |
 | 6 — AOE server-side | Pendente | |
 | 7 — Durabilidade | Pendente | |
 | 8 — Conteúdo/datagen | Pendente | |
@@ -598,5 +598,5 @@ Ao iniciar uma nova sessão de desenvolvimento:
 
 ## 9. Próximo passo
 
-Iniciar a **Fase 5 — Validação de alvos**. Nenhuma lógica de Silk
+Iniciar a **Fase 6 — Quebra AOE server-side**. Nenhuma lógica de Silk
 Core deve ser implementada antes da conclusão das Fases 0 a 9.
