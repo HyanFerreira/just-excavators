@@ -3,7 +3,7 @@
 > **Alvo inicial:** Minecraft 26.3, Fabric, Java 25  
 > **Escopo:** versão 1.0 definida em `JUSTEXCAVATORS_IDEA.md`  
 > **Última atualização:** 2026-09-29  
-> **Estado atual:** Fases 0, 1 e 2 concluídas; próxima etapa é a Fase 3
+> **Estado atual:** Fases 0 a 3 concluídas; próxima etapa é a Fase 4
 
 Este documento é o guia operacional do desenvolvimento. Ele registra decisões,
 ordem de execução, critérios de aceite e pontos de retomada para que o trabalho
@@ -258,18 +258,18 @@ Critérios de aceite:
 
 ### Fase 3 — Receitas e troca de perfil
 
-Estado: `PENDENTE`
+Estado: `CONCLUÍDO`
 
 Tarefas:
 
-- [ ] Definir recipes provisórias dos três Excavation Cores.
-- [ ] Criar recipes das Excavators Iron, Gold e Diamond com Basic Core.
-- [ ] Não oferecer crafting direto da Netherite Excavator.
-- [ ] Implementar upgrades Basic, Deep e Wide pela Smithing Table.
-- [ ] Preservar nome, dano, encantamentos e componentes.
-- [ ] Rejeitar aplicação do mesmo modo atual.
-- [ ] Implementar Diamond -> Netherite usando template e ingot vanilla.
-- [ ] Gerar recipe advancements.
+- [x] Definir recipes provisórias dos três Excavation Cores.
+- [x] Criar recipes das Excavators Iron, Gold e Diamond com Basic Core.
+- [x] Não oferecer crafting direto da Netherite Excavator.
+- [x] Implementar upgrades Basic, Deep e Wide pela Smithing Table.
+- [x] Preservar nome, dano, encantamentos e componentes.
+- [x] Rejeitar aplicação do mesmo modo atual.
+- [x] Implementar Diamond -> Netherite usando template e ingot vanilla.
+- [x] Gerar recipe advancements.
 
 Direção inicial para o corpo da Excavator:
 
@@ -565,7 +565,7 @@ Atualizar esta seção ao concluir cada etapa.
 | 0 — Fundação | Concluído | MIT; build, client, server e datagen validados |
 | 1 — Registries | Concluído | Oito itens, creative tab e tags geradas; durabilidade inicial 3x vanilla |
 | 2 — Components | Concluído | Modo persistente/sincronizado, modelos dinâmicos, tooltips e traduções |
-| 3 — Receitas | Pendente | |
+| 3 — Receitas | Concluído | Dez receitas/advancements; perfis substituíveis e upgrade Netherite |
 | 4 — Geometria | Pendente | |
 | 5 — Validação | Pendente | |
 | 6 — AOE server-side | Pendente | |
@@ -598,5 +598,5 @@ Ao iniciar uma nova sessão de desenvolvimento:
 
 ## 9. Próximo passo
 
-Iniciar a **Fase 3 — Receitas e troca de perfil**. Nenhuma lógica de Silk
+Iniciar a **Fase 4 — Geometria pura e testes unitários**. Nenhuma lógica de Silk
 Core deve ser implementada antes da conclusão das Fases 0 a 9.

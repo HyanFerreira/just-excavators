@@ -31,6 +31,7 @@ bin/
 # fabric
 
 run/
+/logs/
 /src/main/generated/.cache/
 
 # local texture references

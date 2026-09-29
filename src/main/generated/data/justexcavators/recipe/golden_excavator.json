@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": "justexcavators:excavation_core",
+    "M": "minecraft:gold_ingot",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "MCM",
+    "MSM",
+    " S "
+  ],
+  "result": {
+    "id": "justexcavators:golden_excavator"
+  }
+}
