@@ -5,6 +5,9 @@
 	"mixins": [
 		"ServerPlayerGameModeMixin"
 	],
+	"client": [
+		"LevelExtractorMixin"
+	],
 	"injectors": {
 		"defaultRequire": 1
 	}
