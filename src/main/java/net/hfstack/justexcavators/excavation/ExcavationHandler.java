@@ -43,7 +43,9 @@ public final class ExcavationHandler {
 		ItemStack mainHand = player.getMainHandItem();
 		return ExcavationExecutionPolicy.canContinue(
 				mainHand == originalTool,
-				!mainHand.isEmpty() && !mainHand.isBroken()
+				!mainHand.isEmpty() && !mainHand.isBroken(),
+				mainHand.nextDamageWillBreak(),
+				player.hasInfiniteMaterials()
 		);
 	}
 

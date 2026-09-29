@@ -3,7 +3,7 @@
 > **Alvo inicial:** Minecraft 26.3, Fabric, Java 25  
 > **Escopo:** versão 1.0 definida em `JUSTEXCAVATORS_IDEA.md`  
 > **Última atualização:** 2026-09-29  
-> **Estado atual:** Fases 0 a 6 concluídas; próxima etapa é a Fase 7
+> **Estado atual:** Fases 0 a 7 concluídas; próxima etapa é a Fase 8
 
 Este documento é o guia operacional do desenvolvimento. Ele registra decisões,
 ordem de execução, critérios de aceite e pontos de retomada para que o trabalho
@@ -357,17 +357,17 @@ Critérios de aceite:
 
 ### Fase 7 — Durabilidade e encantamentos vanilla
 
-Estado: `PENDENTE`
+Estado: `CONCLUÍDO`
 
 Tarefas:
 
-- [ ] Confirmar uma tentativa de desgaste por bloco efetivamente quebrado.
-- [ ] Confirmar Unbreaking individualmente por bloco.
-- [ ] Confirmar Mending sem lógica especial.
-- [ ] Confirmar Efficiency no bloco central.
-- [ ] Confirmar Fortune sem Silk Core.
-- [ ] Definir multiplicador inicial de durabilidade por material.
-- [ ] Interromper o AOE de forma segura quando restar pouca durabilidade.
+- [x] Confirmar uma tentativa de desgaste por bloco efetivamente quebrado.
+- [x] Confirmar Unbreaking individualmente por bloco.
+- [x] Confirmar Mending sem lógica especial.
+- [x] Confirmar Efficiency no bloco central.
+- [x] Confirmar Fortune sem Silk Core.
+- [x] Definir multiplicador inicial de durabilidade por material.
+- [x] Interromper o AOE de forma segura quando restar pouca durabilidade.
 
 Direção de balanceamento inicial:
 
@@ -380,6 +380,10 @@ Critérios de aceite:
 - ação completa paga até 9, 27 ou 25 usos antes de Unbreaking;
 - blocos ignorados ou protegidos não consomem durabilidade;
 - a ferramenta nunca causa quebra infinita após chegar a zero.
+
+Validação desta fase: política de interrupção coberta por teste unitário; fluxo
+de desgaste e encantamentos confirmado nas APIs vanilla e nas tags geradas.
+GameTests e playtest interativo desses cenários permanecem na Fase 11.
 
 ### Fase 8 — Datagen, traduções e acabamento do conteúdo base
 
@@ -569,7 +573,7 @@ Atualizar esta seção ao concluir cada etapa.
 | 4 — Geometria | Concluído | Seis faces testadas; áreas centralizadas e ordenadas centro-para-fora |
 | 5 — Validação | Concluído | Política testada; block entities, fluidos e tag de exclusão protegidos |
 | 6 — AOE server-side | Concluído | Fluxo vanilla por bloco, guarda de recursão e proteções preservadas |
-| 7 — Durabilidade | Pendente | |
+| 7 — Durabilidade | Concluído | Desgaste vanilla por bloco, encantamentos preservados e último ponto protegido |
 | 8 — Conteúdo/datagen | Pendente | |
 | 9 — Compatibilidade | Pendente | |
 | 10 — Silk Core | Pendente, por último | |
@@ -598,5 +602,5 @@ Ao iniciar uma nova sessão de desenvolvimento:
 
 ## 9. Próximo passo
 
-Iniciar a **Fase 7 — Durabilidade e encantamentos vanilla**. Nenhuma lógica de
+Iniciar a **Fase 8 — Datagen, traduções e acabamento do conteúdo base**. Nenhuma lógica de
 Silk Core deve ser implementada antes da conclusão das Fases 0 a 9.

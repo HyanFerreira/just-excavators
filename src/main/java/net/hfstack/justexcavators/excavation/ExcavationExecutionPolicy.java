@@ -11,8 +11,15 @@ public final class ExcavationExecutionPolicy {
 				&& !facts.recursive();
 	}
 
-	public static boolean canContinue(boolean originalToolInMainHand, boolean toolUsable) {
-		return originalToolInMainHand && toolUsable;
+	public static boolean canContinue(
+			boolean originalToolInMainHand,
+			boolean toolUsable,
+			boolean nextDamageWillBreak,
+			boolean infiniteMaterials
+	) {
+		return originalToolInMainHand
+				&& toolUsable
+				&& (infiniteMaterials || !nextDamageWillBreak);
 	}
 
 	public static boolean shouldRetainHit(boolean activelyDestroyingTarget, boolean delayedTarget) {

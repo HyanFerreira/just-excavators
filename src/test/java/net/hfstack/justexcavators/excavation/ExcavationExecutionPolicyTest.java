@@ -20,9 +20,15 @@ final class ExcavationExecutionPolicyTest {
 
 	@Test
 	void continuesOnlyWhileTheOriginalUsableToolRemainsInTheMainHand() {
-		assertTrue(ExcavationExecutionPolicy.canContinue(true, true));
-		assertFalse(ExcavationExecutionPolicy.canContinue(false, true));
-		assertFalse(ExcavationExecutionPolicy.canContinue(true, false));
+		assertTrue(ExcavationExecutionPolicy.canContinue(true, true, false, false));
+		assertFalse(ExcavationExecutionPolicy.canContinue(false, true, false, false));
+		assertFalse(ExcavationExecutionPolicy.canContinue(true, false, false, false));
+	}
+
+	@Test
+	void preservesTheLastDurabilityPointOutsideCreative() {
+		assertFalse(ExcavationExecutionPolicy.canContinue(true, true, true, false));
+		assertTrue(ExcavationExecutionPolicy.canContinue(true, true, true, true));
 	}
 
 	@Test
