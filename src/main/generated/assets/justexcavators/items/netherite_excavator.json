@@ -1,0 +1,27 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "justexcavators:item/netherite_deep_excavator"
+        },
+        "when": "deep"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "justexcavators:item/netherite_wide_excavator"
+        },
+        "when": "wide"
+      }
+    ],
+    "component": "justexcavators:excavation_mode",
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "justexcavators:item/netherite_excavator"
+    },
+    "property": "minecraft:component"
+  }
+}

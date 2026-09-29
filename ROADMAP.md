@@ -3,7 +3,7 @@
 > **Alvo inicial:** Minecraft 26.3, Fabric, Java 25  
 > **Escopo:** versão 1.0 definida em `JUSTEXCAVATORS_IDEA.md`  
 > **Última atualização:** 2026-09-29  
-> **Estado atual:** Fases 0 e 1 concluídas; próxima etapa é a Fase 2
+> **Estado atual:** Fases 0, 1 e 2 concluídas; próxima etapa é a Fase 3
 
 Este documento é o guia operacional do desenvolvimento. Ele registra decisões,
 ordem de execução, critérios de aceite e pontos de retomada para que o trabalho
@@ -237,17 +237,17 @@ Critérios de aceite:
 
 ### Fase 2 — Data Components e apresentação
 
-Estado: `PENDENTE`
+Estado: `CONCLUÍDO`
 
 Tarefas:
 
-- [ ] Criar enum `ExcavationMode` com largura, altura e profundidade.
-- [ ] Registrar componente persistente e sincronizado para o modo.
-- [ ] Preparar componente extensível para enhancements.
-- [ ] Definir Basic como estado padrão.
-- [ ] Gerar modelos que selecionam textura pelo componente.
-- [ ] Implementar tooltips do modo, área e Sneak.
-- [ ] Adicionar traduções `en_us` e `pt_br`.
+- [x] Criar enum `ExcavationMode` com largura, altura e profundidade.
+- [x] Registrar componente persistente e sincronizado para o modo.
+- [x] Preparar componente extensível para enhancements.
+- [x] Definir Basic como estado padrão.
+- [x] Gerar modelos que selecionam textura pelo componente.
+- [x] Implementar tooltips do modo, área e Sneak.
+- [x] Adicionar traduções `en_us` e `pt_br`.
 
 Critérios de aceite:
 
@@ -564,7 +564,7 @@ Atualizar esta seção ao concluir cada etapa.
 |---|---|---|
 | 0 — Fundação | Concluído | MIT; build, client, server e datagen validados |
 | 1 — Registries | Concluído | Oito itens, creative tab e tags geradas; durabilidade inicial 3x vanilla |
-| 2 — Components | Pendente | |
+| 2 — Components | Concluído | Modo persistente/sincronizado, modelos dinâmicos, tooltips e traduções |
 | 3 — Receitas | Pendente | |
 | 4 — Geometria | Pendente | |
 | 5 — Validação | Pendente | |
@@ -598,5 +598,5 @@ Ao iniciar uma nova sessão de desenvolvimento:
 
 ## 9. Próximo passo
 
-Iniciar a **Fase 2 — Data Components e apresentação**. Nenhuma lógica de Silk
+Iniciar a **Fase 3 — Receitas e troca de perfil**. Nenhuma lógica de Silk
 Core deve ser implementada antes da conclusão das Fases 0 a 9.

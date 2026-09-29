@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "justexcavators:item/wide_excavation_core"
+  }
+}

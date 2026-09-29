@@ -7,6 +7,9 @@ public class JustExcavatorsDataGenerator implements DataGeneratorEntrypoint {
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
 		FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
+		pack.addProvider(ModItemModelProvider::new);
+		pack.addProvider(ModEnglishLanguageProvider::new);
+		pack.addProvider(ModPortugueseLanguageProvider::new);
 		pack.addProvider(ModItemTagProvider::new);
 	}
 }

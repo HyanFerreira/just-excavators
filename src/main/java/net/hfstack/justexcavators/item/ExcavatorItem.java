@@ -1,7 +1,18 @@
 package net.hfstack.justexcavators.item;
 
+import java.util.function.Consumer;
+
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.ToolMaterial;
+import net.minecraft.world.item.component.TooltipDisplay;
+
+import net.hfstack.justexcavators.component.ExcavatorComponents;
+import net.hfstack.justexcavators.component.ExcavatorEnhancements;
+import net.hfstack.justexcavators.excavation.ExcavationMode;
 
 public final class ExcavatorItem extends Item {
 	private static final int DURABILITY_MULTIPLIER = 3;
@@ -10,8 +21,35 @@ public final class ExcavatorItem extends Item {
 		super(configure(properties, material));
 	}
 
+	@Override
+	public void appendHoverText(
+			ItemStack stack,
+			TooltipContext context,
+			TooltipDisplay display,
+			Consumer<Component> textConsumer,
+			TooltipFlag flag
+	) {
+		ExcavationMode mode = stack.getOrDefault(ExcavatorComponents.EXCAVATION_MODE, ExcavationMode.BASIC);
+
+		textConsumer.accept(Component.translatable(
+				"tooltip.justexcavators.mode",
+				Component.translatable(mode.translationKey())
+		).withStyle(ChatFormatting.GRAY));
+		textConsumer.accept(Component.translatable(
+				"tooltip.justexcavators.area",
+				mode.width(),
+				mode.height(),
+				mode.depth()
+		).withStyle(ChatFormatting.GRAY));
+		textConsumer.accept(Component.translatable("tooltip.justexcavators.precision")
+				.withStyle(ChatFormatting.DARK_GRAY));
+	}
+
 	private static Item.Properties configure(Item.Properties properties, ToolMaterial material) {
-		properties.shovel(withScaledDurability(material), 1.5F, -3.0F);
+		properties
+				.shovel(withScaledDurability(material), 1.5F, -3.0F)
+				.component(ExcavatorComponents.EXCAVATION_MODE, ExcavationMode.BASIC)
+				.component(ExcavatorComponents.ENHANCEMENTS, ExcavatorEnhancements.NONE);
 
 		if (material == ToolMaterial.NETHERITE) {
 			properties.fireResistant();

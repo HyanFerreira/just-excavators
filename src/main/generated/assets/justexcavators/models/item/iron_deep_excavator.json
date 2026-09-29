@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "justexcavators:item/iron_deep_excavator"
+  }
+}

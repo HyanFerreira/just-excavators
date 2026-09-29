@@ -1,0 +1,17 @@
+{
+  "excavation_mode.justexcavators.basic": "Basic",
+  "excavation_mode.justexcavators.deep": "Deep",
+  "excavation_mode.justexcavators.wide": "Wide",
+  "item.justexcavators.deep_excavation_core": "Deep Excavation Core",
+  "item.justexcavators.diamond_excavator": "Diamond Excavator",
+  "item.justexcavators.excavation_core": "Excavation Core",
+  "item.justexcavators.golden_excavator": "Golden Excavator",
+  "item.justexcavators.iron_excavator": "Iron Excavator",
+  "item.justexcavators.netherite_excavator": "Netherite Excavator",
+  "item.justexcavators.silk_core": "Silk Core",
+  "item.justexcavators.wide_excavation_core": "Wide Excavation Core",
+  "itemGroup.justexcavators": "Just Excavators",
+  "tooltip.justexcavators.area": "Excavation Area: %sx%sx%s",
+  "tooltip.justexcavators.mode": "Mode: %s",
+  "tooltip.justexcavators.precision": "Hold Shift to disable area mining"
+}

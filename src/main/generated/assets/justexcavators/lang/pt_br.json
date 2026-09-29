@@ -1,0 +1,17 @@
+{
+  "excavation_mode.justexcavators.basic": "Básico",
+  "excavation_mode.justexcavators.deep": "Profundo",
+  "excavation_mode.justexcavators.wide": "Amplo",
+  "item.justexcavators.deep_excavation_core": "Núcleo de Escavação Profunda",
+  "item.justexcavators.diamond_excavator": "Escavadora de Diamante",
+  "item.justexcavators.excavation_core": "Núcleo de Escavação",
+  "item.justexcavators.golden_excavator": "Escavadora de Ouro",
+  "item.justexcavators.iron_excavator": "Escavadora de Ferro",
+  "item.justexcavators.netherite_excavator": "Escavadora de Netherita",
+  "item.justexcavators.silk_core": "Núcleo de Seda",
+  "item.justexcavators.wide_excavation_core": "Núcleo de Escavação Ampla",
+  "itemGroup.justexcavators": "Just Excavators",
+  "tooltip.justexcavators.area": "Área de Escavação: %sx%sx%s",
+  "tooltip.justexcavators.mode": "Modo: %s",
+  "tooltip.justexcavators.precision": "Segure Shift para desativar a escavação em área"
+}
