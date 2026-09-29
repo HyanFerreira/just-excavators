@@ -3,7 +3,7 @@
 > **Alvo inicial:** Minecraft 26.3, Fabric, Java 25  
 > **Escopo:** versão 1.0 definida em `JUSTEXCAVATORS_IDEA.md`  
 > **Última atualização:** 2026-09-29  
-> **Estado atual:** Fases 0 a 5 concluídas; próxima etapa é a Fase 6
+> **Estado atual:** Fases 0 a 6 concluídas; próxima etapa é a Fase 7
 
 Este documento é o guia operacional do desenvolvimento. Ele registra decisões,
 ordem de execução, critérios de aceite e pontos de retomada para que o trabalho
@@ -333,18 +333,18 @@ Critérios de aceite:
 
 ### Fase 6 — Quebra AOE server-side
 
-Estado: `PENDENTE`
+Estado: `CONCLUÍDO`
 
 Tarefas:
 
-- [ ] Capturar com segurança a face da quebra original.
-- [ ] Executar AOE somente após sucesso do bloco central.
-- [ ] Chamar o fluxo vanilla de quebra para cada bloco secundário.
-- [ ] Implementar guarda contra recursão.
-- [ ] Interromper quando a ferramenta quebrar ou sair da mão principal.
-- [ ] Implementar Sneak = 1x1.
-- [ ] Preservar Creative, Adventure e Spectator.
-- [ ] Avaliar poluição de som e partículas.
+- [x] Capturar com segurança a face da quebra original.
+- [x] Executar AOE somente após sucesso do bloco central.
+- [x] Chamar o fluxo vanilla de quebra para cada bloco secundário.
+- [x] Implementar guarda contra recursão.
+- [x] Interromper quando a ferramenta quebrar ou sair da mão principal.
+- [x] Implementar Sneak = 1x1.
+- [x] Preservar Creative, Adventure e Spectator.
+- [x] Avaliar poluição de som e partículas.
 
 Critérios de aceite:
 
@@ -568,7 +568,7 @@ Atualizar esta seção ao concluir cada etapa.
 | 3 — Receitas | Concluído | Dez receitas/advancements; perfis substituíveis e upgrade Netherite |
 | 4 — Geometria | Concluído | Seis faces testadas; áreas centralizadas e ordenadas centro-para-fora |
 | 5 — Validação | Concluído | Política testada; block entities, fluidos e tag de exclusão protegidos |
-| 6 — AOE server-side | Pendente | |
+| 6 — AOE server-side | Concluído | Fluxo vanilla por bloco, guarda de recursão e proteções preservadas |
 | 7 — Durabilidade | Pendente | |
 | 8 — Conteúdo/datagen | Pendente | |
 | 9 — Compatibilidade | Pendente | |
@@ -598,5 +598,5 @@ Ao iniciar uma nova sessão de desenvolvimento:
 
 ## 9. Próximo passo
 
-Iniciar a **Fase 6 — Quebra AOE server-side**. Nenhuma lógica de Silk
-Core deve ser implementada antes da conclusão das Fases 0 a 9.
+Iniciar a **Fase 7 — Durabilidade e encantamentos vanilla**. Nenhuma lógica de
+Silk Core deve ser implementada antes da conclusão das Fases 0 a 9.

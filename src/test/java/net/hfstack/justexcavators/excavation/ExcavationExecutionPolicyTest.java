@@ -1,0 +1,34 @@
+package net.hfstack.justexcavators.excavation;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
+import net.hfstack.justexcavators.excavation.ExcavationExecutionPolicy.StartFacts;
+
+final class ExcavationExecutionPolicyTest {
+	@Test
+	void startsOnlyAfterAnEligibleCentralBlockWasDestroyedNormally() {
+		assertTrue(ExcavationExecutionPolicy.canStart(new StartFacts(true, true, false, false)));
+
+		assertFalse(ExcavationExecutionPolicy.canStart(new StartFacts(false, true, false, false)));
+		assertFalse(ExcavationExecutionPolicy.canStart(new StartFacts(true, false, false, false)));
+		assertFalse(ExcavationExecutionPolicy.canStart(new StartFacts(true, true, true, false)));
+		assertFalse(ExcavationExecutionPolicy.canStart(new StartFacts(true, true, false, true)));
+	}
+
+	@Test
+	void continuesOnlyWhileTheOriginalUsableToolRemainsInTheMainHand() {
+		assertTrue(ExcavationExecutionPolicy.canContinue(true, true));
+		assertFalse(ExcavationExecutionPolicy.canContinue(false, true));
+		assertFalse(ExcavationExecutionPolicy.canContinue(true, false));
+	}
+
+	@Test
+	void retainsCapturedHitOnlyWhileVanillaStillTracksThatPosition() {
+		assertTrue(ExcavationExecutionPolicy.shouldRetainHit(true, false));
+		assertTrue(ExcavationExecutionPolicy.shouldRetainHit(false, true));
+		assertFalse(ExcavationExecutionPolicy.shouldRetainHit(false, false));
+	}
+}
