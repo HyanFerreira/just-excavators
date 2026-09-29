@@ -89,7 +89,7 @@ gravado como Data Component no resultado, sem criar IDs adicionais por perfil.
 
 - Basic não usa Core; `core_model.png` é apenas um asset visual, não um item.
 - Deep, Wide e Advanced usam seus respectivos Cores no molde da ferramenta.
-- A progressão dos Cores é linear: Netherite Shovel -> Deep -> Wide -> Advanced.
+- A progressão dos Cores é linear: Netherite Excavator -> Deep -> Wide -> Advanced.
 - A Smithing Table fica reservada para upgrades de material e enhancements.
 - Diamond -> Netherite deve preservar modo, dano, nome e demais componentes.
 - Silk é independente e poderá coexistir com qualquer perfil.

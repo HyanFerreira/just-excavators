@@ -63,12 +63,11 @@ public final class ModRecipeProvider extends FabricRecipeProvider {
 				shaped(RecipeCategory.MISC, ModItems.DEEP_EXCAVATION_CORE)
 						.define('R', Items.REDSTONE)
 						.define('I', Items.IRON_BLOCK)
-						.define('S', Items.NETHERITE_SHOVEL)
-						.define('G', Items.GOLD_BLOCK)
+						.define('E', ModItems.NETHERITE_EXCAVATOR)
 						.pattern("RRR")
-						.pattern("ISG")
+						.pattern("IEI")
 						.pattern("RRR")
-						.unlockedBy("has_netherite_shovel", has(Items.NETHERITE_SHOVEL))
+						.unlockedBy("has_netherite_excavator", has(ModItems.NETHERITE_EXCAVATOR))
 						.save(output);
 
 				shaped(RecipeCategory.MISC, ModItems.WIDE_EXCAVATION_CORE)
@@ -85,9 +84,8 @@ public final class ModRecipeProvider extends FabricRecipeProvider {
 						.define('R', Items.REDSTONE_BLOCK)
 						.define('D', Items.DIAMOND_BLOCK)
 						.define('C', ModItems.WIDE_EXCAVATION_CORE)
-						.define('G', Items.GOLD_BLOCK)
 						.pattern("RRR")
-						.pattern("DCG")
+						.pattern("DCD")
 						.pattern("RRR")
 						.unlockedBy("has_wide_excavation_core", has(ModItems.WIDE_EXCAVATION_CORE))
 						.save(output);

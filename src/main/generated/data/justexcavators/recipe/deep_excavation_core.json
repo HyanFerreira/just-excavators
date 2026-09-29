@@ -1,14 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "G": "minecraft:gold_block",
+    "E": "justexcavators:netherite_excavator",
     "I": "minecraft:iron_block",
-    "R": "minecraft:redstone",
-    "S": "minecraft:netherite_shovel"
+    "R": "minecraft:redstone"
   },
   "pattern": [
     "RRR",
-    "ISG",
+    "IEI",
     "RRR"
   ],
   "result": {

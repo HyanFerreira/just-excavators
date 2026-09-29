@@ -3,12 +3,11 @@
   "key": {
     "C": "justexcavators:wide_excavation_core",
     "D": "minecraft:diamond_block",
-    "G": "minecraft:gold_block",
     "R": "minecraft:redstone_block"
   },
   "pattern": [
     "RRR",
-    "DCG",
+    "DCD",
     "RRR"
   ],
   "result": {
