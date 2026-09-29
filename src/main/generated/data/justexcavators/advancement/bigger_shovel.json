@@ -1,0 +1,32 @@
+{
+  "criteria": {
+    "has_iron_excavator": {
+      "conditions": {
+        "items": [
+          {
+            "items": "justexcavators:iron_excavator"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "background": "minecraft:gui/advancements/backgrounds/stone",
+    "description": {
+      "translate": "advancement.justexcavators.bigger_shovel.description"
+    },
+    "icon": {
+      "id": "justexcavators:iron_excavator"
+    },
+    "title": {
+      "translate": "advancement.justexcavators.bigger_shovel.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_iron_excavator"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

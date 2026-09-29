@@ -10,6 +10,7 @@ public class JustExcavatorsDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(ModItemModelProvider::new);
 		pack.addProvider(ModEnglishLanguageProvider::new);
 		pack.addProvider(ModPortugueseLanguageProvider::new);
+		pack.addProvider(ModAdvancementProvider::new);
 		pack.addProvider(ModBlockTagProvider::new);
 		pack.addProvider(ModItemTagProvider::new);
 		pack.addProvider(ModRecipeProvider::new);

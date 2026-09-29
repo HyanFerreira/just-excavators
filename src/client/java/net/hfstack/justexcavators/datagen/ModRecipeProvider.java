@@ -1,5 +1,6 @@
 package net.hfstack.justexcavators.datagen;
 
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
@@ -7,6 +8,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 
 import net.minecraft.advancements.Advancement;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeProvider;
@@ -15,15 +17,20 @@ import net.minecraft.data.recipes.SmithingTransformRecipeBuilder;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.item.crafting.ShapedRecipePattern;
 import net.minecraft.world.level.ItemLike;
 
 import net.hfstack.justexcavators.JustExcavators;
+import net.hfstack.justexcavators.component.ExcavatorComponents;
 import net.hfstack.justexcavators.excavation.ExcavationMode;
 import net.hfstack.justexcavators.item.ModItems;
-import net.hfstack.justexcavators.recipe.CoreUpgradeRecipe;
 
 public final class ModRecipeProvider extends FabricRecipeProvider {
 	public ModRecipeProvider(
@@ -49,74 +56,101 @@ public final class ModRecipeProvider extends FabricRecipeProvider {
 			public void buildRecipes() {
 				buildCores();
 				buildExcavators();
-				buildProfileUpgrades();
 				buildNetheriteUpgrade();
 			}
 
 			private void buildCores() {
-				shaped(RecipeCategory.MISC, ModItems.EXCAVATION_CORE)
-						.define('I', Items.IRON_INGOT)
-						.define('R', Items.REDSTONE)
-						.define('D', Items.DIAMOND)
-						.pattern("IRI")
-						.pattern("RDR")
-						.pattern("IRI")
-						.unlockedBy("has_diamond", has(Items.DIAMOND))
-						.save(output);
-
 				shaped(RecipeCategory.MISC, ModItems.DEEP_EXCAVATION_CORE)
-						.define('I', Items.IRON_INGOT)
-						.define('P', Items.PISTON)
-						.define('C', ModItems.EXCAVATION_CORE)
-						.pattern("IPI")
-						.pattern("PCP")
-						.pattern("IPI")
-						.unlockedBy("has_excavation_core", has(ModItems.EXCAVATION_CORE))
+						.define('R', Items.REDSTONE)
+						.define('I', Items.IRON_BLOCK)
+						.define('S', Items.NETHERITE_SHOVEL)
+						.define('G', Items.GOLD_BLOCK)
+						.pattern("RRR")
+						.pattern("ISG")
+						.pattern("RRR")
+						.unlockedBy("has_netherite_shovel", has(Items.NETHERITE_SHOVEL))
 						.save(output);
 
 				shaped(RecipeCategory.MISC, ModItems.WIDE_EXCAVATION_CORE)
-						.define('I', Items.IRON_INGOT)
-						.define('S', Items.SLIME_BALL)
-						.define('C', ModItems.EXCAVATION_CORE)
-						.pattern("ISI")
-						.pattern("SCS")
-						.pattern("ISI")
-						.unlockedBy("has_excavation_core", has(ModItems.EXCAVATION_CORE))
+						.define('R', Items.REDSTONE_BLOCK)
+						.define('G', Items.GOLD_BLOCK)
+						.define('C', ModItems.DEEP_EXCAVATION_CORE)
+						.pattern("RRR")
+						.pattern("GCG")
+						.pattern("RRR")
+						.unlockedBy("has_deep_excavation_core", has(ModItems.DEEP_EXCAVATION_CORE))
+						.save(output);
+
+				shaped(RecipeCategory.MISC, ModItems.ADVANCED_EXCAVATION_CORE)
+						.define('R', Items.REDSTONE_BLOCK)
+						.define('D', Items.DIAMOND_BLOCK)
+						.define('C', ModItems.WIDE_EXCAVATION_CORE)
+						.define('G', Items.GOLD_BLOCK)
+						.pattern("RRR")
+						.pattern("DCG")
+						.pattern("RRR")
+						.unlockedBy("has_wide_excavation_core", has(ModItems.WIDE_EXCAVATION_CORE))
 						.save(output);
 			}
 
 			private void buildExcavators() {
-				buildExcavator(ModItems.IRON_EXCAVATOR, Items.IRON_INGOT);
-				buildExcavator(ModItems.GOLDEN_EXCAVATOR, Items.GOLD_INGOT);
-				buildExcavator(ModItems.DIAMOND_EXCAVATOR, Items.DIAMOND);
+				buildExcavators("stone", ModItems.STONE_EXCAVATOR, Items.STONE);
+				buildExcavators("copper", ModItems.COPPER_EXCAVATOR, Items.COPPER_INGOT);
+				buildExcavators("iron", ModItems.IRON_EXCAVATOR, Items.IRON_INGOT);
+				buildExcavators("golden", ModItems.GOLDEN_EXCAVATOR, Items.GOLD_INGOT);
+				buildExcavators("diamond", ModItems.DIAMOND_EXCAVATOR, Items.DIAMOND);
 			}
 
-			private void buildExcavator(Item result, ItemLike material) {
-				shaped(RecipeCategory.TOOLS, result)
-						.define('M', material)
-						.define('C', ModItems.EXCAVATION_CORE)
-						.define('S', Items.STICK)
-						.pattern("MCM")
-						.pattern("MSM")
-						.pattern(" S ")
-						.unlockedBy("has_excavation_core", has(ModItems.EXCAVATION_CORE))
-						.save(output);
+			private void buildExcavators(String materialName, Item result, ItemLike material) {
+				buildExcavator(materialName + "_excavator", result, material, ExcavationMode.BASIC, null);
+				buildExcavator(materialName + "_deep_excavator", result, material, ExcavationMode.DEEP,
+						ModItems.DEEP_EXCAVATION_CORE);
+				buildExcavator(materialName + "_wide_excavator", result, material, ExcavationMode.WIDE,
+						ModItems.WIDE_EXCAVATION_CORE);
+				buildExcavator(materialName + "_advanced_excavator", result, material, ExcavationMode.ADVANCED,
+						ModItems.ADVANCED_EXCAVATION_CORE);
 			}
 
-			private void buildProfileUpgrades() {
-				buildProfileUpgrade("basic_core_upgrade", ExcavationMode.BASIC, ModItems.EXCAVATION_CORE);
-				buildProfileUpgrade("deep_core_upgrade", ExcavationMode.DEEP, ModItems.DEEP_EXCAVATION_CORE);
-				buildProfileUpgrade("wide_core_upgrade", ExcavationMode.WIDE, ModItems.WIDE_EXCAVATION_CORE);
-			}
+			private void buildExcavator(
+					String name,
+					Item result,
+					ItemLike material,
+					ExcavationMode mode,
+					Item core
+			) {
+				Map<Character, Ingredient> ingredients = core == null
+						? Map.of('M', Ingredient.of(material), 'S', Ingredient.of(Items.STICK))
+						: Map.of(
+								'M', Ingredient.of(material),
+								'S', Ingredient.of(Items.STICK),
+								'C', Ingredient.of(core)
+						);
+				ShapedRecipePattern pattern = ShapedRecipePattern.of(
+						ingredients,
+						core == null ? "MSM" : "MCM",
+						" SM",
+						" S "
+				);
+				DataComponentPatch resultComponents = DataComponentPatch.builder()
+						.set(ExcavatorComponents.EXCAVATION_MODE, mode)
+						.build();
 
-			private void buildProfileUpgrade(String name, ExcavationMode mode, Item core) {
 				ResourceKey<Recipe<?>> key = ResourceKey.create(Registries.RECIPE, JustExcavators.id(name));
 				RecipeUnlockAdvancementBuilder advancement = new RecipeUnlockAdvancementBuilder();
-				advancement.unlockedBy("has_core", has(core));
+				if (core == null) {
+					advancement.unlockedBy("has_material", has(material));
+				} else {
+					advancement.unlockedBy("has_core", has(core));
+				}
 
 				output.accept(
 						key,
-						new CoreUpgradeRecipe(mode),
+						new ShapedRecipe(
+								new Recipe.CommonInfo(true),
+								new CraftingRecipe.CraftingBookInfo(CraftingBookCategory.EQUIPMENT, ""),
+								pattern,
+								new ItemStackTemplate(result, resultComponents)
+						),
 						advancement.build(output, key, RecipeCategory.TOOLS)
 				);
 			}

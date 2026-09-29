@@ -81,4 +81,18 @@ final class ExcavationAreaCalculatorTest {
 			assertEquals(index / 9, ORIGIN.getZ() - positions.get(index).getZ());
 		}
 	}
+
+	@Test
+	void advancedModeProducesThreeOrderedFiveByFiveLayers() {
+		List<BlockPos> positions = ExcavationAreaCalculator.calculate(
+				ORIGIN,
+				Direction.NORTH,
+				ExcavationMode.ADVANCED
+		);
+
+		assertEquals(75, positions.size());
+		for (int index = 0; index < positions.size(); index++) {
+			assertEquals(index / 25, positions.get(index).getZ() - ORIGIN.getZ());
+		}
+	}
 }

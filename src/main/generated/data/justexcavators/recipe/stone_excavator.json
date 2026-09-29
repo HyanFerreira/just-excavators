@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "M": "minecraft:stone",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "MSM",
+    " SM",
+    " S "
+  ],
+  "result": {
+    "components": {
+      "justexcavators:excavation_mode": "basic"
+    },
+    "id": "justexcavators:stone_excavator"
+  }
+}

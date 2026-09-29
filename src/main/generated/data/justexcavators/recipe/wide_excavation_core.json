@@ -1,14 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "C": "justexcavators:excavation_core",
-    "I": "minecraft:iron_ingot",
-    "S": "minecraft:slime_ball"
+    "C": "justexcavators:deep_excavation_core",
+    "G": "minecraft:gold_block",
+    "R": "minecraft:redstone_block"
   },
   "pattern": [
-    "ISI",
-    "SCS",
-    "ISI"
+    "RRR",
+    "GCG",
+    "RRR"
   ],
   "result": {
     "id": "justexcavators:wide_excavation_core"

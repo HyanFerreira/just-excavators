@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": "justexcavators:deep_excavation_core",
+    "M": "minecraft:iron_ingot",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "MCM",
+    " SM",
+    " S "
+  ],
+  "result": {
+    "components": {
+      "justexcavators:excavation_mode": "deep"
+    },
+    "id": "justexcavators:iron_excavator"
+  }
+}

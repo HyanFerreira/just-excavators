@@ -1,14 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "C": "justexcavators:excavation_core",
-    "I": "minecraft:iron_ingot",
-    "P": "minecraft:piston"
+    "G": "minecraft:gold_block",
+    "I": "minecraft:iron_block",
+    "R": "minecraft:redstone",
+    "S": "minecraft:netherite_shovel"
   },
   "pattern": [
-    "IPI",
-    "PCP",
-    "IPI"
+    "RRR",
+    "ISG",
+    "RRR"
   ],
   "result": {
     "id": "justexcavators:deep_excavation_core"

@@ -1,0 +1,32 @@
+{
+  "parent": "justexcavators:bigger_shovel",
+  "criteria": {
+    "has_deep_excavation_core": {
+      "conditions": {
+        "items": [
+          {
+            "items": "justexcavators:deep_excavation_core"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.justexcavators.digging_deeper.description"
+    },
+    "icon": {
+      "id": "justexcavators:deep_excavation_core"
+    },
+    "title": {
+      "translate": "advancement.justexcavators.digging_deeper.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_deep_excavation_core"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

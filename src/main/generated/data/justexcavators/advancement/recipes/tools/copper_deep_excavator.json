@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_diamond": {
+    "has_core": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:diamond"
+            "items": "justexcavators:deep_excavation_core"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "justexcavators:excavation_core"
+        "recipes": "justexcavators:copper_deep_excavator"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_diamond"
+      "has_core"
     ]
   ],
   "rewards": {
     "recipes": [
-      "justexcavators:excavation_core"
+      "justexcavators:copper_deep_excavator"
     ]
   }
 }

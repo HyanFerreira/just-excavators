@@ -7,7 +7,8 @@ import net.minecraft.util.StringRepresentable;
 public enum ExcavationMode implements StringRepresentable {
 	BASIC("basic", 3, 3, 1),
 	DEEP("deep", 3, 3, 3),
-	WIDE("wide", 5, 5, 1);
+	WIDE("wide", 5, 5, 1),
+	ADVANCED("advanced", 5, 5, 3);
 
 	public static final Codec<ExcavationMode> CODEC = StringRepresentable.fromEnum(ExcavationMode::values);
 

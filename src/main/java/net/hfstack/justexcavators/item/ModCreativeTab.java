@@ -11,6 +11,8 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 
 import net.hfstack.justexcavators.JustExcavators;
+import net.hfstack.justexcavators.component.ExcavatorComponents;
+import net.hfstack.justexcavators.excavation.ExcavationMode;
 
 public final class ModCreativeTab {
 	public static final ResourceKey<CreativeModeTab> KEY = ResourceKey.create(
@@ -25,7 +27,13 @@ public final class ModCreativeTab {
 					.title(Component.translatable("itemGroup.justexcavators"))
 					.icon(() -> new ItemStack(ModItems.IRON_EXCAVATOR))
 					.displayItems((parameters, output) -> {
-						ModItems.EXCAVATORS.forEach(output::accept);
+						ModItems.EXCAVATORS.forEach(excavator -> {
+							for (ExcavationMode mode : ExcavationMode.values()) {
+								ItemStack stack = new ItemStack(excavator);
+								stack.set(ExcavatorComponents.EXCAVATION_MODE, mode);
+								output.accept(stack);
+							}
+						});
 						ModItems.CORES.forEach(output::accept);
 					})
 					.build()

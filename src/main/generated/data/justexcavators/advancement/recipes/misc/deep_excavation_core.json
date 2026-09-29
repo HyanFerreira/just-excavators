@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_excavation_core": {
+    "has_netherite_shovel": {
       "conditions": {
         "items": [
           {
-            "items": "justexcavators:excavation_core"
+            "items": "minecraft:netherite_shovel"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_excavation_core"
+      "has_netherite_shovel"
     ]
   ],
   "rewards": {

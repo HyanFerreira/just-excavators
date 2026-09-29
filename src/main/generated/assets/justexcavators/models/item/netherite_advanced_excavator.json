@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "justexcavators:item/netherite_advanced_excavator"
+  }
+}

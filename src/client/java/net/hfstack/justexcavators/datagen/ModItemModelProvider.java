@@ -32,14 +32,16 @@ public final class ModItemModelProvider extends FabricModelProvider {
 
 	@Override
 	public void generateItemModels(ItemModelGenerators generators) {
+		generateExcavator(generators, ModItems.STONE_EXCAVATOR, "stone");
+		generateExcavator(generators, ModItems.COPPER_EXCAVATOR, "copper");
 		generateExcavator(generators, ModItems.IRON_EXCAVATOR, "iron");
 		generateExcavator(generators, ModItems.GOLDEN_EXCAVATOR, "gold");
 		generateExcavator(generators, ModItems.DIAMOND_EXCAVATOR, "diamond");
 		generateExcavator(generators, ModItems.NETHERITE_EXCAVATOR, "netherite");
 
-		generateCore(generators, ModItems.EXCAVATION_CORE, "advanced_excavation_core");
 		generateCore(generators, ModItems.DEEP_EXCAVATION_CORE, "deep_excavation_core");
 		generateCore(generators, ModItems.WIDE_EXCAVATION_CORE, "wide_excavation_core");
+		generateCore(generators, ModItems.ADVANCED_EXCAVATION_CORE, "advanced_excavation_core");
 		generateCore(generators, ModItems.SILK_CORE, "silk_core");
 	}
 
@@ -59,13 +61,19 @@ public final class ModItemModelProvider extends FabricModelProvider {
 				material + "_wide_excavator",
 				true
 		));
+		ItemModel.Unbaked advanced = ItemModelUtils.plainModel(createModel(
+				generators,
+				material + "_advanced_excavator",
+				true
+		));
 
 		generators.itemModelOutput.accept(item, ItemModelUtils.select(
 				new ComponentContents<>(ExcavatorComponents.EXCAVATION_MODE),
 				basic,
 				List.of(
 						ItemModelUtils.when(ExcavationMode.DEEP, deep),
-						ItemModelUtils.when(ExcavationMode.WIDE, wide)
+						ItemModelUtils.when(ExcavationMode.WIDE, wide),
+						ItemModelUtils.when(ExcavationMode.ADVANCED, advanced)
 				)
 		));
 	}

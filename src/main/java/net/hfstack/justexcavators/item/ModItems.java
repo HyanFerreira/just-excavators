@@ -13,17 +13,21 @@ import net.minecraft.world.item.ToolMaterial;
 import net.hfstack.justexcavators.JustExcavators;
 
 public final class ModItems {
+	public static final ExcavatorItem STONE_EXCAVATOR = registerExcavator("stone_excavator", ToolMaterial.STONE);
+	public static final ExcavatorItem COPPER_EXCAVATOR = registerExcavator("copper_excavator", ToolMaterial.COPPER);
 	public static final ExcavatorItem IRON_EXCAVATOR = registerExcavator("iron_excavator", ToolMaterial.IRON);
 	public static final ExcavatorItem GOLDEN_EXCAVATOR = registerExcavator("golden_excavator", ToolMaterial.GOLD);
 	public static final ExcavatorItem DIAMOND_EXCAVATOR = registerExcavator("diamond_excavator", ToolMaterial.DIAMOND);
 	public static final ExcavatorItem NETHERITE_EXCAVATOR = registerExcavator("netherite_excavator", ToolMaterial.NETHERITE);
 
-	public static final Item EXCAVATION_CORE = register("excavation_core", Item::new);
 	public static final Item DEEP_EXCAVATION_CORE = register("deep_excavation_core", Item::new);
 	public static final Item WIDE_EXCAVATION_CORE = register("wide_excavation_core", Item::new);
+	public static final Item ADVANCED_EXCAVATION_CORE = register("advanced_excavation_core", Item::new);
 	public static final Item SILK_CORE = register("silk_core", Item::new);
 
 	public static final List<ExcavatorItem> EXCAVATORS = List.of(
+			STONE_EXCAVATOR,
+			COPPER_EXCAVATOR,
 			IRON_EXCAVATOR,
 			GOLDEN_EXCAVATOR,
 			DIAMOND_EXCAVATOR,
@@ -31,9 +35,9 @@ public final class ModItems {
 	);
 
 	public static final List<Item> CORES = List.of(
-			EXCAVATION_CORE,
 			DEEP_EXCAVATION_CORE,
 			WIDE_EXCAVATION_CORE,
+			ADVANCED_EXCAVATION_CORE,
 			SILK_CORE
 	);
 

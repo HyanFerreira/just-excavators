@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "justexcavators:excavation_core"
+            "items": "justexcavators:deep_excavation_core"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "justexcavators:basic_core_upgrade"
+        "recipes": "justexcavators:stone_deep_excavator"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "justexcavators:basic_core_upgrade"
+      "justexcavators:stone_deep_excavator"
     ]
   }
 }

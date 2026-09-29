@@ -15,6 +15,13 @@
           "model": "justexcavators:item/iron_wide_excavator"
         },
         "when": "wide"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "justexcavators:item/iron_advanced_excavator"
+        },
+        "when": "advanced"
       }
     ],
     "component": "justexcavators:excavation_mode",

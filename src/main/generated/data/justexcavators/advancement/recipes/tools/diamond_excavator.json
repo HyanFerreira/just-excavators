@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_excavation_core": {
+    "has_material": {
       "conditions": {
         "items": [
           {
-            "items": "justexcavators:excavation_core"
+            "items": "minecraft:diamond"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_excavation_core"
+      "has_material"
     ]
   ],
   "rewards": {

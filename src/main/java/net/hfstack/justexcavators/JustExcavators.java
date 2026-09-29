@@ -7,7 +7,6 @@ import net.minecraft.resources.Identifier;
 import net.hfstack.justexcavators.component.ExcavatorComponents;
 import net.hfstack.justexcavators.item.ModCreativeTab;
 import net.hfstack.justexcavators.item.ModItems;
-import net.hfstack.justexcavators.recipe.ModRecipes;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +20,6 @@ public class JustExcavators implements ModInitializer {
 	public void onInitialize() {
 		ExcavatorComponents.init();
 		ModItems.init();
-		ModRecipes.init();
 		ModCreativeTab.init();
 
 		LOGGER.info("Just Excavators initialized.");

@@ -1,5 +1,7 @@
 {
   "values": [
+    "justexcavators:stone_excavator",
+    "justexcavators:copper_excavator",
     "justexcavators:iron_excavator",
     "justexcavators:golden_excavator",
     "justexcavators:diamond_excavator",
