@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": "minecraft:amethyst_shard",
+    "E": "minecraft:ender_pearl",
+    "L": "minecraft:lapis_lazuli",
+    "S": "minecraft:string"
+  },
+  "pattern": [
+    "SAS",
+    "LEL",
+    "SAS"
+  ],
+  "result": {
+    "id": "justexcavators:silk_core"
+  }
+}

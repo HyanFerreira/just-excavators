@@ -8,4 +8,8 @@ public record ExcavatorEnhancements(boolean silk) {
 			ExcavatorEnhancements::new,
 			ExcavatorEnhancements::silk
 	);
+
+	public ExcavatorEnhancements withSilk() {
+		return silk ? this : new ExcavatorEnhancements(true);
+	}
 }
