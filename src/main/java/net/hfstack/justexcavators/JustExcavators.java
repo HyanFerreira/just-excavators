@@ -4,6 +4,9 @@ import net.fabricmc.api.ModInitializer;
 
 import net.minecraft.resources.Identifier;
 
+import net.hfstack.justexcavators.item.ModCreativeTab;
+import net.hfstack.justexcavators.item.ModItems;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,6 +17,9 @@ public class JustExcavators implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		ModItems.init();
+		ModCreativeTab.init();
+
 		LOGGER.info("Just Excavators initialized.");
 	}
 

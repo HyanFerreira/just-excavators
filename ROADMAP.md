@@ -3,7 +3,7 @@
 > **Alvo inicial:** Minecraft 26.3, Fabric, Java 25  
 > **Escopo:** versão 1.0 definida em `JUSTEXCAVATORS_IDEA.md`  
 > **Última atualização:** 2026-09-29  
-> **Estado atual:** Fase 0 concluída; próxima etapa é a Fase 1
+> **Estado atual:** Fases 0 e 1 concluídas; próxima etapa é a Fase 2
 
 Este documento é o guia operacional do desenvolvimento. Ele registra decisões,
 ordem de execução, critérios de aceite e pontos de retomada para que o trabalho
@@ -209,17 +209,17 @@ Critérios de aceite:
 
 ### Fase 1 — Registries e itens básicos
 
-Estado: `PENDENTE`
+Estado: `CONCLUÍDO`
 
 Tarefas:
 
-- [ ] Registrar Iron, Golden, Diamond e Netherite Excavators.
-- [ ] Registrar os quatro Cores.
-- [ ] Criar `ExcavatorItem` com propriedades de shovel.
-- [ ] Aplicar fire resistance à Netherite Excavator.
-- [ ] Configurar materiais de reparo.
-- [ ] Criar creative tab do mod.
-- [ ] Criar tags de itens necessárias.
+- [x] Registrar Iron, Golden, Diamond e Netherite Excavators.
+- [x] Registrar os quatro Cores.
+- [x] Criar `ExcavatorItem` com propriedades de shovel.
+- [x] Aplicar fire resistance à Netherite Excavator.
+- [x] Configurar materiais de reparo.
+- [x] Criar creative tab do mod.
+- [x] Criar tags de itens necessárias.
 
 Tags previstas:
 
@@ -563,7 +563,7 @@ Atualizar esta seção ao concluir cada etapa.
 | Fase | Estado | Observações |
 |---|---|---|
 | 0 — Fundação | Concluído | MIT; build, client, server e datagen validados |
-| 1 — Registries | Pendente | |
+| 1 — Registries | Concluído | Oito itens, creative tab e tags geradas; durabilidade inicial 3x vanilla |
 | 2 — Components | Pendente | |
 | 3 — Receitas | Pendente | |
 | 4 — Geometria | Pendente | |
@@ -598,5 +598,5 @@ Ao iniciar uma nova sessão de desenvolvimento:
 
 ## 9. Próximo passo
 
-Iniciar a **Fase 1 — Registries e itens básicos**. Nenhuma lógica de Silk Core
-deve ser implementada antes da conclusão das Fases 0 a 9.
+Iniciar a **Fase 2 — Data Components e apresentação**. Nenhuma lógica de Silk
+Core deve ser implementada antes da conclusão das Fases 0 a 9.
