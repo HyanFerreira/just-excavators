@@ -3,7 +3,7 @@
 > **Alvo inicial:** Minecraft 26.3, Fabric, Java 25  
 > **Escopo:** versão 1.0 definida em `JUSTEXCAVATORS_IDEA.md`  
 > **Última atualização:** 2026-09-29  
-> **Estado atual:** Fases 0 a 7 concluídas; próxima etapa é a Fase 8
+> **Estado atual:** Fases 0 a 8 concluídas; próxima etapa é a Fase 9
 
 Este documento é o guia operacional do desenvolvimento. Ele registra decisões,
 ordem de execução, critérios de aceite e pontos de retomada para que o trabalho
@@ -21,6 +21,8 @@ copiar código GPL diretamente.
 
 ### Ferramentas
 
+- Stone Excavator
+- Copper Excavator
 - Iron Excavator
 - Golden Excavator
 - Diamond Excavator
@@ -28,9 +30,9 @@ copiar código GPL diretamente.
 
 ### Cores
 
-- Excavation Core
 - Deep Excavation Core
 - Wide Excavation Core
+- Advanced Excavation Core
 - Silk Core
 
 ### Perfis
@@ -40,6 +42,7 @@ copiar código GPL diretamente.
 | Basic | `3x3x1` | escavação geral |
 | Deep | `3x3x3` | escavação em profundidade |
 | Wide | `5x5x1` | limpeza e nivelamento de superfícies |
+| Advanced | `5x5x3` | escavação de grande volume |
 
 ### Regras essenciais
 
@@ -54,44 +57,42 @@ copiar código GPL diretamente.
 
 ### Fora do escopo
 
-- Stone e Copper Excavators
-- `5x5x3` e `5x5x5`
+- `5x5x5`
 - Smelting Core e Fortune Core
-- preview visual avançado
 - GUI ou sistema de sockets
 - configuração externa
 - Forge e NeoForge
 - ports para versões anteriores
 
-As texturas Stone, Copper e `advanced_*` já existentes devem ser preservadas,
-mas não utilizadas como autorização para ampliar a versão 1.0.
+Os assets de Stone, Copper e Advanced integram a versão 1.0 expandida.
 
 ## 2. Decisões arquiteturais
 
 ### IDs e estado da ferramenta
 
-Registrar somente uma Excavator por material. Basic, Deep, Wide e Silk não
+Registrar somente uma Excavator por material. Basic, Deep, Wide e Advanced não
 devem gerar combinações adicionais de IDs.
 
 Estado previsto da `ItemStack`:
 
 ```text
-excavation_mode = BASIC | DEEP | WIDE
+excavation_mode = BASIC | DEEP | WIDE | ADVANCED
 enhancements = [SILK]
 ```
 
 Usar Data Components persistentes e sincronizados, nunca NBT legado.
 
-### Aplicação dos Cores
+### Fabricação dos perfis
 
-Usar uma interface vanilla, preferencialmente a Smithing Table.
+Fabricar Basic, Deep, Wide e Advanced diretamente na Crafting Table. O modo é
+gravado como Data Component no resultado, sem criar IDs adicionais por perfil.
 
-- Basic, Deep e Wide são mutuamente exclusivos.
-- Aplicar outro Excavation Core substitui o perfil atual.
-- O Core anterior não é devolvido.
-- Aplicar o mesmo perfil novamente deve ser rejeitado para evitar desperdício.
-- Silk é independente e pode coexistir com qualquer perfil.
-- Todos os dados não relacionados ao upgrade devem ser preservados.
+- Basic não usa Core; `core_model.png` é apenas um asset visual, não um item.
+- Deep, Wide e Advanced usam seus respectivos Cores no molde da ferramenta.
+- A progressão dos Cores é linear: Netherite Shovel -> Deep -> Wide -> Advanced.
+- A Smithing Table fica reservada para upgrades de material e enhancements.
+- Diamond -> Netherite deve preservar modo, dano, nome e demais componentes.
+- Silk é independente e poderá coexistir com qualquer perfil.
 
 ### Modelo e texturas
 
@@ -101,11 +102,11 @@ O modelo visual deve ser selecionado pelo componente de modo:
 BASIC -> <material>_excavator.png
 DEEP  -> <material>_deep_excavator.png
 WIDE  -> <material>_wide_excavator.png
+ADVANCED -> <material>_advanced_excavator.png
 ```
 
-Arquivos `advanced_*`, Stone e Copper ficam reservados. Antes da fase de assets,
-normalizar a correspondência entre `core_model.png`,
-`advanced_excavation_core.png` e o nome definitivo do Basic Excavation Core.
+Stone, Copper e `advanced_*` integram o conteúdo base; `core_model.png` não
+possui item correspondente.
 
 ### AOE server-side
 
@@ -161,8 +162,6 @@ net.hfstack.justexcavators
 │   ├── ExcavatorItem
 │   ├── ModItems
 │   └── ModCreativeTab
-├── recipe
-│   └── CoreUpgradeRecipe
 ├── registry
 │   └── ModTags
 ├── compat
@@ -213,8 +212,8 @@ Estado: `CONCLUÍDO`
 
 Tarefas:
 
-- [x] Registrar Iron, Golden, Diamond e Netherite Excavators.
-- [x] Registrar os quatro Cores.
+- [x] Registrar Stone, Copper, Iron, Golden, Diamond e Netherite Excavators.
+- [x] Registrar Deep, Wide, Advanced e Silk Cores.
 - [x] Criar `ExcavatorItem` com propriedades de shovel.
 - [x] Aplicar fire resistance à Netherite Excavator.
 - [x] Configurar materiais de reparo.
@@ -230,8 +229,8 @@ Tags previstas:
 
 Critérios de aceite:
 
-- oito itens aparecem no jogo;
-- as quatro Excavators funcionam como shovels individuais;
+- dez itens aparecem no jogo;
+- as seis Excavators funcionam como shovels individuais;
 - velocidade, drops, reparo e comportamento Netherite estão corretos;
 - nenhuma escavação AOE existe ainda.
 
@@ -253,40 +252,39 @@ Critérios de aceite:
 
 - serialização persiste após salvar e recarregar o mundo;
 - cliente e servidor observam o mesmo modo;
-- modelo e tooltip mudam corretamente entre Basic, Deep e Wide;
+- modelo e tooltip mudam corretamente entre Basic, Deep, Wide e Advanced;
 - comandos que fornecem uma ferramenta sem componente recebem um default seguro.
 
-### Fase 3 — Receitas e troca de perfil
+### Fase 3 — Receitas e progressão de perfil
 
 Estado: `CONCLUÍDO`
 
 Tarefas:
 
-- [x] Definir recipes provisórias dos três Excavation Cores.
-- [x] Criar recipes das Excavators Iron, Gold e Diamond com Basic Core.
+- [x] Definir recipes em cadeia dos Cores Deep, Wide e Advanced.
+- [x] Criar recipes diretas de Basic, Deep, Wide e Advanced para Stone, Copper,
+  Iron, Gold e Diamond.
 - [x] Não oferecer crafting direto da Netherite Excavator.
-- [x] Implementar upgrades Basic, Deep e Wide pela Smithing Table.
-- [x] Preservar nome, dano, encantamentos e componentes.
-- [x] Rejeitar aplicação do mesmo modo atual.
 - [x] Implementar Diamond -> Netherite usando template e ingot vanilla.
+- [x] Preservar modo, nome, dano, encantamentos e componentes no upgrade Netherite.
 - [x] Gerar recipe advancements.
 
 Direção inicial para o corpo da Excavator:
 
 ```text
-M C M
-M S M
-  S
+MXM
+_SM
+_S_
 ```
 
-`M` representa o material, `C` o Basic Core e `S` um stick. Custos finais devem
-ser refinados em playtest, sem alterar a arquitetura.
+`M` representa o material, `S` um stick, `_` um espaço vazio e `X` recebe um
+stick no Basic ou o Core do perfil. A versão de Stone usa Stone em vez de
+Cobblestone.
 
 Critérios de aceite:
 
-- troca Basic <-> Deep <-> Wide funciona em todos os materiais;
-- nenhum upgrade duplica itens ou componentes;
-- aplicar o mesmo Core não consome recursos;
+- todas as quatro variantes saem da bancada com o componente correto;
+- não existe item ou receita de Basic Core;
 - upgrade Netherite preserva integralmente o estado da Diamond Excavator.
 
 ### Fase 4 — Geometria pura e testes unitários
@@ -307,6 +305,7 @@ Critérios de aceite:
 - Basic retorna no máximo 9 posições;
 - Deep retorna no máximo 27 posições;
 - Wide retorna no máximo 25 posições;
+- Advanced retorna no máximo 75 posições;
 - não há posições duplicadas;
 - os testes confirmam chão, teto e as quatro faces laterais;
 - o cálculo não depende de estado client-side.
@@ -377,7 +376,7 @@ Direção de balanceamento inicial:
 
 Critérios de aceite:
 
-- ação completa paga até 9, 27 ou 25 usos antes de Unbreaking;
+- ação completa paga até 9, 27, 25 ou 75 usos antes de Unbreaking;
 - blocos ignorados ou protegidos não consomem durabilidade;
 - a ferramenta nunca causa quebra infinita após chegar a zero.
 
@@ -387,17 +386,17 @@ GameTests e playtest interativo desses cenários permanecem na Fase 11.
 
 ### Fase 8 — Datagen, traduções e acabamento do conteúdo base
 
-Estado: `PENDENTE`
+Estado: `CONCLUÍDO`
 
 Tarefas:
 
-- [ ] Gerar recipes e recipe advancements.
-- [ ] Gerar item models e item definitions.
-- [ ] Gerar tags.
-- [ ] Gerar ou manter traduções de forma consistente.
-- [ ] Criar advancements opcionais da visão, se não atrasarem a fundação.
-- [ ] Verificar nomes e mapeamento de todas as texturas usadas.
-- [ ] Atualizar README com gameplay e recipes finais.
+- [x] Gerar recipes e recipe advancements.
+- [x] Gerar item models e item definitions.
+- [x] Gerar tags.
+- [x] Gerar ou manter traduções de forma consistente.
+- [x] Criar advancements opcionais da visão, se não atrasarem a fundação.
+- [x] Verificar nomes e mapeamento de todas as texturas usadas.
+- [x] Atualizar README com gameplay e recipes finais.
 
 Advancements candidatos:
 
@@ -409,19 +408,19 @@ Advancements candidatos:
 Critérios de aceite:
 
 - datagen não produz diff inesperado em execuções consecutivas;
-- todos os oito itens possuem nome, modelo, textura e recipe válidos;
-- não existem referências a Stone, Copper ou Advanced na distribuição 1.0.
+- todos os dez itens possuem nome, modelo e textura válidos; itens obtidos em
+  Survival possuem recipe válida.
 
 ### Fase 9 — Compatibilidade e multiplayer
 
-Estado: `PENDENTE`
+Estado: `EM ANDAMENTO`
 
 Tarefas:
 
-- [ ] Iniciar JustExcavators sem JustHammers.
-- [ ] Iniciar os dois mods juntos.
-- [ ] Garantir ausência de imports internos do JustHammers.
-- [ ] Expor tags estáveis para integrações futuras.
+- [x] Iniciar JustExcavators sem JustHammers.
+- [x] Iniciar os dois mods juntos.
+- [x] Garantir ausência de imports internos do JustHammers.
+- [x] Expor tags estáveis para integrações futuras.
 - [ ] Testar cancelamento de quebra por callback/evento.
 - [ ] Testar pelo menos um mod de claims compatível com 26.3, se disponível.
 - [ ] Testar com latência e dois jogadores próximos.
@@ -509,7 +508,7 @@ Critérios de aceite:
 - contagem, centralização e ausência de duplicatas;
 - ordenação determinística;
 - codec e sincronização dos componentes;
-- regras de substituição de perfil.
+- codecs e componentes dos quatro perfis.
 
 ### GameTests
 
@@ -551,8 +550,8 @@ Por isso foi movido para a última fase funcional e terá um spike próprio.
 
 ### Assets divergentes do escopo
 
-Há assets para Stone, Copper e Advanced, enquanto a visão da 1.0 fecha quatro
-materiais e três perfis. Preservar os arquivos, mas não registrar conteúdo extra.
+Stone, Copper e Advanced foram incorporados ao escopo após playtest. Revalidar
+sempre suas recipes, durabilidade e modelos junto aos demais tiers.
 
 ### Licença do JustHammers
 
@@ -567,15 +566,15 @@ Atualizar esta seção ao concluir cada etapa.
 | Fase | Estado | Observações |
 |---|---|---|
 | 0 — Fundação | Concluído | MIT; build, client, server e datagen validados |
-| 1 — Registries | Concluído | Oito itens, creative tab e tags geradas; durabilidade inicial 3x vanilla |
+| 1 — Registries | Concluído | Dez itens, creative tab e tags geradas; durabilidade inicial 3x vanilla |
 | 2 — Components | Concluído | Modo persistente/sincronizado, modelos dinâmicos, tooltips e traduções |
-| 3 — Receitas | Concluído | Dez receitas/advancements; perfis substituíveis e upgrade Netherite |
+| 3 — Receitas | Concluído | Perfis fabricados diretamente; Cores em cadeia; ferraria reservada ao upgrade Netherite |
 | 4 — Geometria | Concluído | Seis faces testadas; áreas centralizadas e ordenadas centro-para-fora |
 | 5 — Validação | Concluído | Política testada; block entities, fluidos e tag de exclusão protegidos |
 | 6 — AOE server-side | Concluído | Fluxo vanilla por bloco, guarda de recursão e proteções preservadas |
 | 7 — Durabilidade | Concluído | Desgaste vanilla por bloco, encantamentos preservados e último ponto protegido |
-| 8 — Conteúdo/datagen | Pendente | |
-| 9 — Compatibilidade | Pendente | |
+| 8 — Conteúdo/datagen | Concluído | Datagen idempotente; `core_model.png` mantido apenas como asset; Bigger Shovel, Digging Deeper e Wide Open adicionados; Silk continua reservado à Fase 10 |
+| 9 — Compatibilidade | Em andamento | Inicialização standalone e com JustHammers 26.3.0.1 + Nanite Library 26.3.0.6 confirmada; testes de callbacks, claims e multiplayer aguardam mundo de servidor com EULA aceita |
 | 10 — Silk Core | Pendente, por último | |
 | 11 — Release | Pendente | |
 
@@ -602,5 +601,5 @@ Ao iniciar uma nova sessão de desenvolvimento:
 
 ## 9. Próximo passo
 
-Iniciar a **Fase 8 — Datagen, traduções e acabamento do conteúdo base**. Nenhuma lógica de
-Silk Core deve ser implementada antes da conclusão das Fases 0 a 9.
+Iniciar a **Fase 9 — Compatibilidade e multiplayer**. Nenhuma lógica de Silk
+Core deve ser implementada antes da conclusão das Fases 0 a 9.
