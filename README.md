@@ -28,10 +28,23 @@ The complete product vision and planned scope are documented in
 
 ## Development
 
+Development requires a Java 25 JDK. Make sure `JAVA_HOME` points to it before
+running Gradle.
+
 Build the project with:
 
 ```bash
 ./gradlew build
 ```
 
+Run data generation with:
+
+```bash
+./gradlew runDatagen
+```
+
 The generated mod artifacts will be available in `build/libs`.
+
+## License
+
+Just Excavators is available under the [MIT License](LICENSE).

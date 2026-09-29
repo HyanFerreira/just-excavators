@@ -7,6 +7,7 @@
 	"authors": [
 		"Hyan Ferreira"
 	],
+	"license": "MIT",
 	"contact": {
 		"homepage": "https://github.com/HyanFerreira/just-excavators",
 		"sources": "https://github.com/HyanFerreira/just-excavators",
@@ -18,10 +19,16 @@
 		"main": [
 			"net.hfstack.justexcavators.JustExcavators"
 		],
+		"client": [
+			"net.hfstack.justexcavators.client.JustExcavatorsClient"
+		],
 		"fabric-datagen": [
 			"net.hfstack.justexcavators.datagen.JustExcavatorsDataGenerator"
 		]
 	},
+	"mixins": [
+		"justexcavators.mixins.json"
+	],
 	"depends": {
 		"fabricloader": ">=0.19.5",
 		"minecraft": "~26.3",
