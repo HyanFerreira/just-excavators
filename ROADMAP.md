@@ -2,8 +2,8 @@
 
 > **Alvo inicial:** Minecraft 26.3, Fabric, Java 25  
 > **Escopo:** versão 1.0 definida em `JUSTEXCAVATORS_IDEA.md`  
-> **Última atualização:** 2026-09-29  
-> **Estado atual:** implementação das Fases 0 a 10 concluída; próxima etapa é a validação da Fase 11
+> **Última atualização:** 2026-09-30
+> **Estado atual:** Enhancement Cores — Fases 0 e 1 concluídas; próxima etapa é o pipeline de loot e Silk nativo
 
 Este documento é o guia operacional do desenvolvimento. Ele registra decisões,
 ordem de execução, critérios de aceite e pontos de retomada para que o trabalho
@@ -538,13 +538,13 @@ Estado: `CONCLUÍDO`
 
 ### Enhancement Cores — Fase 1: Mesa de Trabalho de Aprimoramento
 
-Estado: `PENDENTE`
+Estado: `CONCLUÍDO`
 
-- [ ] Registrar bloco, item do bloco e menu server-side sem inventário persistente.
-- [ ] Implementar os três slots e o inventário do jogador.
-- [ ] Implementar instalação, remoção, substituição explícita e Shift + clique.
-- [ ] Impedir perda e duplicação ao fechar, desconectar ou remover o bloco.
-- [ ] Registrar a tela cliente e adaptar a textura funcional da GUI.
+- [x] Registrar bloco, item do bloco e menu server-side sem inventário persistente.
+- [x] Implementar os três slots e o inventário do jogador.
+- [x] Implementar instalação, remoção, substituição explícita e Shift + clique.
+- [x] Impedir perda e duplicação ao fechar, desconectar ou remover o bloco.
+- [x] Registrar a tela cliente e adaptar a textura funcional da GUI.
 
 ### Enhancement Cores — Fase 2: pipeline de loot e Silk nativo
 
@@ -690,6 +690,6 @@ Ao iniciar uma nova sessão de desenvolvimento:
 
 ## 9. Próximo passo
 
-Iniciar **Enhancement Cores — Fase 1: Mesa de Trabalho de Aprimoramento**.
+Iniciar **Enhancement Cores — Fase 2: pipeline de loot e Silk nativo**.
 A Fase 11 histórica de validação será retomada depois que a expansão estiver
 integrada.

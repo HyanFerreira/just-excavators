@@ -47,6 +47,10 @@ public final class ModItemModelProvider extends FabricModelProvider {
 		generateCore(generators, ModItems.SMELTING_CORE, "smelting_core", "silk_core");
 		generateCore(generators, ModItems.FILTER_CORE, "filter_core", "silk_core");
 		generateCore(generators, ModItems.VOID_CORE, "void_core", "silk_core");
+		generators.itemModelOutput.accept(
+				ModItems.ENHANCEMENT_WORKBENCH,
+				ItemModelUtils.plainModel(Identifier.withDefaultNamespace("block/crafting_table"))
+		);
 	}
 
 	private static void generateExcavator(ItemModelGenerators generators, Item item, String material) {

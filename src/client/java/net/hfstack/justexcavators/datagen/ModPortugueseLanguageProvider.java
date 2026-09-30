@@ -34,6 +34,8 @@ public final class ModPortugueseLanguageProvider extends FabricLanguageProvider 
 		translations.add(ModItems.SMELTING_CORE, "Núcleo de Fundição");
 		translations.add(ModItems.FILTER_CORE, "Núcleo de Filtro");
 		translations.add(ModItems.VOID_CORE, "Núcleo do Vazio");
+		translations.add(ModItems.ENHANCEMENT_WORKBENCH, "Mesa de Trabalho de Aprimoramento");
+		translations.add("container.justexcavators.enhancement_workbench", "Mesa de Trabalho de Aprimoramento");
 		translations.add("advancement.justexcavators.bigger_shovel.title", "Pá Maior");
 		translations.add("advancement.justexcavators.bigger_shovel.description", "Obtenha sua primeira Escavadora");
 		translations.add("advancement.justexcavators.digging_deeper.title", "Escavando Mais Fundo");

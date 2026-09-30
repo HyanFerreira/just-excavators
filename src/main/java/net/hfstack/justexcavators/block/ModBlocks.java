@@ -11,6 +11,10 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.hfstack.justexcavators.JustExcavators;
 
 public final class ModBlocks {
+	public static final ResourceKey<Block> ENHANCEMENT_WORKBENCH_KEY = ResourceKey.create(
+			Registries.BLOCK,
+			JustExcavators.id("enhancement_workbench")
+	);
 	public static final Block ENHANCEMENT_WORKBENCH = register("enhancement_workbench");
 
 	private ModBlocks() {
@@ -20,7 +24,7 @@ public final class ModBlocks {
 	}
 
 	private static Block register(String name) {
-		ResourceKey<Block> key = ResourceKey.create(Registries.BLOCK, JustExcavators.id(name));
+		ResourceKey<Block> key = ENHANCEMENT_WORKBENCH_KEY;
 		Block block = new EnhancementWorkbenchBlock(
 				BlockBehaviour.Properties.ofFullCopy(Blocks.CRAFTING_TABLE).setId(key)
 		);

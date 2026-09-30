@@ -253,11 +253,11 @@ The GUI texture contains only the panel, decorations, and slot frames. It must
 not contain the world background, player hand, baked item icons, quantities,
 tooltips, or localized text. Title and inventory labels are rendered by code.
 
-The concept image currently present at that path is a 1213 x 1296 RGB render.
-It is retained as visual reference but must be converted or replaced with a
-flat, pixel-aligned, transparent functional texture before runtime use. The
-implementation fixes logical screen and slot coordinates first so final artwork
-can replace the functional texture without changing menu behavior.
+The committed 1213 x 1296 RGB image at that path is intentionally used as the
+Phase 1 runtime GUI and rendered proportionally at 243 x 259. Its panel and slot
+layout are functional; dynamic items, quantities, tooltips, and translated
+labels remain code-rendered. Final block artwork is still pending, so the world
+block and its item temporarily use the vanilla crafting-table model.
 
 ## Excavation processing
 

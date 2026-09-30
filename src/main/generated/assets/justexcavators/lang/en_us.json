@@ -19,6 +19,8 @@
   "advancement.justexcavators.silken_touch.title": "Leave No Trace",
   "advancement.justexcavators.wide_open.description": "Obtain a Wide Excavation Core",
   "advancement.justexcavators.wide_open.title": "Wide Open",
+  "block.justexcavators.enhancement_workbench": "Enhancement Workbench",
+  "container.justexcavators.enhancement_workbench": "Enhancement Workbench",
   "excavation_mode.justexcavators.advanced": "Advanced",
   "excavation_mode.justexcavators.basic": "Basic",
   "excavation_mode.justexcavators.deep": "Deep",

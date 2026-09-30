@@ -34,6 +34,8 @@ public final class ModEnglishLanguageProvider extends FabricLanguageProvider {
 		translations.add(ModItems.SMELTING_CORE, "Smelting Core");
 		translations.add(ModItems.FILTER_CORE, "Filter Core");
 		translations.add(ModItems.VOID_CORE, "Void Core");
+		translations.add(ModItems.ENHANCEMENT_WORKBENCH, "Enhancement Workbench");
+		translations.add("container.justexcavators.enhancement_workbench", "Enhancement Workbench");
 
 		translations.add("itemGroup.justexcavators", "Just Excavators");
 		translations.add("excavation_mode.justexcavators.basic", "Basic");
