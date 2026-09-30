@@ -24,6 +24,10 @@ public final class ModItems {
 	public static final Item WIDE_EXCAVATION_CORE = register("wide_excavation_core", Item::new);
 	public static final Item ADVANCED_EXCAVATION_CORE = register("advanced_excavation_core", Item::new);
 	public static final Item SILK_CORE = register("silk_core", Item::new);
+	public static final Item COLLECTOR_CORE = register("collector_core", Item::new);
+	public static final Item SMELTING_CORE = register("smelting_core", Item::new);
+	public static final Item FILTER_CORE = register("filter_core", Item::new);
+	public static final Item VOID_CORE = register("void_core", Item::new);
 
 	public static final List<ExcavatorItem> EXCAVATORS = List.of(
 			STONE_EXCAVATOR,
@@ -38,7 +42,11 @@ public final class ModItems {
 			DEEP_EXCAVATION_CORE,
 			WIDE_EXCAVATION_CORE,
 			ADVANCED_EXCAVATION_CORE,
-			SILK_CORE
+			SILK_CORE,
+			COLLECTOR_CORE,
+			SMELTING_CORE,
+			FILTER_CORE,
+			VOID_CORE
 	);
 
 	private ModItems() {
