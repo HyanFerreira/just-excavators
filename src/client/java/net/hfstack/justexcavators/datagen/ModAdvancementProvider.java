@@ -26,6 +26,7 @@ import net.minecraft.world.item.ItemStackTemplate;
 import net.hfstack.justexcavators.JustExcavators;
 import net.hfstack.justexcavators.component.ExcavatorComponents;
 import net.hfstack.justexcavators.component.ExcavatorEnhancements;
+import net.hfstack.justexcavators.enhancement.EnhancementType;
 import net.hfstack.justexcavators.excavation.ExcavationMode;
 import net.hfstack.justexcavators.item.ModItems;
 import net.hfstack.justexcavators.registry.ModTags;
@@ -125,7 +126,7 @@ public final class ModAdvancementProvider extends FabricAdvancementProvider {
 		ItemPredicate.Builder silkExcavator = excavatorPredicate(registries)
 				.withComponents(exactComponent(
 						ExcavatorComponents.ENHANCEMENTS,
-						new ExcavatorEnhancements(true)
+						ExcavatorEnhancements.EMPTY.withSlot(0, EnhancementType.SILK)
 				));
 		Advancement.Builder.advancement()
 				.parent(parent)

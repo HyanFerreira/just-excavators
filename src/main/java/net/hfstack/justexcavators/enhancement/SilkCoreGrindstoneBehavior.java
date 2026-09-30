@@ -12,7 +12,8 @@ public final class SilkCoreGrindstoneBehavior {
 	}
 
 	public static boolean hasSilkCore(ItemStack stack) {
-		return stack.getOrDefault(ExcavatorComponents.ENHANCEMENTS, ExcavatorEnhancements.NONE).silk();
+		return stack.getOrDefault(ExcavatorComponents.ENHANCEMENTS, ExcavatorEnhancements.EMPTY)
+				.has(EnhancementType.SILK);
 	}
 
 	public static int removableEnchantmentExperience(ItemStack stack) {

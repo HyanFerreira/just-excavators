@@ -17,6 +17,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 
 import net.hfstack.justexcavators.component.ExcavatorComponents;
 import net.hfstack.justexcavators.component.ExcavatorEnhancements;
+import net.hfstack.justexcavators.enhancement.EnhancementType;
 import net.hfstack.justexcavators.excavation.ExcavationMode;
 
 public final class ExcavatorItem extends Item {
@@ -30,11 +31,11 @@ public final class ExcavatorItem extends Item {
 	public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, EquipmentSlot slot) {
 		ExcavatorEnhancements enhancements = stack.getOrDefault(
 				ExcavatorComponents.ENHANCEMENTS,
-				ExcavatorEnhancements.NONE
+				ExcavatorEnhancements.EMPTY
 		);
 		boolean hasSilkTouch = stack.getEnchantments().keySet().stream()
 				.anyMatch(enchantment -> enchantment.is(Enchantments.SILK_TOUCH));
-		if (enhancements.silk() && !hasSilkTouch) {
+		if (enhancements.has(EnhancementType.SILK) && !hasSilkTouch) {
 			stack.enchant(
 					level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH),
 					1
@@ -64,9 +65,9 @@ public final class ExcavatorItem extends Item {
 		).withStyle(ChatFormatting.GRAY));
 		ExcavatorEnhancements enhancements = stack.getOrDefault(
 				ExcavatorComponents.ENHANCEMENTS,
-				ExcavatorEnhancements.NONE
+				ExcavatorEnhancements.EMPTY
 		);
-		if (enhancements.silk()) {
+		if (enhancements.has(EnhancementType.SILK)) {
 			textConsumer.accept(Component.translatable("tooltip.justexcavators.enhancement.silk_touch")
 					.withStyle(ChatFormatting.AQUA));
 		}
@@ -78,7 +79,7 @@ public final class ExcavatorItem extends Item {
 		properties
 				.shovel(withScaledDurability(material), 1.5F, -3.0F)
 				.component(ExcavatorComponents.EXCAVATION_MODE, ExcavationMode.BASIC)
-				.component(ExcavatorComponents.ENHANCEMENTS, ExcavatorEnhancements.NONE);
+				.component(ExcavatorComponents.ENHANCEMENTS, ExcavatorEnhancements.EMPTY);
 
 		if (material == ToolMaterial.NETHERITE) {
 			properties.fireResistant();

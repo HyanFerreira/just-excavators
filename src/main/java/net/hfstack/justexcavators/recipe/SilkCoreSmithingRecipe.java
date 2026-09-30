@@ -29,6 +29,7 @@ import net.minecraft.world.level.Level;
 
 import net.hfstack.justexcavators.component.ExcavatorComponents;
 import net.hfstack.justexcavators.component.ExcavatorEnhancements;
+import net.hfstack.justexcavators.enhancement.EnhancementType;
 
 public final class SilkCoreSmithingRecipe extends SimpleSmithingRecipe {
 	public static final MapCodec<SilkCoreSmithingRecipe> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -89,10 +90,10 @@ public final class SilkCoreSmithingRecipe extends SimpleSmithingRecipe {
 		ItemStack excavator = input.base();
 		ExcavatorEnhancements enhancements = excavator.getOrDefault(
 				ExcavatorComponents.ENHANCEMENTS,
-				ExcavatorEnhancements.NONE
+				ExcavatorEnhancements.EMPTY
 		);
 		return SilkCoreApplicationPolicy.canApply(
-				enhancements.silk(),
+				enhancements,
 				hasEnchantment(excavator, Enchantments.SILK_TOUCH),
 				hasEnchantment(excavator, Enchantments.FORTUNE)
 		);
@@ -100,12 +101,22 @@ public final class SilkCoreSmithingRecipe extends SimpleSmithingRecipe {
 
 	@Override
 	public ItemStack assemble(SmithingRecipeInput input) {
-		ItemStack result = input.base().copyWithCount(1);
-		ExcavatorEnhancements enhancements = result.getOrDefault(
+		ItemStack base = input.base();
+		ExcavatorEnhancements enhancements = base.getOrDefault(
 				ExcavatorComponents.ENHANCEMENTS,
-				ExcavatorEnhancements.NONE
+				ExcavatorEnhancements.EMPTY
 		);
-		result.set(ExcavatorComponents.ENHANCEMENTS, enhancements.withSilk());
+		if (!SilkCoreApplicationPolicy.canApply(
+				enhancements,
+				hasEnchantment(base, Enchantments.SILK_TOUCH),
+				hasEnchantment(base, Enchantments.FORTUNE)
+		)) {
+			return ItemStack.EMPTY;
+		}
+
+		int emptySlot = SilkCoreApplicationPolicy.firstEmptySlot(enhancements);
+		ItemStack result = base.copyWithCount(1);
+		result.set(ExcavatorComponents.ENHANCEMENTS, enhancements.withSlot(emptySlot, EnhancementType.SILK));
 		result.enchant(silkTouch, 1);
 		return result;
 	}
