@@ -1,15 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "A": "minecraft:amethyst_shard",
-    "H": "justexcavators:core_housing",
-    "L": "minecraft:lapis_lazuli",
-    "S": "minecraft:string"
+    "H": "minecraft:emerald",
+    "M": "justexcavators:core_housing",
+    "O": "minecraft:string"
   },
   "pattern": [
-    "SAS",
-    "LHL",
-    "SAS"
+    "OHO",
+    "HMH",
+    "OHO"
   ],
   "result": {
     "id": "justexcavators:silk_core"

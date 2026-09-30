@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -59,35 +60,63 @@ final class GeneratedEnhancementCoreDataTest {
 	}
 
 	@Test
-	void everyEnhancementCoreRequiresACommonHousing() throws IOException {
-		for (String name : ENHANCEMENT_CORES) {
-			Path path = RECIPES.resolve(name + ".json");
-			assertTrue(Files.isRegularFile(path), name);
-			JsonObject recipe = json(path);
+	void enhancementCoresUseACommonHousingSurroundedByTheirMaterials() throws IOException {
+		Map<String, List<String>> materials = Map.of(
+				"silk_core", List.of("minecraft:string", "minecraft:emerald"),
+				"collector_core", List.of("minecraft:ender_pearl", "minecraft:lapis_lazuli"),
+				"smelting_core", List.of("minecraft:magma_cream", "minecraft:blaze_powder"),
+				"filter_core", List.of("minecraft:quartz", "minecraft:amethyst_shard"),
+				"void_core", List.of("minecraft:ender_eye", "minecraft:ender_pearl")
+		);
+
+		for (Map.Entry<String, List<String>> entry : materials.entrySet()) {
+			JsonObject recipe = recipe(entry.getKey());
 			JsonObject key = recipe.getAsJsonObject("key");
-			assertTrue(key.has("H"), name);
-			assertEquals(
-					"justexcavators:core_housing",
-					key.get("H").getAsString(),
-					name
-			);
+			assertEquals(entry.getValue().get(0), key.get("O").getAsString(), entry.getKey());
+			assertEquals(entry.getValue().get(1), key.get("H").getAsString(), entry.getKey());
+			assertEquals("justexcavators:core_housing", key.get("M").getAsString(), entry.getKey());
+			assertPattern(recipe, "OHO", "HMH", "OHO");
 		}
 	}
 
 	@Test
-	void housingUsesAnIronNuggetRingRecipe() throws IOException {
-		Path path = RECIPES.resolve("core_housing.json");
-		assertTrue(Files.isRegularFile(path));
-		JsonObject recipe = json(path);
-		assertEquals("minecraft:iron_nugget", recipe.getAsJsonObject("key").get("N").getAsString());
-		assertEquals(List.of("NNN", "N N", "NNN"), recipe.getAsJsonArray("pattern").asList().stream()
-				.map(element -> element.getAsString())
-				.toList());
+	void housingUsesIronIngotsWithNuggetCorners() throws IOException {
+		JsonObject recipe = recipe("core_housing");
+		JsonObject key = recipe.getAsJsonObject("key");
+		assertEquals("minecraft:iron_nugget", key.get("O").getAsString());
+		assertEquals("minecraft:iron_ingot", key.get("H").getAsString());
+		assertPattern(recipe, "OHO", "H H", "OHO");
 		assertEquals("justexcavators:core_housing", recipe.getAsJsonObject("result").get("id").getAsString());
+	}
+
+	@Test
+	void enhancementWorkbenchUsesPlanksAnvilAndStoneBricks() throws IOException {
+		JsonObject recipe = recipe("enhancement_workbench");
+		JsonObject key = recipe.getAsJsonObject("key");
+		assertEquals("#minecraft:planks", key.get("O").getAsString());
+		assertEquals("minecraft:anvil", key.get("H").getAsString());
+		assertEquals("minecraft:stone_bricks", key.get("N").getAsString());
+		assertPattern(recipe, "OOO", "OHO", "NNN");
+		assertEquals(
+				"justexcavators:enhancement_workbench",
+				recipe.getAsJsonObject("result").get("id").getAsString()
+		);
 	}
 
 	private static JsonObject model(String name) throws IOException {
 		return json(GENERATED_ASSETS.resolve("models/item/" + name + ".json"));
+	}
+
+	private static JsonObject recipe(String name) throws IOException {
+		Path path = RECIPES.resolve(name + ".json");
+		assertTrue(Files.isRegularFile(path), name);
+		return json(path);
+	}
+
+	private static void assertPattern(JsonObject recipe, String... rows) {
+		assertEquals(List.of(rows), recipe.getAsJsonArray("pattern").asList().stream()
+				.map(element -> element.getAsString())
+				.toList());
 	}
 
 	private static JsonObject json(Path path) throws IOException {

@@ -1,14 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "A": "minecraft:amethyst_shard",
-    "H": "justexcavators:core_housing",
-    "Q": "minecraft:quartz"
+    "H": "minecraft:amethyst_shard",
+    "M": "justexcavators:core_housing",
+    "O": "minecraft:quartz"
   },
   "pattern": [
-    "AQA",
-    "AHA",
-    "AQA"
+    "OHO",
+    "HMH",
+    "OHO"
   ],
   "result": {
     "id": "justexcavators:filter_core"

@@ -1,12 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "N": "minecraft:iron_nugget"
+    "H": "minecraft:iron_ingot",
+    "O": "minecraft:iron_nugget"
   },
   "pattern": [
-    "NNN",
-    "N N",
-    "NNN"
+    "OHO",
+    "H H",
+    "OHO"
   ],
   "result": {
     "id": "justexcavators:core_housing"

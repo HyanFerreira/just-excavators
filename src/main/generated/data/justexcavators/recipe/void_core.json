@@ -1,15 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "C": "minecraft:crying_obsidian",
-    "E": "minecraft:ender_pearl",
-    "H": "justexcavators:core_housing",
-    "O": "minecraft:obsidian"
+    "H": "minecraft:ender_pearl",
+    "M": "justexcavators:core_housing",
+    "O": "minecraft:ender_eye"
   },
   "pattern": [
-    "OCO",
-    "EHE",
-    "OCO"
+    "OHO",
+    "HMH",
+    "OHO"
   ],
   "result": {
     "id": "justexcavators:void_core"

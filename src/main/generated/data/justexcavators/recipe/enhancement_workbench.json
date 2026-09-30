@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "H": "minecraft:anvil",
+    "N": "minecraft:stone_bricks",
+    "O": "#minecraft:planks"
+  },
+  "pattern": [
+    "OOO",
+    "OHO",
+    "NNN"
+  ],
+  "result": {
+    "id": "justexcavators:enhancement_workbench"
+  }
+}

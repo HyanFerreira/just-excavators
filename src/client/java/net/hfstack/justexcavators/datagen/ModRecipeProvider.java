@@ -16,6 +16,7 @@ import net.minecraft.data.recipes.RecipeUnlockAdvancementBuilder;
 import net.minecraft.data.recipes.SmithingTransformRecipeBuilder;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
@@ -55,16 +56,18 @@ public final class ModRecipeProvider extends FabricRecipeProvider {
 			@Override
 			public void buildRecipes() {
 				buildCores();
+				buildEnhancementWorkbench();
 				buildExcavators();
 				buildNetheriteUpgrade();
 			}
 
 			private void buildCores() {
 				shaped(RecipeCategory.MISC, ModItems.CORE_HOUSING)
-						.define('N', Items.IRON_NUGGET)
-						.pattern("NNN")
-						.pattern("N N")
-						.pattern("NNN")
+						.define('O', Items.IRON_NUGGET)
+						.define('H', Items.IRON_INGOT)
+						.pattern("OHO")
+						.pattern("H H")
+						.pattern("OHO")
 						.unlockedBy("has_iron_nugget", has(Items.IRON_NUGGET))
 						.save(output);
 
@@ -98,56 +101,34 @@ public final class ModRecipeProvider extends FabricRecipeProvider {
 						.unlockedBy("has_wide_excavation_core", has(ModItems.WIDE_EXCAVATION_CORE))
 						.save(output);
 
-				shaped(RecipeCategory.MISC, ModItems.SILK_CORE)
-						.define('S', Items.STRING)
-						.define('A', Items.AMETHYST_SHARD)
-						.define('L', Items.LAPIS_LAZULI)
-						.define('H', ModItems.CORE_HOUSING)
-						.pattern("SAS")
-						.pattern("LHL")
-						.pattern("SAS")
+				buildEnhancementCore(ModItems.SILK_CORE, Items.STRING, Items.EMERALD);
+				buildEnhancementCore(ModItems.COLLECTOR_CORE, Items.ENDER_PEARL, Items.LAPIS_LAZULI);
+				buildEnhancementCore(ModItems.SMELTING_CORE, Items.MAGMA_CREAM, Items.BLAZE_POWDER);
+				buildEnhancementCore(ModItems.FILTER_CORE, Items.QUARTZ, Items.AMETHYST_SHARD);
+				buildEnhancementCore(ModItems.VOID_CORE, Items.ENDER_EYE, Items.ENDER_PEARL);
+			}
+
+			private void buildEnhancementCore(Item result, ItemLike outer, ItemLike inner) {
+				shaped(RecipeCategory.MISC, result)
+						.define('O', outer)
+						.define('H', inner)
+						.define('M', ModItems.CORE_HOUSING)
+						.pattern("OHO")
+						.pattern("HMH")
+						.pattern("OHO")
 						.unlockedBy("has_core_housing", has(ModItems.CORE_HOUSING))
 						.save(output);
+			}
 
-				shaped(RecipeCategory.MISC, ModItems.COLLECTOR_CORE)
-						.define('L', Items.LAPIS_LAZULI)
-						.define('E', Items.ENDER_PEARL)
-						.define('H', ModItems.CORE_HOUSING)
-						.pattern("LEL")
-						.pattern("LHL")
-						.pattern("LEL")
-						.unlockedBy("has_core_housing", has(ModItems.CORE_HOUSING))
-						.save(output);
-
-				shaped(RecipeCategory.MISC, ModItems.SMELTING_CORE)
-						.define('B', Items.BLAZE_POWDER)
-						.define('M', Items.MAGMA_CREAM)
-						.define('H', ModItems.CORE_HOUSING)
-						.pattern("BMB")
-						.pattern("BHB")
-						.pattern("BMB")
-						.unlockedBy("has_core_housing", has(ModItems.CORE_HOUSING))
-						.save(output);
-
-				shaped(RecipeCategory.MISC, ModItems.FILTER_CORE)
-						.define('A', Items.AMETHYST_SHARD)
-						.define('Q', Items.QUARTZ)
-						.define('H', ModItems.CORE_HOUSING)
-						.pattern("AQA")
-						.pattern("AHA")
-						.pattern("AQA")
-						.unlockedBy("has_core_housing", has(ModItems.CORE_HOUSING))
-						.save(output);
-
-				shaped(RecipeCategory.MISC, ModItems.VOID_CORE)
-						.define('O', Items.OBSIDIAN)
-						.define('C', Items.CRYING_OBSIDIAN)
-						.define('E', Items.ENDER_PEARL)
-						.define('H', ModItems.CORE_HOUSING)
-						.pattern("OCO")
-						.pattern("EHE")
-						.pattern("OCO")
-						.unlockedBy("has_core_housing", has(ModItems.CORE_HOUSING))
+			private void buildEnhancementWorkbench() {
+				shaped(RecipeCategory.MISC, ModItems.ENHANCEMENT_WORKBENCH)
+						.define('O', ItemTags.PLANKS)
+						.define('H', Items.ANVIL)
+						.define('N', Items.STONE_BRICKS)
+						.pattern("OOO")
+						.pattern("OHO")
+						.pattern("NNN")
+						.unlockedBy("has_anvil", has(Items.ANVIL))
 						.save(output);
 			}
 
