@@ -25,7 +25,7 @@ public final class ModCreativeTab {
 			KEY,
 			FabricCreativeModeTab.builder()
 					.title(Component.translatable("itemGroup.justexcavators"))
-					.icon(() -> new ItemStack(ModItems.IRON_EXCAVATOR))
+					.icon(ModCreativeTab::createIcon)
 					.displayItems((parameters, output) -> {
 						ModItems.EXCAVATORS.forEach(excavator -> {
 							for (ExcavationMode mode : ExcavationMode.values()) {
@@ -34,6 +34,7 @@ public final class ModCreativeTab {
 								output.accept(stack);
 							}
 						});
+						output.accept(ModItems.CORE_HOUSING);
 						ModItems.CORES.forEach(output::accept);
 						output.accept(ModItems.ENHANCEMENT_WORKBENCH);
 					})
@@ -41,6 +42,12 @@ public final class ModCreativeTab {
 	);
 
 	private ModCreativeTab() {
+	}
+
+	private static ItemStack createIcon() {
+		ItemStack icon = new ItemStack(ModItems.DIAMOND_EXCAVATOR);
+		icon.set(ExcavatorComponents.EXCAVATION_MODE, ExcavationMode.ADVANCED);
+		return icon;
 	}
 
 	public static void init() {
