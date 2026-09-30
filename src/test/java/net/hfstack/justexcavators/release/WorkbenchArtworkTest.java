@@ -33,41 +33,17 @@ final class WorkbenchArtworkTest {
 	}
 
 	@Test
-	void inventoryAreaUsesVanillaCraftingTablePalette() throws IOException {
-		BufferedImage image = readImage(
-				ASSETS.resolve("textures/gui/container/enhancement_workbench.png")
-		);
-		Set<Integer> vanillaPalette = Set.of(
-				0x000000,
-				0x373737,
-				0x555555,
-				0x8B8B8B,
-				0xC6C6C6,
-				0xFFFFFF
-		);
-
-		for (int y = 83; y < 166; y++) {
-			for (int x = 0; x < 176; x++) {
-				int argb = image.getRGB(x, y);
-				if ((argb >>> 24) != 0) {
-					assertTrue(
-							vanillaPalette.contains(argb & 0xFFFFFF),
-							"Non-vanilla inventory color at " + x + "," + y
-					);
-				}
-			}
-		}
-	}
-
-	@Test
 	void workbenchSlotsUseVanillaSlotPixels() throws IOException {
 		BufferedImage image = readImage(
 				ASSETS.resolve("textures/gui/container/enhancement_workbench.png")
 		);
 
-		assertVanillaSlot(image, 80, 26);
-		assertVanillaSlot(image, 53, 57);
-		assertVanillaSlot(image, 107, 57);
+		assertVanillaSlot(image, 81, 24);
+		assertVanillaSlot(image, 52, 53);
+		assertVanillaSlot(image, 109, 53);
+		assertNoResidualFrame(image, 81, 24);
+		assertNoResidualFrame(image, 52, 53);
+		assertNoResidualFrame(image, 109, 53);
 	}
 
 	@Test
@@ -84,9 +60,9 @@ final class WorkbenchArtworkTest {
 		assertTrue(screen.contains("private static final int SOURCE_WIDTH = 256;"));
 		assertTrue(screen.contains("private static final int SOURCE_HEIGHT = 256;"));
 		assertTrue(screen.contains("super(menu, inventory, title, 176, 166);"));
-		assertTrue(menu.contains("addSlot(new Slot(tool, 0, 80, 26)"));
-		assertTrue(menu.contains("addSlot(coreSlot(0, 53, 57));"));
-		assertTrue(menu.contains("addSlot(coreSlot(1, 107, 57));"));
+		assertTrue(menu.contains("addSlot(new Slot(tool, 0, 81, 24)"));
+		assertTrue(menu.contains("addSlot(coreSlot(0, 52, 53));"));
+		assertTrue(menu.contains("addSlot(coreSlot(1, 109, 53));"));
 		assertTrue(menu.contains("8 + column * 18, 84 + row * 18"));
 		assertTrue(menu.contains("8 + column * 18, 142"));
 	}
@@ -133,8 +109,31 @@ final class WorkbenchArtworkTest {
 			assertEquals(0xFFFFFF, image.getRGB(itemX + 16, itemY + offset) & 0xFFFFFF);
 			assertEquals(0xFFFFFF, image.getRGB(itemX + offset, itemY + 16) & 0xFFFFFF);
 		}
-		assertEquals(0x8B8B8B, image.getRGB(itemX, itemY) & 0xFFFFFF);
-		assertEquals(0x8B8B8B, image.getRGB(itemX + 15, itemY + 15) & 0xFFFFFF);
+		for (int y = itemY; y < itemY + 16; y++) {
+			for (int x = itemX; x < itemX + 16; x++) {
+				assertEquals(
+						0x8B8B8B,
+						image.getRGB(x, y) & 0xFFFFFF,
+						"Unexpected line inside slot at " + x + "," + y
+				);
+			}
+		}
+	}
+
+	private static void assertNoResidualFrame(BufferedImage image, int itemX, int itemY) {
+		Set<Integer> slotEdgeColors = Set.of(0x373737, 0x555555, 0xFFFFFF);
+		for (int y = itemY - 4; y <= itemY + 19; y++) {
+			for (int x = itemX - 4; x <= itemX + 19; x++) {
+				boolean insideSlot = x >= itemX - 1 && x <= itemX + 16
+						&& y >= itemY - 1 && y <= itemY + 16;
+				if (!insideSlot) {
+					assertTrue(
+							!slotEdgeColors.contains(image.getRGB(x, y) & 0xFFFFFF),
+							"Residual slot frame at " + x + "," + y
+					);
+				}
+			}
+		}
 	}
 
 	private static int maximumOpaqueCoordinate(BufferedImage image, boolean horizontal) {

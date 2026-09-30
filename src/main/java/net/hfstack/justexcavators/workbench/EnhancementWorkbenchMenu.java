@@ -50,7 +50,7 @@ public final class EnhancementWorkbenchMenu extends AbstractContainerMenu {
 		this.access = access;
 		this.playerInventory = inventory;
 
-		addSlot(new Slot(tool, 0, 80, 26) {
+		addSlot(new Slot(tool, 0, 81, 24) {
 			@Override
 			public boolean mayPlace(ItemStack stack) {
 				return stack.getItem() instanceof ExcavatorItem;
@@ -61,8 +61,8 @@ public final class EnhancementWorkbenchMenu extends AbstractContainerMenu {
 				return 1;
 			}
 		});
-		addSlot(coreSlot(0, 53, 57));
-		addSlot(coreSlot(1, 107, 57));
+		addSlot(coreSlot(0, 52, 53));
+		addSlot(coreSlot(1, 109, 53));
 
 		for (int row = 0; row < 3; row++) {
 			for (int column = 0; column < 9; column++) {
