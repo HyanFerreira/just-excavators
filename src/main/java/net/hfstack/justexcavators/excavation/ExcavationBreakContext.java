@@ -11,15 +11,40 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import net.hfstack.justexcavators.enhancement.ActiveEnhancements;
 
-public record ExcavationBreakContext(
-		ServerPlayer player,
-		ItemStack originalTool,
-		ActiveEnhancements enhancements,
-		BlockPos origin,
-		BlockState centralState,
-		boolean additional
-) {
+public final class ExcavationBreakContext {
 	private static final ThreadLocal<Deque<Scope>> CONTEXTS = new ThreadLocal<>();
+	private final ServerPlayer player;
+	private final ItemStack originalTool;
+	private final ActiveEnhancements enhancements;
+	private final BlockPos origin;
+	private final BlockState centralState;
+	private final boolean additional;
+	private boolean transformedAnyDrop;
+
+	public ExcavationBreakContext(
+			ServerPlayer player,
+			ItemStack originalTool,
+			ActiveEnhancements enhancements,
+			BlockPos origin,
+			BlockState centralState,
+			boolean additional
+	) {
+		this.player = player;
+		this.originalTool = originalTool;
+		this.enhancements = enhancements;
+		this.origin = origin;
+		this.centralState = centralState;
+		this.additional = additional;
+	}
+
+	public ServerPlayer player() { return player; }
+	public ItemStack originalTool() { return originalTool; }
+	public ActiveEnhancements enhancements() { return enhancements; }
+	public BlockPos origin() { return origin; }
+	public BlockState centralState() { return centralState; }
+	public boolean additional() { return additional; }
+	public boolean transformedAnyDrop() { return transformedAnyDrop; }
+	public void markDropTransformed() { transformedAnyDrop = true; }
 
 	public static Scope open(
 			ServerPlayer player,

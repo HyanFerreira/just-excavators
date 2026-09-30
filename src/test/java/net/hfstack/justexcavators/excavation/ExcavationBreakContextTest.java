@@ -91,6 +91,21 @@ final class ExcavationBreakContextTest {
 		}
 	}
 
+	@Test
+	void transformationMarksBelongOnlyToTheirBreakScope() {
+		ExcavationBreakContext outerContext = context(false);
+		ExcavationBreakContext innerContext = context(true);
+		try (ExcavationBreakContext.Scope ignored = ExcavationBreakContext.open(outerContext)) {
+			outerContext.markDropTransformed();
+			assertTrue(outerContext.transformedAnyDrop());
+			try (ExcavationBreakContext.Scope nested = ExcavationBreakContext.open(innerContext)) {
+				assertFalse(innerContext.transformedAnyDrop());
+				innerContext.markDropTransformed();
+			}
+			assertTrue(outerContext.transformedAnyDrop());
+		}
+	}
+
 	private static ExcavationBreakContext context(boolean additional) {
 		return context(additional, ActiveEnhancements.EMPTY);
 	}

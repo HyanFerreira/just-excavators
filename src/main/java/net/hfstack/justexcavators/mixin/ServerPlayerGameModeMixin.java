@@ -36,6 +36,8 @@ import net.hfstack.justexcavators.excavation.ExcavationMode;
 import net.hfstack.justexcavators.excavation.ExcavationTargetValidator;
 import net.hfstack.justexcavators.component.ExcavatorEnhancements;
 import net.hfstack.justexcavators.enhancement.ActiveEnhancements;
+import net.hfstack.justexcavators.enhancement.EnhancementDurability;
+import net.hfstack.justexcavators.enhancement.EnhancementType;
 
 @Mixin(ServerPlayerGameMode.class)
 abstract class ServerPlayerGameModeMixin {
@@ -189,6 +191,12 @@ abstract class ServerPlayerGameModeMixin {
 				false
 		)) {
 			original.call(block, level, player, pos, state, blockEntity, lootTool);
+			ExcavationBreakContext.current().ifPresent(breakScope -> EnhancementDurability.apply(
+					context.tool(),
+					player,
+					context.enhancements().has(EnhancementType.SMELTING),
+					breakScope.transformedAnyDrop()
+			));
 		}
 	}
 

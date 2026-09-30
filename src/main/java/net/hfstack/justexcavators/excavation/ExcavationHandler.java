@@ -12,6 +12,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import net.hfstack.justexcavators.enhancement.ActiveEnhancements;
 import net.hfstack.justexcavators.enhancement.FilterCorePolicy;
+import net.hfstack.justexcavators.enhancement.EnhancementDurability;
+import net.hfstack.justexcavators.enhancement.EnhancementType;
 
 public final class ExcavationHandler {
 	private ExcavationHandler() {
@@ -56,6 +58,12 @@ public final class ExcavationHandler {
 					true
 			)) {
 				gameMode.destroyBlock(target);
+				ExcavationBreakContext.current().ifPresent(context -> EnhancementDurability.apply(
+						originalTool,
+						player,
+						enhancements.has(EnhancementType.SMELTING),
+						context.transformedAnyDrop()
+				));
 			}
 		}
 	}

@@ -3,7 +3,7 @@
 > **Alvo inicial:** Minecraft 26.3, Fabric, Java 25  
 > **Escopo:** versão 1.0 definida em `JUSTEXCAVATORS_IDEA.md`  
 > **Última atualização:** 2026-09-30
-> **Estado atual:** Enhancement Cores — Fases 0 a 3 concluídas; próxima etapa é Smelting
+> **Estado atual:** Enhancement Cores — Fases 0 a 4 concluídas; próxima etapa é conteúdo e apresentação
 
 Este documento é o guia operacional do desenvolvimento. Ele registra decisões,
 ordem de execução, critérios de aceite e pontos de retomada para que o trabalho
@@ -565,12 +565,12 @@ Estado: `CONCLUÍDO`
 
 ### Enhancement Cores — Fase 4: Smelting
 
-Estado: `PENDENTE`
+Estado: `CONCLUÍDO`
 
-- [ ] Processar cada unidade de drop através de receitas normais de fornalha.
-- [ ] Aplicar Silk ou Fortune antes de Smelting.
-- [ ] Preservar drops sem receita e não gerar XP de fornalha.
-- [ ] Cobrar dois pontos potenciais de durabilidade por bloco transformado.
+- [x] Processar cada unidade de drop através de receitas normais de fornalha.
+- [x] Aplicar Silk ou Fortune antes de Smelting.
+- [x] Preservar drops sem receita e não gerar XP de fornalha.
+- [x] Cobrar dois pontos potenciais de durabilidade por bloco transformado.
 
 ### Enhancement Cores — Fase 5: conteúdo e apresentação
 
@@ -690,6 +690,6 @@ Ao iniciar uma nova sessão de desenvolvimento:
 
 ## 9. Próximo passo
 
-Iniciar **Enhancement Cores — Fase 4: Smelting**.
+Iniciar **Enhancement Cores — Fase 5: conteúdo e apresentação**.
 A Fase 11 histórica de validação será retomada depois que a expansão estiver
 integrada.

@@ -23,6 +23,8 @@ import net.minecraft.world.level.gamerules.GameRules;
 
 import net.hfstack.justexcavators.enhancement.EnhancementDropDelivery;
 import net.hfstack.justexcavators.enhancement.EnhancementType;
+import net.hfstack.justexcavators.enhancement.SmeltingDropProcessor;
+import net.hfstack.justexcavators.enhancement.SmeltingRecipeResolver;
 import net.hfstack.justexcavators.enhancement.SilkLootTool;
 import net.hfstack.justexcavators.excavation.ExcavationBreakContext;
 
@@ -56,16 +58,36 @@ abstract class BlockDropMixin {
 					&& context.enhancements().has(EnhancementType.COLLECTOR);
 			boolean voiding = context.enhancements().valid()
 					&& context.enhancements().has(EnhancementType.VOID);
-			Consumer<ItemStack> routed = drop -> EnhancementDropDelivery.deliver(
-					drop,
-					collector,
-					voiding,
-					incoming -> {
-						context.player().getInventory().add(incoming);
-						return incoming;
-					},
-					vanillaWorldDrop
-			);
+			boolean smelting = context.enhancements().valid()
+					&& context.enhancements().has(EnhancementType.SMELTING);
+			Consumer<ItemStack> routed = drop -> {
+				if (voiding) {
+					EnhancementDropDelivery.deliver(
+							drop, collector, true, incoming -> incoming, vanillaWorldDrop
+					);
+					return;
+				}
+				SmeltingDropProcessor.SmeltingResult processed = smelting
+						? SmeltingDropProcessor.process(
+								drop, input -> SmeltingRecipeResolver.smeltOne(serverLevel, input)
+						)
+						: new SmeltingDropProcessor.SmeltingResult(List.of(drop), false);
+				if (processed.transformed()) {
+					context.markDropTransformed();
+				}
+				for (ItemStack output : processed.outputs()) {
+					EnhancementDropDelivery.deliver(
+							output,
+							collector,
+							false,
+							incoming -> {
+								context.player().getInventory().add(incoming);
+								return incoming;
+							},
+							vanillaWorldDrop
+					);
+				}
+			};
 			original.call(drops, routed);
 		}, () -> original.call(drops, vanillaWorldDrop));
 	}
