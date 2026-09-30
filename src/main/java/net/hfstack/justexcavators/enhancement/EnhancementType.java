@@ -2,6 +2,7 @@ package net.hfstack.justexcavators.enhancement;
 
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -30,5 +31,19 @@ public enum EnhancementType {
 
 	public String serializedName() {
 		return name().toLowerCase(Locale.ROOT);
+	}
+
+	public String translationKey() {
+		return "enhancement.justexcavators." + serializedName();
+	}
+
+	public String descriptionTranslationKey() {
+		return translationKey() + ".description";
+	}
+
+	public Optional<String> warningTranslationKey() {
+		return this == VOID
+				? Optional.of(translationKey() + ".warning")
+				: Optional.empty();
 	}
 }

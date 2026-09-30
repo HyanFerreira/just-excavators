@@ -64,7 +64,19 @@ public final class ModPortugueseLanguageProvider extends FabricLanguageProvider 
 		translations.add("excavation_mode.justexcavators.advanced", "Avançado");
 		translations.add("tooltip.justexcavators.mode", "Modo: %s");
 		translations.add("tooltip.justexcavators.area", "Área de Escavação: %sx%sx%s");
-		translations.add("tooltip.justexcavators.enhancement.silk_touch", "Melhoria: Toque Suave");
+		translations.add("tooltip.justexcavators.enhancements", "Núcleos de Aprimoramento (%s/%s):");
+		translations.add("tooltip.justexcavators.enhancement_slot", "- Slot %s: %s");
 		translations.add("tooltip.justexcavators.precision", "Segure Shift para desativar a escavação em área");
+		translations.add("enhancement.justexcavators.silk", "Núcleo de Seda");
+		translations.add("enhancement.justexcavators.silk.description", "Blocos quebrados soltam a si mesmos quando possível.");
+		translations.add("enhancement.justexcavators.collector", "Núcleo Coletor");
+		translations.add("enhancement.justexcavators.collector.description", "Os drops são enviados diretamente ao seu inventário.");
+		translations.add("enhancement.justexcavators.smelting", "Núcleo de Fundição");
+		translations.add("enhancement.justexcavators.smelting.description", "Os drops são processados usando receitas de fornalha.");
+		translations.add("enhancement.justexcavators.filter", "Núcleo de Filtro");
+		translations.add("enhancement.justexcavators.filter.description", "Apenas blocos correspondentes são escavados na área.");
+		translations.add("enhancement.justexcavators.void", "Núcleo do Vazio");
+		translations.add("enhancement.justexcavators.void.description", "Blocos destruídos não geram itens ou experiência.");
+		translations.add("enhancement.justexcavators.void.warning", "Aviso: os drops descartados não podem ser recuperados.");
 	}
 }

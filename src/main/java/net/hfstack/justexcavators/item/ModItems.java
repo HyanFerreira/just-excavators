@@ -13,6 +13,7 @@ import net.minecraft.world.item.ToolMaterial;
 
 import net.hfstack.justexcavators.JustExcavators;
 import net.hfstack.justexcavators.block.ModBlocks;
+import net.hfstack.justexcavators.enhancement.EnhancementType;
 
 public final class ModItems {
 	public static final ExcavatorItem STONE_EXCAVATOR = registerExcavator("stone_excavator", ToolMaterial.STONE);
@@ -25,11 +26,11 @@ public final class ModItems {
 	public static final Item DEEP_EXCAVATION_CORE = register("deep_excavation_core", Item::new);
 	public static final Item WIDE_EXCAVATION_CORE = register("wide_excavation_core", Item::new);
 	public static final Item ADVANCED_EXCAVATION_CORE = register("advanced_excavation_core", Item::new);
-	public static final Item SILK_CORE = register("silk_core", Item::new);
-	public static final Item COLLECTOR_CORE = register("collector_core", Item::new);
-	public static final Item SMELTING_CORE = register("smelting_core", Item::new);
-	public static final Item FILTER_CORE = register("filter_core", Item::new);
-	public static final Item VOID_CORE = register("void_core", Item::new);
+	public static final Item SILK_CORE = registerEnhancementCore("silk_core", EnhancementType.SILK);
+	public static final Item COLLECTOR_CORE = registerEnhancementCore("collector_core", EnhancementType.COLLECTOR);
+	public static final Item SMELTING_CORE = registerEnhancementCore("smelting_core", EnhancementType.SMELTING);
+	public static final Item FILTER_CORE = registerEnhancementCore("filter_core", EnhancementType.FILTER);
+	public static final Item VOID_CORE = registerEnhancementCore("void_core", EnhancementType.VOID);
 	public static final Item ENHANCEMENT_WORKBENCH = register(
 			"enhancement_workbench",
 			properties -> new BlockItem(ModBlocks.ENHANCEMENT_WORKBENCH, properties.useBlockDescriptionPrefix())
@@ -64,6 +65,10 @@ public final class ModItems {
 
 	private static ExcavatorItem registerExcavator(String name, ToolMaterial material) {
 		return register(name, properties -> new ExcavatorItem(properties, material));
+	}
+
+	private static EnhancementCoreItem registerEnhancementCore(String name, EnhancementType type) {
+		return register(name, properties -> new EnhancementCoreItem(properties, type));
 	}
 
 	private static <T extends Item> T register(String name, Function<Item.Properties, T> factory) {

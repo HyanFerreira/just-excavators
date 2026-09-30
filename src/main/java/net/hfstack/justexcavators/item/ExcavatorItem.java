@@ -12,7 +12,6 @@ import net.minecraft.world.item.component.TooltipDisplay;
 
 import net.hfstack.justexcavators.component.ExcavatorComponents;
 import net.hfstack.justexcavators.component.ExcavatorEnhancements;
-import net.hfstack.justexcavators.enhancement.EnhancementType;
 import net.hfstack.justexcavators.excavation.ExcavationMode;
 
 public final class ExcavatorItem extends Item {
@@ -46,10 +45,7 @@ public final class ExcavatorItem extends Item {
 				ExcavatorComponents.ENHANCEMENTS,
 				ExcavatorEnhancements.EMPTY
 		);
-		if (enhancements.has(EnhancementType.SILK)) {
-			textConsumer.accept(Component.translatable("tooltip.justexcavators.enhancement.silk_touch")
-					.withStyle(ChatFormatting.AQUA));
-		}
+		EnhancementTooltipContent.lines(enhancements).forEach(textConsumer);
 		textConsumer.accept(Component.translatable("tooltip.justexcavators.precision")
 				.withStyle(ChatFormatting.DARK_GRAY));
 	}
