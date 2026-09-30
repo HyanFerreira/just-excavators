@@ -19,9 +19,11 @@ Touch sintético, preservam os demais encantamentos e passam a gravar somente os
 slots novos.
 
 Testes unitários e integrados, build, carregamento de mixins e datagen
-idempotente compõem o gate automatizado. Arte final distinta para a Workbench e
-os Cores, receitas Survival ainda não decididas e playtests interativos em
-multiplayer/servidor dedicado permanecem como acompanhamento externo.
+idempotente compõem o gate automatizado. O servidor dedicado também foi iniciado
+e encerrado com JustExcavators e JustHammers sem warnings ou erros. Arte final
+distinta para a Workbench e os Cores, receitas Survival ainda não decididas e
+playtests interativos de sincronização multiplayer permanecem como
+acompanhamento externo.
 
 ---
 

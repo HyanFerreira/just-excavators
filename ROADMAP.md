@@ -485,12 +485,14 @@ Critérios de aceite:
 
 ### Fase 11 — Validação de release 1.0
 
-Estado: `GATE AUTOMATIZADO CONCLUÍDO; PLAYTEST INTERATIVO PENDENTE`
+Estado: `GATE AUTOMATIZADO E STARTUP DEDICADO CONCLUÍDOS; PLAYTEST INTERATIVO PENDENTE`
 
 Tarefas:
 
 - [x] Executar todos os testes unitários e integrados disponíveis.
 - [x] Executar build e datagen limpos e confirmar idempotência.
+- [x] Iniciar e encerrar servidor dedicado com JustExcavators e JustHammers,
+  sem warnings ou erros no log.
 - [ ] Fazer playtest de Basic, Deep e Wide em todas as faces.
 - [ ] Testar terrenos mistos.
 - [ ] Testar Sand e Gravel em cascata.
@@ -664,7 +666,7 @@ Atualizar esta seção ao concluir cada etapa.
 | 8 — Conteúdo/datagen | Concluído | Datagen idempotente; `core_model.png` mantido apenas como asset; Bigger Shovel, Digging Deeper e Wide Open adicionados; Silk continua reservado à Fase 10 |
 | 9 — Compatibilidade | Concluído | Inicialização standalone e com JustHammers confirmada; validações dependentes de jogo real transferidas para a Fase 11 |
 | 10 — Silk Core | Concluído | Workbench dedicada, Silk Touch temporário no loot context, restrições de Fortune/redundância, tooltip, traduções e advancement |
-| 11 — Release | Em andamento | Gate automatizado concluído; playtests interativos, servidor dedicado e conteúdo externo pendentes |
+| 11 — Release | Em andamento | Gate automatizado e startup dedicado concluídos; sincronização multiplayer, playtests e conteúdo externo pendentes |
 
 Estados permitidos:
 

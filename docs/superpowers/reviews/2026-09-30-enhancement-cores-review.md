@@ -44,7 +44,10 @@ routing, durability, client/common separation, or generated-data stability.
 These are explicit release follow-ups, not hidden implementation findings:
 
 - interactive vanilla and modded block/callback playtests;
-- dedicated-server component synchronization and two-player latency checks;
+- dedicated-server startup/shutdown passed with JustExcavators and JustHammers,
+  with zero warnings or errors after adding the missing Excavators item-tag
+  translations;
+- client/server component synchronization and two-player latency checks;
 - final Workbench/Core art;
 - survival recipes and progression balance for the Workbench and four new Cores;
 - release metadata, changelog, and packaged artifact validation.

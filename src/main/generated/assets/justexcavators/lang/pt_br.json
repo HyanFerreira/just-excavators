@@ -51,6 +51,7 @@
   "item.justexcavators.void_core": "Núcleo do Vazio",
   "item.justexcavators.wide_excavation_core": "Núcleo de Escavação Ampla",
   "itemGroup.justexcavators": "Just Excavators",
+  "tag.item.justexcavators.excavators": "Escavadoras",
   "tooltip.justexcavators.area": "Área de Escavação: %sx%sx%s",
   "tooltip.justexcavators.enhancement_slot": "- Slot %s: %s",
   "tooltip.justexcavators.enhancements": "Núcleos de Aprimoramento (%s/%s):",

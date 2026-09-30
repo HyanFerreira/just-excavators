@@ -416,8 +416,10 @@ conservation, XP suppression, durability decisions, tooltips, build, mixin
 loading, and idempotent data generation. Common source is checked for client
 imports, and the removed Smithing/Grindstone transition symbols are absent.
 
-Interactive multiplayer, dedicated-server, claims/protection-mod, gravity-block,
-and datapack-reload playtests remain external release checks. Final distinct
+Dedicated-server startup and shutdown were verified with JustExcavators and
+JustHammers loaded and no warnings or errors. Interactive multiplayer component
+synchronization, claims/protection-mod, gravity-block, and datapack-reload
+playtests remain external release checks. Final distinct
 Workbench/Core artwork and undecided Survival recipes are content follow-ups,
 not missing functional implementation.
 
