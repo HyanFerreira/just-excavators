@@ -5,9 +5,11 @@ import net.fabricmc.api.ModInitializer;
 import net.minecraft.resources.Identifier;
 
 import net.hfstack.justexcavators.component.ExcavatorComponents;
+import net.hfstack.justexcavators.block.ModBlocks;
 import net.hfstack.justexcavators.item.ModCreativeTab;
 import net.hfstack.justexcavators.item.ModItems;
 import net.hfstack.justexcavators.recipe.ModRecipeSerializers;
+import net.hfstack.justexcavators.workbench.ModMenuTypes;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,8 +22,10 @@ public class JustExcavators implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		ExcavatorComponents.init();
+		ModBlocks.init();
 		ModItems.init();
 		ModRecipeSerializers.init();
+		ModMenuTypes.init();
 		ModCreativeTab.init();
 
 		LOGGER.info("Just Excavators initialized.");

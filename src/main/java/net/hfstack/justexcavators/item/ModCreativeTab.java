@@ -35,6 +35,7 @@ public final class ModCreativeTab {
 							}
 						});
 						ModItems.CORES.forEach(output::accept);
+						output.accept(ModItems.ENHANCEMENT_WORKBENCH);
 					})
 					.build()
 	);

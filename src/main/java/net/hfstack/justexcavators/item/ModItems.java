@@ -8,9 +8,11 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ToolMaterial;
 
 import net.hfstack.justexcavators.JustExcavators;
+import net.hfstack.justexcavators.block.ModBlocks;
 
 public final class ModItems {
 	public static final ExcavatorItem STONE_EXCAVATOR = registerExcavator("stone_excavator", ToolMaterial.STONE);
@@ -28,6 +30,10 @@ public final class ModItems {
 	public static final Item SMELTING_CORE = register("smelting_core", Item::new);
 	public static final Item FILTER_CORE = register("filter_core", Item::new);
 	public static final Item VOID_CORE = register("void_core", Item::new);
+	public static final Item ENHANCEMENT_WORKBENCH = register(
+			"enhancement_workbench",
+			properties -> new BlockItem(ModBlocks.ENHANCEMENT_WORKBENCH, properties.useBlockDescriptionPrefix())
+	);
 
 	public static final List<ExcavatorItem> EXCAVATORS = List.of(
 			STONE_EXCAVATOR,
