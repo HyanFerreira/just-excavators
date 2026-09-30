@@ -17,6 +17,9 @@ public final class EnhancementWorkbenchScreen
 	);
 	private static final int SOURCE_WIDTH = 256;
 	private static final int SOURCE_HEIGHT = 256;
+	private static final float TITLE_MAX_WIDTH = 118.0F;
+	private static final int TITLE_Y = 7;
+	private static final int TITLE_COLOR = 0xFF404040;
 
 	public EnhancementWorkbenchScreen(
 			EnhancementWorkbenchMenu menu,
@@ -24,8 +27,6 @@ public final class EnhancementWorkbenchScreen
 			Component title
 	) {
 		super(menu, inventory, title, 176, 166);
-		this.inventoryLabelX = 8;
-		this.inventoryLabelY = 72;
 	}
 
 	@Override
@@ -48,16 +49,15 @@ public final class EnhancementWorkbenchScreen
 	@Override
 	protected void extractLabels(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
 		int titleWidth = font.width(title);
-		float titleScale = Math.min(1.0F, 160.0F / titleWidth);
+		float titleScale = Math.min(1.0F, TITLE_MAX_WIDTH / titleWidth);
 		if (titleScale == 1.0F) {
-			graphics.centeredText(font, title, imageWidth / 2, 6, 0x404040);
+			graphics.centeredText(font, title, imageWidth / 2, TITLE_Y, TITLE_COLOR);
 		} else {
 			graphics.pose().pushMatrix();
-			graphics.pose().translate(imageWidth / 2.0F, 6.0F);
+			graphics.pose().translate(imageWidth / 2.0F, TITLE_Y);
 			graphics.pose().scale(titleScale);
-			graphics.text(font, title, -titleWidth / 2, 0, 0x404040, false);
+			graphics.text(font, title, -titleWidth / 2, 0, TITLE_COLOR, false);
 			graphics.pose().popMatrix();
 		}
-		graphics.text(font, playerInventoryTitle, inventoryLabelX, inventoryLabelY, 0x404040, false);
 	}
 }

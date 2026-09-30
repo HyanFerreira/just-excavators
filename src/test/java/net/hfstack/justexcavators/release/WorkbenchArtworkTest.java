@@ -59,6 +59,9 @@ final class WorkbenchArtworkTest {
 
 		assertTrue(screen.contains("private static final int SOURCE_WIDTH = 256;"));
 		assertTrue(screen.contains("private static final int SOURCE_HEIGHT = 256;"));
+		assertTrue(screen.contains("private static final float TITLE_MAX_WIDTH = 118.0F;"));
+		assertTrue(screen.contains("private static final int TITLE_Y = 7;"));
+		assertTrue(screen.contains("private static final int TITLE_COLOR = 0xFF404040;"));
 		assertTrue(screen.contains("super(menu, inventory, title, 176, 166);"));
 		assertTrue(menu.contains("addSlot(new Slot(tool, 0, 81, 24)"));
 		assertTrue(menu.contains("addSlot(coreSlot(0, 52, 53));"));

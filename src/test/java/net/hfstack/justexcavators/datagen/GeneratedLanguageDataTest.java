@@ -22,6 +22,18 @@ final class GeneratedLanguageDataTest {
 		assertEquals("Escavadoras", translation("pt_br", "tag.item.justexcavators.excavators"));
 	}
 
+	@Test
+	void usesConcisePortugueseWorkbenchNameForBlockAndContainer() throws IOException {
+		assertEquals(
+				"Bancada de Aprimoramento",
+				translation("pt_br", "block.justexcavators.enhancement_workbench")
+		);
+		assertEquals(
+				"Bancada de Aprimoramento",
+				translation("pt_br", "container.justexcavators.enhancement_workbench")
+		);
+	}
+
 	private static String translation(String language, String key) throws IOException {
 		JsonObject translations = JsonParser.parseString(Files.readString(
 				LANG_DIRECTORY.resolve(language + ".json")
