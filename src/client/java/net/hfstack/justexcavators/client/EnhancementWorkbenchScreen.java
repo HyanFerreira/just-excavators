@@ -15,8 +15,8 @@ public final class EnhancementWorkbenchScreen
 	private static final Identifier TEXTURE = JustExcavators.id(
 			"textures/gui/container/enhancement_workbench.png"
 	);
-	private static final int SOURCE_WIDTH = 1213;
-	private static final int SOURCE_HEIGHT = 1296;
+	private static final int SOURCE_WIDTH = 243;
+	private static final int SOURCE_HEIGHT = 259;
 
 	public EnhancementWorkbenchScreen(
 			EnhancementWorkbenchMenu menu,

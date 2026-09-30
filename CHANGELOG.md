@@ -28,6 +28,7 @@ All notable changes to Just Excavators are documented in this file.
 ### Known pre-release content gaps
 
 - The Enhancement Workbench and the Collector, Smelting, Filter, and Void Cores
-  do not yet have Survival recipes or final distinct artwork.
+  do not yet have Survival recipes.
+- Collector, Smelting, Filter, and Void Cores still use provisional artwork.
 - Interactive multiplayer, claims-mod, gravity-block, and broader gameplay
   playtests remain part of the release gate.

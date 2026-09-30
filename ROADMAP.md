@@ -576,7 +576,8 @@ Estado: `FUNCIONAL CONCLUÍDO; CONTEÚDO EXTERNO PENDENTE`
 
 - [x] Finalizar traduções e tooltips funcionais dos cinco Cores e dos slots.
 - [x] Manter modelos funcionais provisórios claramente documentados.
-- [ ] Produzir arte final distinta para Workbench e Cores.
+- [x] Produzir GUI e texturas finais em pixel art para a Workbench.
+- [ ] Produzir arte final distinta para os quatro novos Cores.
 - [ ] Definir e gerar receitas Survival da mesa e dos novos Cores.
 - [x] Atualizar advancement do Silk e feedback funcional de compatibilidade da GUI.
 
@@ -692,5 +693,5 @@ Ao iniciar uma nova sessão de desenvolvimento:
 ## 9. Próximo passo
 
 Executar os playtests interativos da **Fase 11** em multiplayer e servidor
-dedicado. Em paralelo, obter decisão de conteúdo para arte final e receitas
-Survival da Workbench e dos quatro novos Cores.
+dedicado. Em paralelo, obter decisão de conteúdo para a arte final dos quatro
+novos Cores e para as receitas Survival da Workbench e desses Cores.

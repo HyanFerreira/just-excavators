@@ -50,7 +50,7 @@ administrative combinations safely disable Core effects for that break.
 
 The Workbench and all five Cores are registered for Creative mode and commands.
 The Workbench and the four newer Cores do not yet have final Survival recipes;
-their balance and final distinct artwork remain release-content follow-ups.
+the four newer Cores also still share provisional artwork.
 
 ## Recipes
 

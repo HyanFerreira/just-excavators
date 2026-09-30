@@ -20,10 +20,10 @@ slots novos.
 
 Testes unitários e integrados, build, carregamento de mixins e datagen
 idempotente compõem o gate automatizado. O servidor dedicado também foi iniciado
-e encerrado com JustExcavators e JustHammers sem warnings ou erros. Arte final
-distinta para a Workbench e os Cores, receitas Survival ainda não decididas e
-playtests interativos de sincronização multiplayer permanecem como
-acompanhamento externo.
+e encerrado com JustExcavators e JustHammers sem warnings ou erros. A Workbench
+possui GUI e bloco finais em pixel art; artes distintas para os quatro Cores
+novos, receitas Survival ainda não decididas e playtests interativos de
+sincronização multiplayer permanecem como acompanhamento externo.
 
 ---
 

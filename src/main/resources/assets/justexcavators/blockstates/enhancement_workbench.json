@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "minecraft:block/crafting_table"
+      "model": "justexcavators:block/enhancement_workbench"
     }
   }
 }

@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "justexcavators:block/enhancement_workbench_side",
+    "down": "justexcavators:block/enhancement_workbench_bottom",
+    "up": "justexcavators:block/enhancement_workbench_top",
+    "north": "justexcavators:block/enhancement_workbench_front",
+    "south": "justexcavators:block/enhancement_workbench_back",
+    "east": "justexcavators:block/enhancement_workbench_side",
+    "west": "justexcavators:block/enhancement_workbench_side"
+  }
+}

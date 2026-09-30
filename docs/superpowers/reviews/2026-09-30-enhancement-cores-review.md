@@ -48,10 +48,13 @@ These are explicit release follow-ups, not hidden implementation findings:
   with zero warnings or errors after adding the missing Excavators item-tag
   translations;
 - client/server component synchronization and two-player latency checks;
-- final Workbench/Core art;
+- final distinct art for the four new Cores;
 - survival recipes and progression balance for the Workbench and four new Cores;
 - gameplay performance profiling.
 
 Release metadata, credits, changelog, and the packaged `0.1.0` artifact were
 subsequently validated. The binary JAR includes the MIT license, expanded
 metadata, mixin configuration, and Enhancement Workbench/Core resources.
+The final Workbench GUI and five-face block artwork were also validated in a
+client resource reload with no missing model or texture errors. Authentication
+and Realms errors in that development session were external to mod resources.

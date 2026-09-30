@@ -257,11 +257,10 @@ The GUI texture contains only the panel, decorations, and slot frames. It must
 not contain the world background, player hand, baked item icons, quantities,
 tooltips, or localized text. Title and inventory labels are rendered by code.
 
-The committed 1213 x 1296 RGB image at that path is intentionally used as the
-Phase 1 runtime GUI and rendered proportionally at 243 x 259. Its panel and slot
-layout are functional; dynamic items, quantities, tooltips, and translated
-labels remain code-rendered. Final block artwork is still pending, so the world
-block and its item temporarily use the vanilla crafting-table model.
+The runtime GUI is a native 243 x 259 pixel-art texture, rendered one-to-one so
+slot borders and details remain crisp. Dynamic items, quantities, tooltips, and
+translated labels remain code-rendered. The world block uses its own 16 x 16
+top, front, back, side, and bottom textures through a dedicated cube model.
 
 ## Excavation processing
 
@@ -419,9 +418,9 @@ imports, and the removed Smithing/Grindstone transition symbols are absent.
 Dedicated-server startup and shutdown were verified with JustExcavators and
 JustHammers loaded and no warnings or errors. Interactive multiplayer component
 synchronization, claims/protection-mod, gravity-block, and datapack-reload
-playtests remain external release checks. Final distinct
-Workbench/Core artwork and undecided Survival recipes are content follow-ups,
-not missing functional implementation.
+playtests remain external release checks. Final distinct artwork for the four
+new Cores and undecided Survival recipes are content follow-ups, not missing
+functional implementation.
 
 ### Unit tests
 

@@ -49,7 +49,7 @@ public final class ModItemModelProvider extends FabricModelProvider {
 		generateCore(generators, ModItems.VOID_CORE, "void_core", "silk_core");
 		generators.itemModelOutput.accept(
 				ModItems.ENHANCEMENT_WORKBENCH,
-				ItemModelUtils.plainModel(Identifier.withDefaultNamespace("block/crafting_table"))
+				ItemModelUtils.plainModel(JustExcavators.id("block/enhancement_workbench"))
 		);
 	}
 
