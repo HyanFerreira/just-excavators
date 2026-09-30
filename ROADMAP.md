@@ -3,7 +3,7 @@
 > **Alvo inicial:** Minecraft 26.3, Fabric, Java 25  
 > **Escopo:** versão 1.0 definida em `JUSTEXCAVATORS_IDEA.md`  
 > **Última atualização:** 2026-09-30
-> **Estado atual:** Enhancement Cores — Fases 0, 1 e 2 concluídas; próxima etapa é Filter, Collector e Void
+> **Estado atual:** Enhancement Cores — Fases 0 a 3 concluídas; próxima etapa é Smelting
 
 Este documento é o guia operacional do desenvolvimento. Ele registra decisões,
 ordem de execução, critérios de aceite e pontos de retomada para que o trabalho
@@ -557,11 +557,11 @@ Estado: `CONCLUÍDO`
 
 ### Enhancement Cores — Fase 3: Filter, Collector e Void
 
-Estado: `PENDENTE`
+Estado: `CONCLUÍDO`
 
-- [ ] Filtrar apenas blocos adicionais pelo tipo do bloco central.
-- [ ] Inserir drops no inventário e derrubar os excedentes na origem.
-- [ ] Remover drops e XP com Void, inclusive no modo 1 x 1 com Shift.
+- [x] Filtrar apenas blocos adicionais pelo tipo do bloco central.
+- [x] Inserir drops no inventário e derrubar os excedentes na origem.
+- [x] Remover drops e XP com Void, inclusive no modo 1 x 1 com Shift.
 
 ### Enhancement Cores — Fase 4: Smelting
 
@@ -690,6 +690,6 @@ Ao iniciar uma nova sessão de desenvolvimento:
 
 ## 9. Próximo passo
 
-Iniciar **Enhancement Cores — Fase 3: Filter, Collector e Void**.
+Iniciar **Enhancement Cores — Fase 4: Smelting**.
 A Fase 11 histórica de validação será retomada depois que a expansão estiver
 integrada.

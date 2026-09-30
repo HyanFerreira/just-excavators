@@ -6,20 +6,18 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import net.minecraft.SharedConstants;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.registries.VanillaRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.Bootstrap;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 
+import net.hfstack.justexcavators.MinecraftTestBootstrap;
 import net.hfstack.justexcavators.component.ExcavatorEnhancements;
 import net.hfstack.justexcavators.excavation.ExcavationMode;
 
@@ -36,11 +34,7 @@ final class SilkLootToolTest {
 
 	@BeforeAll
 	static void bootstrapRegistries() {
-		SharedConstants.tryDetectVersion();
-		Bootstrap.bootStrap();
-		HolderLookup.Provider registries = VanillaRegistries.createWorldLookup();
-		net.minecraft.core.registries.BuiltInRegistries.DATA_COMPONENT_INITIALIZERS.build(registries)
-				.forEach(pending -> pending.apply());
+		HolderLookup.Provider registries = MinecraftTestBootstrap.registries();
 		silkTouch = registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH);
 		unbreaking = registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.UNBREAKING);
 	}

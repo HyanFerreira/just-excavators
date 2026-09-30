@@ -1,6 +1,7 @@
 package net.hfstack.justexcavators.excavation;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -8,6 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import net.hfstack.justexcavators.enhancement.ActiveEnhancements;
+import net.hfstack.justexcavators.enhancement.EnhancementType;
+import net.hfstack.justexcavators.component.ExcavatorEnhancements;
 
 final class ExcavationBreakContextTest {
 	@Test
@@ -54,7 +57,45 @@ final class ExcavationBreakContextTest {
 		assertTrue(ExcavationBreakContext.current().isEmpty());
 	}
 
+	@Test
+	void collectorAndVoidAreVisibleForCentralAndAdditionalBreaks() {
+		for (EnhancementType type : new EnhancementType[] {
+				EnhancementType.COLLECTOR, EnhancementType.VOID
+		}) {
+			ActiveEnhancements active = ActiveEnhancements.resolve(
+					ExcavatorEnhancements.EMPTY.withSlot(0, type), false, false
+			);
+			for (boolean additional : new boolean[] { false, true }) {
+				try (ExcavationBreakContext.Scope ignored = ExcavationBreakContext.open(
+						context(additional, active)
+				)) {
+					ExcavationBreakContext current = ExcavationBreakContext.current().orElseThrow();
+					assertEquals(additional, current.additional());
+					assertTrue(current.enhancements().has(type));
+				}
+			}
+		}
+	}
+
+	@Test
+	void sneakingPreventsOnlyAoeAndDoesNotRemoveTheCentralContext() {
+		ActiveEnhancements collector = ActiveEnhancements.resolve(
+				ExcavatorEnhancements.EMPTY.withSlot(0, EnhancementType.COLLECTOR), false, false
+		);
+		assertFalse(ExcavationExecutionPolicy.canStart(
+				new ExcavationExecutionPolicy.StartFacts(true, true, true, false)
+		));
+		try (ExcavationBreakContext.Scope ignored = ExcavationBreakContext.open(context(false, collector))) {
+			assertTrue(ExcavationBreakContext.current().orElseThrow()
+					.enhancements().has(EnhancementType.COLLECTOR));
+		}
+	}
+
 	private static ExcavationBreakContext context(boolean additional) {
-		return new ExcavationBreakContext(null, null, ActiveEnhancements.EMPTY, null, null, additional);
+		return context(additional, ActiveEnhancements.EMPTY);
+	}
+
+	private static ExcavationBreakContext context(boolean additional, ActiveEnhancements enhancements) {
+		return new ExcavationBreakContext(null, null, enhancements, null, null, additional);
 	}
 }

@@ -4,13 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import net.minecraft.SharedConstants;
-import net.minecraft.server.Bootstrap;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
+import net.hfstack.justexcavators.MinecraftTestBootstrap;
 import net.hfstack.justexcavators.component.ExcavatorEnhancements;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -27,8 +26,7 @@ final class FilterCorePolicyTest {
 
 	@BeforeAll
 	static void bootstrapBlocks() {
-		SharedConstants.tryDetectVersion();
-		Bootstrap.bootStrap();
+		MinecraftTestBootstrap.registries();
 		central = Blocks.SNOW;
 		other = Blocks.DIRT;
 	}
