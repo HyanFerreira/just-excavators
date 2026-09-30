@@ -1,6 +1,6 @@
 # Enhancement Cores and Enhancement Workbench Design
 
-**Status:** Approved architectural design
+**Status:** Implemented; automated verification passed, interactive playtests pending
 
 **Date:** 2026-09-30
 
@@ -400,6 +400,19 @@ No rendering class may be referenced from the common initialization path, so a
 dedicated server can load the mod safely.
 
 ## Verification
+
+### Verification status (2026-09-30)
+
+The automated gate covers compatibility, fixed-slot persistence, Workbench
+transactions, central/additional scope, ordered loot transformation, item-count
+conservation, XP suppression, durability decisions, tooltips, build, mixin
+loading, and idempotent data generation. Common source is checked for client
+imports, and the removed Smithing/Grindstone transition symbols are absent.
+
+Interactive multiplayer, dedicated-server, claims/protection-mod, gravity-block,
+and datapack-reload playtests remain external release checks. Final distinct
+Workbench/Core artwork and undecided Survival recipes are content follow-ups,
+not missing functional implementation.
 
 ### Unit tests
 

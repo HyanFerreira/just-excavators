@@ -111,7 +111,7 @@ abstract class BlockDropMixin {
 				.filter(context -> context.enhancements().valid())
 				.filter(context -> context.enhancements().has(EnhancementType.VOID))
 				.isPresent();
-		if (!voiding) {
+		if (EnhancementDropDelivery.shouldSpawnAfterBreak(voiding)) {
 			original.call(state, level, pos, tool, dropExperience);
 		}
 	}

@@ -3,7 +3,7 @@
 > **Alvo inicial:** Minecraft 26.3, Fabric, Java 25  
 > **Escopo:** versão 1.0 definida em `JUSTEXCAVATORS_IDEA.md`  
 > **Última atualização:** 2026-09-30
-> **Estado atual:** Enhancement Cores — Fases 0 a 4 concluídas; próxima etapa é conteúdo e apresentação
+> **Estado atual:** Enhancement Cores — implementação funcional e gate automatizado concluídos; playtests e conteúdo externo pendentes
 
 Este documento é o guia operacional do desenvolvimento. Ele registra decisões,
 ordem de execução, critérios de aceite e pontos de retomada para que o trabalho
@@ -90,7 +90,7 @@ gravado como Data Component no resultado, sem criar IDs adicionais por perfil.
 - Basic não usa Core; `core_model.png` é apenas um asset visual, não um item.
 - Deep, Wide e Advanced usam seus respectivos Cores no molde da ferramenta.
 - A progressão dos Cores é linear: Netherite Excavator -> Deep -> Wide -> Advanced.
-- A Smithing Table fica reservada para upgrades de material e enhancements.
+- A Smithing Table fica reservada ao upgrade de material Diamond -> Netherite.
 - Diamond -> Netherite deve preservar modo, dano, nome e demais componentes.
 - Silk é independente e poderá coexistir com qualquer perfil.
 
@@ -130,20 +130,17 @@ proteção cancelar o alvo original.
 
 ### Silk Core
 
-O Silk Core será implementado por último, depois que todos os demais sistemas
-estiverem estáveis.
-
-Direção inicial:
+O Silk Core usa a seguinte implementação definitiva:
 
 - componente próprio registra a origem da habilidade;
 - comportamento de loot reutiliza Silk Touch vanilla;
 - Fortune e Silk devem permanecer incompatíveis;
 - aplicação redundante deve ser rejeitada;
-- tooltip deve indicar `Native Silk Touch`/equivalente.
+- tooltip descreve preservação de blocos sem expor um encantamento persistente.
 
-A implementação definitiva depende de um spike técnico isolado. A solução deve
-priorizar compatibilidade com loot tables vanilla, mods e datapacks, sem tabelas
-manuais de conversão de blocos.
+A solução injeta Silk Touch somente na cópia temporária usada pelo loot context,
+priorizando compatibilidade com loot tables vanilla, mods e datapacks sem
+tabelas manuais de conversão de blocos.
 
 ## 3. Estrutura de código proposta
 
@@ -450,24 +447,21 @@ Tarefas:
 
 - [x] Fazer spike técnico isolado da integração com loot vanilla.
 - [x] Registrar o enhancement Silk no componente da ferramenta.
-- [x] Implementar aplicação pela Smithing Table.
+- [x] Migrar a aplicação para a Enhancement Workbench.
 - [x] Preservar modo, dano, nome e demais encantamentos.
 - [x] Rejeitar Silk em ferramenta com Fortune.
 - [x] Rejeitar Silk redundante ou Silk Touch já existente.
 - [x] Impedir aplicação posterior de Fortune pela mecânica vanilla.
 - [x] Garantir o mesmo resultado no bloco central e no AOE.
-- [x] Implementar tooltip `Silk Touch`/`Toque Suave`.
-- [x] Avaliar a linha redundante de Silk Touch; mantida para não ocultar os
-  demais encantamentos vanilla.
-- [x] Preservar no rebolo o Silk Touch fornecido pelo Core e excluir esse
-  encantamento do cálculo de XP removível.
+- [x] Implementar tooltip localizado do Silk Core e resumo dos slots na ferramenta.
+- [x] Remover encantamento persistente, serializer/recipe de Smithing e
+  workarounds de Grindstone.
 
-Resultado do spike: a receita copia a `ItemStack` base e adiciona o encantamento
-vanilla `minecraft:silk_touch`, além de marcar sua origem no componente
-`enhancements`. Loot tables vanilla, de datapacks e de mods recebem assim a
-ferramenta real com Silk Touch, sem tabela manual de conversão de drops.
-Ferramentas antigas cujo encantamento tenha sido removido são reparadas no
-inventário a partir do componente persistente.
+Resultado definitivo: o componente `enhancements` registra o Silk Core e uma
+cópia count-one da ferramenta recebe `minecraft:silk_touch` somente durante o
+cálculo do loot. A ferramenta persistida não é encantada. Loot tables vanilla,
+de datapacks e de mods continuam recebendo a semântica vanilla de Silk Touch,
+sem tabela manual de conversão de drops.
 
 Casos obrigatórios:
 
@@ -491,12 +485,12 @@ Critérios de aceite:
 
 ### Fase 11 — Validação de release 1.0
 
-Estado: `PENDENTE`
+Estado: `GATE AUTOMATIZADO CONCLUÍDO; PLAYTEST INTERATIVO PENDENTE`
 
 Tarefas:
 
-- [ ] Executar todos os testes unitários e GameTests.
-- [ ] Executar build e datagen limpos.
+- [x] Executar todos os testes unitários e integrados disponíveis.
+- [x] Executar build e datagen limpos e confirmar idempotência.
 - [ ] Fazer playtest de Basic, Deep e Wide em todas as faces.
 - [ ] Testar terrenos mistos.
 - [ ] Testar Sand e Gravel em cascata.
@@ -574,20 +568,23 @@ Estado: `CONCLUÍDO`
 
 ### Enhancement Cores — Fase 5: conteúdo e apresentação
 
-Estado: `PENDENTE`
+Estado: `FUNCIONAL CONCLUÍDO; CONTEÚDO EXTERNO PENDENTE`
 
-- [ ] Finalizar modelos, texturas, traduções e tooltips.
+- [x] Finalizar traduções e tooltips funcionais dos cinco Cores e dos slots.
+- [x] Manter modelos funcionais provisórios claramente documentados.
+- [ ] Produzir arte final distinta para Workbench e Cores.
 - [ ] Definir e gerar receitas Survival da mesa e dos novos Cores.
-- [ ] Atualizar advancements e ajuda de compatibilidade da GUI.
+- [x] Atualizar advancement do Silk e feedback funcional de compatibilidade da GUI.
 
 ### Enhancement Cores — Fase 6: integração e playtests
 
-Estado: `PENDENTE`
+Estado: `GATE AUTOMATIZADO CONCLUÍDO; PLAYTEST INTERATIVO PENDENTE`
 
-- [ ] Executar GameTests e build de servidor dedicado.
-- [ ] Validar todas as combinações permitidas e proibidas.
-- [ ] Testar multiplayer, inventário cheio, datapacks e mods de proteção.
-- [ ] Medir AOE Advanced com Collector, Smelting e Void.
+- [x] Validar automaticamente combinações permitidas/proibidas e pipeline ordenado.
+- [x] Validar build, mixins, datagen, overflow e fronteiras client/common.
+- [ ] Executar GameTests e startup dedicado interativo.
+- [ ] Testar multiplayer, datapacks e mods de proteção em jogo real.
+- [ ] Medir AOE Advanced com Collector, Smelting e Void em playtest.
 
 ## 5. Estratégia de testes
 
@@ -664,8 +661,8 @@ Atualizar esta seção ao concluir cada etapa.
 | 7 — Durabilidade | Concluído | Desgaste vanilla por bloco, encantamentos preservados e último ponto protegido |
 | 8 — Conteúdo/datagen | Concluído | Datagen idempotente; `core_model.png` mantido apenas como asset; Bigger Shovel, Digging Deeper e Wide Open adicionados; Silk continua reservado à Fase 10 |
 | 9 — Compatibilidade | Concluído | Inicialização standalone e com JustHammers confirmada; validações dependentes de jogo real transferidas para a Fase 11 |
-| 10 — Silk Core | Concluído | Receita de ferraria própria, Silk Touch vanilla, restrições de Fortune/redundância, tooltip, traduções e advancement |
-| 11 — Release | Pendente | |
+| 10 — Silk Core | Concluído | Workbench dedicada, Silk Touch temporário no loot context, restrições de Fortune/redundância, tooltip, traduções e advancement |
+| 11 — Release | Em andamento | Gate automatizado concluído; playtests interativos, servidor dedicado e conteúdo externo pendentes |
 
 Estados permitidos:
 
@@ -690,6 +687,6 @@ Ao iniciar uma nova sessão de desenvolvimento:
 
 ## 9. Próximo passo
 
-Iniciar **Enhancement Cores — Fase 5: conteúdo e apresentação**.
-A Fase 11 histórica de validação será retomada depois que a expansão estiver
-integrada.
+Executar os playtests interativos da **Fase 11** em multiplayer e servidor
+dedicado. Em paralelo, obter decisão de conteúdo para arte final e receitas
+Survival da Workbench e dos quatro novos Cores.

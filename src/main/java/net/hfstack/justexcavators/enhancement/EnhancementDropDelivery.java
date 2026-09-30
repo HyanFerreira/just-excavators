@@ -47,6 +47,10 @@ public final class EnhancementDropDelivery {
 		return new DeliveryResult(originalCount - remainderCount, remainderCount, 0);
 	}
 
+	public static boolean shouldSpawnAfterBreak(boolean voiding) {
+		return !voiding;
+	}
+
 	public record DeliveryResult(int insertedCount, int droppedCount, int discardedCount) {
 		public static final DeliveryResult EMPTY = new DeliveryResult(0, 0, 0);
 

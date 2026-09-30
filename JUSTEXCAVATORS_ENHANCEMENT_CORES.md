@@ -1,9 +1,23 @@
 # JustExcavators — Enhancement Cores
 
-> **Status:** implementação em andamento; fundação de dados e compatibilidade concluída
+> **Status:** implementação funcional concluída; gate automatizado aprovado em 2026-09-30
 > **Projeto:** JustExcavators
 > **Plataforma inicial:** Fabric
-> **Objetivo deste documento:** registrar os Enhancement Cores planejados, suas regras de gameplay, compatibilidades, restrições e ideias futuras antes da implementação pelo Codex.
+> **Objetivo deste documento:** registrar o comportamento entregue dos Enhancement Cores, suas regras de gameplay, compatibilidades, restrições e ideias futuras.
+
+## Estado entregue
+
+Silk, Collector, Smelting, Filter e Void estão implementados nos dois slots
+fixos da Excavator e são administrados pela Enhancement Workbench. O pipeline
+server-side cobre o bloco central e o AOE, preserva o fluxo vanilla de quebra e
+aplica os efeitos na ordem documentada. A antiga aplicação do Silk pela
+Smithing Table, o encantamento persistente e os workarounds de Grindstone foram
+removidos; a receita avulsa do Silk Core permanece disponível.
+
+Testes unitários e integrados, build, carregamento de mixins e datagen
+idempotente compõem o gate automatizado. Arte final distinta para a Workbench e
+os Cores, receitas Survival ainda não decididas e playtests interativos em
+multiplayer/servidor dedicado permanecem como acompanhamento externo.
 
 ---
 
@@ -1178,7 +1192,8 @@ Collector e Void podem melhorar performance em grandes AOE:
 - menos entidades de item;
 - menos drops físicos.
 
-Smelting deverá evitar procurar recipes de forma ineficiente para cada bloco caso exista forma de cache segura.
+Smelting consulta o Recipe Manager atual por unidade, sem cache entre reloads de
+datapack, garantindo que receitas alteradas sejam observadas imediatamente.
 
 ---
 

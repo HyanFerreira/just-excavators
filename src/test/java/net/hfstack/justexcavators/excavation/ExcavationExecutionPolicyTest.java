@@ -32,6 +32,12 @@ final class ExcavationExecutionPolicyTest {
 	}
 
 	@Test
+	void stopsAoeAfterAnEnhancementBreaksOrReplacesTheOriginalTool() {
+		assertFalse(ExcavationExecutionPolicy.canContinue(true, false, false, false));
+		assertFalse(ExcavationExecutionPolicy.canContinue(false, true, false, false));
+	}
+
+	@Test
 	void retainsCapturedHitOnlyWhileVanillaStillTracksThatPosition() {
 		assertTrue(ExcavationExecutionPolicy.shouldRetainHit(true, false));
 		assertTrue(ExcavationExecutionPolicy.shouldRetainHit(false, true));
