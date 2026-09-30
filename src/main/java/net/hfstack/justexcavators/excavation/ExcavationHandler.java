@@ -11,6 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
 import net.hfstack.justexcavators.enhancement.ActiveEnhancements;
+import net.hfstack.justexcavators.enhancement.FilterCorePolicy;
 
 public final class ExcavationHandler {
 	private ExcavationHandler() {
@@ -35,7 +36,13 @@ public final class ExcavationHandler {
 			}
 
 			BlockPos target = positions.get(index);
-			if (!canPlayerModify(level, player, target)
+			BlockState candidateState = level.getBlockState(target);
+			if (!FilterCorePolicy.shouldProcess(
+					true,
+					enhancements,
+					centralState.getBlock(),
+					candidateState.getBlock()
+			) || !canPlayerModify(level, player, target)
 					|| !ExcavationTargetValidator.isValidTarget(level, target, originalTool)) {
 				continue;
 			}
