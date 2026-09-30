@@ -47,6 +47,12 @@ tasks.withType(JavaCompile).configureEach {
 	it.options.release = 25
 }
 
+tasks.withType(Jar).configureEach {
+	from("LICENSE") {
+		rename { "LICENSE_just-excavators" }
+	}
+}
+
 java {
 	withSourcesJar()
 	toolchain {

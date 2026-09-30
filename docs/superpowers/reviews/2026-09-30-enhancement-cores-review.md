@@ -50,4 +50,8 @@ These are explicit release follow-ups, not hidden implementation findings:
 - client/server component synchronization and two-player latency checks;
 - final Workbench/Core art;
 - survival recipes and progression balance for the Workbench and four new Cores;
-- release metadata, changelog, and packaged artifact validation.
+- gameplay performance profiling.
+
+Release metadata, credits, changelog, and the packaged `0.1.0` artifact were
+subsequently validated. The binary JAR includes the MIT license, expanded
+metadata, mixin configuration, and Enhancement Workbench/Core resources.

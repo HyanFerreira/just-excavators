@@ -503,8 +503,8 @@ Tarefas:
 - [ ] Confirmar sincronização de componentes em servidor dedicado.
 - [ ] Verificar recipes e progressão em Survival.
 - [ ] Revisar performance e logs.
-- [ ] Revisar licença, créditos e metadados do mod.
-- [ ] Produzir changelog e artefato de release.
+- [x] Revisar licença, créditos e metadados do mod.
+- [x] Produzir changelog e artefato de release.
 
 Critérios de aceite:
 
