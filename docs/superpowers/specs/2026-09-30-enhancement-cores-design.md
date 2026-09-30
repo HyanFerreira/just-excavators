@@ -257,10 +257,13 @@ The GUI texture contains only the panel, decorations, and slot frames. It must
 not contain the world background, player hand, baked item icons, quantities,
 tooltips, or localized text. Title and inventory labels are rendered by code.
 
-The runtime GUI is a native 243 x 259 pixel-art texture, rendered one-to-one so
-slot borders and details remain crisp. Dynamic items, quantities, tooltips, and
-translated labels remain code-rendered. The world block uses its own 16 x 16
-top, front, back, side, and bottom textures through a dedicated cube model.
+The runtime GUI uses a vanilla-sized 256 x 256 texture atlas whose visible
+panel occupies the top-left 176 x 166 pixels. It is rendered one-to-one, uses
+the Crafting Table grayscale palette and 18 x 18 slot treatment for the player
+inventory, hotbar, and functional slots, and leaves the unused atlas area
+transparent. Dynamic items, quantities, tooltips, and translated labels remain
+code-rendered. The world block uses its own 16 x 16 top, front, back, side, and
+bottom textures through a dedicated cube model.
 
 ## Excavation processing
 

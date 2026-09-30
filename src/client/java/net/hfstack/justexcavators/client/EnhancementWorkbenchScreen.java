@@ -15,17 +15,17 @@ public final class EnhancementWorkbenchScreen
 	private static final Identifier TEXTURE = JustExcavators.id(
 			"textures/gui/container/enhancement_workbench.png"
 	);
-	private static final int SOURCE_WIDTH = 243;
-	private static final int SOURCE_HEIGHT = 259;
+	private static final int SOURCE_WIDTH = 256;
+	private static final int SOURCE_HEIGHT = 256;
 
 	public EnhancementWorkbenchScreen(
 			EnhancementWorkbenchMenu menu,
 			Inventory inventory,
 			Component title
 	) {
-		super(menu, inventory, title, 243, 259);
-		this.inventoryLabelX = 14;
-		this.inventoryLabelY = 134;
+		super(menu, inventory, title, 176, 166);
+		this.inventoryLabelX = 8;
+		this.inventoryLabelY = 72;
 	}
 
 	@Override
@@ -48,12 +48,12 @@ public final class EnhancementWorkbenchScreen
 	@Override
 	protected void extractLabels(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
 		int titleWidth = font.width(title);
-		float titleScale = Math.min(1.0F, 162.0F / titleWidth);
+		float titleScale = Math.min(1.0F, 160.0F / titleWidth);
 		if (titleScale == 1.0F) {
-			graphics.centeredText(font, title, imageWidth / 2, 13, 0x404040);
+			graphics.centeredText(font, title, imageWidth / 2, 6, 0x404040);
 		} else {
 			graphics.pose().pushMatrix();
-			graphics.pose().translate(imageWidth / 2.0F, 13.0F);
+			graphics.pose().translate(imageWidth / 2.0F, 6.0F);
 			graphics.pose().scale(titleScale);
 			graphics.text(font, title, -titleWidth / 2, 0, 0x404040, false);
 			graphics.pose().popMatrix();

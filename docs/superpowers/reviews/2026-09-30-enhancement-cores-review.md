@@ -58,3 +58,6 @@ metadata, mixin configuration, and Enhancement Workbench/Core resources.
 The final Workbench GUI and five-face block artwork were also validated in a
 client resource reload with no missing model or texture errors. Authentication
 and Realms errors in that development session were external to mod resources.
+The GUI was subsequently normalized to the vanilla 256 x 256 atlas and
+176 x 166 visible container geometry, including Crafting Table palette and slot
+spacing for the inventory and hotbar.
