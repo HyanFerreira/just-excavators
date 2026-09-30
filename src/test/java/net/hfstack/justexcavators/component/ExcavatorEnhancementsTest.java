@@ -80,8 +80,11 @@ final class ExcavatorEnhancementsTest {
 		ExcavatorEnhancements legacySilk = decode("true");
 		assertEquals(Optional.of(EnhancementType.SILK), legacySilk.slot(0));
 		assertEquals(Optional.empty(), legacySilk.slot(1));
+		assertTrue(legacySilk.legacySilkMigrationRequired());
+		assertFalse(legacySilk.canonical().legacySilkMigrationRequired());
 
 		assertEquals(ExcavatorEnhancements.EMPTY, decode("false"));
+		assertFalse(decode("false").legacySilkMigrationRequired());
 	}
 
 	@Test
@@ -91,6 +94,7 @@ final class ExcavatorEnhancementsTest {
 		ExcavatorEnhancements secondSlotOnly = decode("{\"slot_2\":\"filter\"}");
 		assertEquals(Optional.empty(), secondSlotOnly.slot(0));
 		assertEquals(Optional.of(EnhancementType.FILTER), secondSlotOnly.slot(1));
+		assertFalse(secondSlotOnly.legacySilkMigrationRequired());
 	}
 
 	@Test

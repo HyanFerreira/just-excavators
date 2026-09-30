@@ -20,6 +20,7 @@ import net.hfstack.justexcavators.component.ExcavatorEnhancements;
 import net.hfstack.justexcavators.enhancement.EnhancementCoreCatalog;
 import net.hfstack.justexcavators.enhancement.EnhancementType;
 import net.hfstack.justexcavators.item.ExcavatorItem;
+import net.hfstack.justexcavators.item.LegacySilkMigration;
 import net.hfstack.justexcavators.workbench.EnhancementWorkbenchTransactions.CoreClickResult;
 
 public final class EnhancementWorkbenchMenu extends AbstractContainerMenu {
@@ -257,6 +258,9 @@ public final class EnhancementWorkbenchMenu extends AbstractContainerMenu {
 	private void refreshProjections() {
 		refreshing = true;
 		try {
+			if (hasTool()) {
+				LegacySilkMigration.migrate(tool.getItem(0), ExcavatorComponents.ENHANCEMENTS);
+			}
 			EnhancementWorkbenchProjection<ItemStack> projected = EnhancementWorkbenchProjection.from(
 					currentEnhancements(),
 					EnhancementCoreCatalog::stackOf

@@ -527,6 +527,8 @@ Estado: `CONCLUÍDO`
 - [x] Substituir o booleano Silk por dois slots opcionais fixos.
 - [x] Preservar um slot 2 ocupado quando o slot 1 estiver vazio.
 - [x] Ler o componente booleano legado e gravar apenas o novo formato.
+- [x] Remover uma única vez o Silk Touch sintético das ferramentas legadas sem
+  normalizar combinações administrativas novas.
 - [x] Adaptar temporariamente receita, tooltip, advancement e rebolo do Silk.
 - [x] Cobrir regras, mutações e migração do codec com testes unitários.
 

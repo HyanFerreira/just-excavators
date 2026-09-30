@@ -4,6 +4,9 @@ import java.util.function.Consumer;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -19,6 +22,11 @@ public final class ExcavatorItem extends Item {
 
 	public ExcavatorItem(Item.Properties properties, ToolMaterial material) {
 		super(configure(properties, material));
+	}
+
+	@Override
+	public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, EquipmentSlot slot) {
+		LegacySilkMigration.migrate(stack, ExcavatorComponents.ENHANCEMENTS);
 	}
 
 	@Override

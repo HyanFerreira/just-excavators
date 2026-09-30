@@ -142,6 +142,10 @@ New writes always use the fixed-slot representation. The network codec uses only
 new representation after the persistent value has been decoded. Existing
 Excavators retain their name, damage, enchantments, excavation mode, and Silk
 Core state.
+When a legacy `true` value is decoded, it carries a transient migration marker so
+the old synthetic Silk Touch enchantment is removed once without affecting a
+new, administratively-created Silk Core/Silk Touch conflict. The marker is then
+canonicalized and is never written to the new fixed-slot format.
 
 ## Enhancement Workbench
 
@@ -302,7 +306,9 @@ enchantment on the Excavator. A temporary effective tool or equivalent loot
 context is used only while calculating drops.
 
 The existing `inventoryTick` behavior that restores a persistent Silk Touch
-enchantment and the special Grindstone workaround are removed after migration.
+enchantment and the special Grindstone workaround are removed. A migration-only
+tick remains to strip the old synthetic enchantment once from legacy boolean
+stacks; it never adds or maintains an enchantment.
 
 ### Collector Core
 
@@ -403,7 +409,8 @@ dedicated server can load the mod safely.
 
 ### Verification status (2026-09-30)
 
-The automated gate covers compatibility, fixed-slot persistence, Workbench
+The automated gate covers compatibility, fixed-slot persistence and cleanup of
+the legacy synthetic Silk Touch enchantment, Workbench
 transactions, central/additional scope, ordered loot transformation, item-count
 conservation, XP suppression, durability decisions, tooltips, build, mixin
 loading, and idempotent data generation. Common source is checked for client

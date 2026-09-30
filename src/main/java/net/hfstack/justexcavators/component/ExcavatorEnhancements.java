@@ -14,7 +14,8 @@ import net.hfstack.justexcavators.enhancement.EnhancementType;
 
 public record ExcavatorEnhancements(
 		Optional<EnhancementType> slot1,
-		Optional<EnhancementType> slot2
+		Optional<EnhancementType> slot2,
+		boolean legacySilkMigrationRequired
 ) {
 	public static final ExcavatorEnhancements EMPTY = new ExcavatorEnhancements(
 			Optional.empty(),
@@ -34,12 +35,21 @@ public record ExcavatorEnhancements(
 	public static final Codec<ExcavatorEnhancements> CODEC = Codec.either(Codec.BOOL, NEW_CODEC).xmap(
 			either -> either.map(
 					hasSilk -> hasSilk
-							? new ExcavatorEnhancements(Optional.of(EnhancementType.SILK), Optional.empty())
+							? new ExcavatorEnhancements(
+									Optional.of(EnhancementType.SILK), Optional.empty(), true
+							)
 							: EMPTY,
 					Function.identity()
 			),
 			enhancements -> Either.right(enhancements)
 	);
+
+	public ExcavatorEnhancements(
+			Optional<EnhancementType> slot1,
+			Optional<EnhancementType> slot2
+	) {
+		this(slot1, slot2, false);
+	}
 
 	public ExcavatorEnhancements {
 		slot1 = Objects.requireNonNull(slot1, "slot1");
@@ -47,6 +57,14 @@ public record ExcavatorEnhancements(
 		if (!EnhancementCompatibility.isValidSlots(slot1, slot2)) {
 			throw new IllegalArgumentException("Invalid enhancement slot combination: " + slot1 + ", " + slot2);
 		}
+		if (legacySilkMigrationRequired
+				&& (!slot1.equals(Optional.of(EnhancementType.SILK)) || slot2.isPresent())) {
+			throw new IllegalArgumentException("Legacy Silk migration marker requires the legacy Silk slot layout");
+		}
+	}
+
+	public ExcavatorEnhancements canonical() {
+		return legacySilkMigrationRequired ? new ExcavatorEnhancements(slot1, slot2) : this;
 	}
 
 	public Optional<EnhancementType> slot(int index) {
