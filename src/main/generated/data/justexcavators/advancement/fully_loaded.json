@@ -1,0 +1,267 @@
+{
+  "parent": "justexcavators:power_needs_a_home",
+  "criteria": {
+    "has_collector_filter": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "justexcavators:enhancements": {
+                "slot_1": "collector",
+                "slot_2": "filter"
+              }
+            },
+            "items": "#justexcavators:excavators"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_collector_silk": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "justexcavators:enhancements": {
+                "slot_1": "collector",
+                "slot_2": "silk"
+              }
+            },
+            "items": "#justexcavators:excavators"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_collector_smelting": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "justexcavators:enhancements": {
+                "slot_1": "collector",
+                "slot_2": "smelting"
+              }
+            },
+            "items": "#justexcavators:excavators"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_filter_collector": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "justexcavators:enhancements": {
+                "slot_1": "filter",
+                "slot_2": "collector"
+              }
+            },
+            "items": "#justexcavators:excavators"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_filter_silk": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "justexcavators:enhancements": {
+                "slot_1": "filter",
+                "slot_2": "silk"
+              }
+            },
+            "items": "#justexcavators:excavators"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_filter_smelting": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "justexcavators:enhancements": {
+                "slot_1": "filter",
+                "slot_2": "smelting"
+              }
+            },
+            "items": "#justexcavators:excavators"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_filter_void": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "justexcavators:enhancements": {
+                "slot_1": "filter",
+                "slot_2": "void"
+              }
+            },
+            "items": "#justexcavators:excavators"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_silk_collector": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "justexcavators:enhancements": {
+                "slot_1": "silk",
+                "slot_2": "collector"
+              }
+            },
+            "items": "#justexcavators:excavators"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_silk_filter": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "justexcavators:enhancements": {
+                "slot_1": "silk",
+                "slot_2": "filter"
+              }
+            },
+            "items": "#justexcavators:excavators"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_silk_smelting": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "justexcavators:enhancements": {
+                "slot_1": "silk",
+                "slot_2": "smelting"
+              }
+            },
+            "items": "#justexcavators:excavators"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_smelting_collector": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "justexcavators:enhancements": {
+                "slot_1": "smelting",
+                "slot_2": "collector"
+              }
+            },
+            "items": "#justexcavators:excavators"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_smelting_filter": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "justexcavators:enhancements": {
+                "slot_1": "smelting",
+                "slot_2": "filter"
+              }
+            },
+            "items": "#justexcavators:excavators"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_smelting_silk": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "justexcavators:enhancements": {
+                "slot_1": "smelting",
+                "slot_2": "silk"
+              }
+            },
+            "items": "#justexcavators:excavators"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_void_filter": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "justexcavators:enhancements": {
+                "slot_1": "void",
+                "slot_2": "filter"
+              }
+            },
+            "items": "#justexcavators:excavators"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.justexcavators.fully_loaded.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "components": {
+        "justexcavators:enhancements": {
+          "slot_1": "silk",
+          "slot_2": "collector"
+        },
+        "justexcavators:excavation_mode": "advanced"
+      },
+      "id": "justexcavators:diamond_excavator"
+    },
+    "title": {
+      "translate": "advancement.justexcavators.fully_loaded.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_silk_collector",
+      "has_silk_smelting",
+      "has_silk_filter",
+      "has_collector_silk",
+      "has_collector_smelting",
+      "has_collector_filter",
+      "has_smelting_silk",
+      "has_smelting_collector",
+      "has_smelting_filter",
+      "has_filter_silk",
+      "has_filter_collector",
+      "has_filter_smelting",
+      "has_filter_void",
+      "has_void_filter"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

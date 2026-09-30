@@ -78,6 +78,22 @@ public final class ModEnglishLanguageProvider extends FabricLanguageProvider {
 		translations.add("advancement.justexcavators.handle_with_care.description", "Obtain a Silk Core");
 		translations.add("advancement.justexcavators.silken_touch.title", "Leave No Trace");
 		translations.add("advancement.justexcavators.silken_touch.description", "Enhance an Excavator with Silk Touch");
+		translations.add("advancement.justexcavators.fine_tuning.title", "Fine Tuning");
+		translations.add("advancement.justexcavators.fine_tuning.description", "Obtain an Enhancement Workbench");
+		translations.add("advancement.justexcavators.power_needs_a_home.title", "Power Needs a Home");
+		translations.add("advancement.justexcavators.power_needs_a_home.description", "Craft a Core Housing");
+		translations.add("advancement.justexcavators.nothing_left_behind.title", "Nothing Left Behind");
+		translations.add("advancement.justexcavators.nothing_left_behind.description", "Obtain a Collector Core");
+		translations.add("advancement.justexcavators.turn_up_the_heat.title", "Turn Up the Heat");
+		translations.add("advancement.justexcavators.turn_up_the_heat.description", "Obtain a Smelting Core");
+		translations.add("advancement.justexcavators.only_what_matters.title", "Only What Matters");
+		translations.add("advancement.justexcavators.only_what_matters.description", "Obtain a Filter Core");
+		translations.add("advancement.justexcavators.into_the_void.title", "Into the Void");
+		translations.add("advancement.justexcavators.into_the_void.description", "Obtain a Void Core");
+		translations.add("advancement.justexcavators.fully_loaded.title", "Fully Loaded");
+		translations.add("advancement.justexcavators.fully_loaded.description", "Install two compatible Enhancement Cores on an Excavator");
+		translations.add("advancement.justexcavators.core_collection.title", "Core Collection");
+		translations.add("advancement.justexcavators.core_collection.description", "Hold all five Enhancement Cores at once");
 		translations.add("advancement.justexcavators.master_of_the_earth.title", "Master of the Earth");
 		translations.add("advancement.justexcavators.master_of_the_earth.description", "Collect Basic, Deep, Wide, and Advanced Netherite Excavators");
 	}

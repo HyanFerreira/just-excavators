@@ -1,0 +1,45 @@
+{
+  "parent": "justexcavators:power_needs_a_home",
+  "criteria": {
+    "has_all_cores": {
+      "conditions": {
+        "items": [
+          {
+            "items": "justexcavators:silk_core"
+          },
+          {
+            "items": "justexcavators:collector_core"
+          },
+          {
+            "items": "justexcavators:smelting_core"
+          },
+          {
+            "items": "justexcavators:filter_core"
+          },
+          {
+            "items": "justexcavators:void_core"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.justexcavators.core_collection.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "id": "justexcavators:core_housing"
+    },
+    "title": {
+      "translate": "advancement.justexcavators.core_collection.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_all_cores"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

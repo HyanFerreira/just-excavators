@@ -1,11 +1,11 @@
 {
-  "parent": "justexcavators:power_needs_a_home",
+  "parent": "justexcavators:bigger_shovel",
   "criteria": {
     "has_core": {
       "conditions": {
         "items": [
           {
-            "items": "justexcavators:silk_core"
+            "items": "justexcavators:enhancement_workbench"
           }
         ]
       },
@@ -14,13 +14,13 @@
   },
   "display": {
     "description": {
-      "translate": "advancement.justexcavators.handle_with_care.description"
+      "translate": "advancement.justexcavators.fine_tuning.description"
     },
     "icon": {
-      "id": "justexcavators:silk_core"
+      "id": "justexcavators:enhancement_workbench"
     },
     "title": {
-      "translate": "advancement.justexcavators.handle_with_care.title"
+      "translate": "advancement.justexcavators.fine_tuning.title"
     }
   },
   "requirements": [

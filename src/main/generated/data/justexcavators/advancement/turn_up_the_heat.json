@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "justexcavators:silk_core"
+            "items": "justexcavators:smelting_core"
           }
         ]
       },
@@ -14,13 +14,13 @@
   },
   "display": {
     "description": {
-      "translate": "advancement.justexcavators.handle_with_care.description"
+      "translate": "advancement.justexcavators.turn_up_the_heat.description"
     },
     "icon": {
-      "id": "justexcavators:silk_core"
+      "id": "justexcavators:smelting_core"
     },
     "title": {
-      "translate": "advancement.justexcavators.handle_with_care.title"
+      "translate": "advancement.justexcavators.turn_up_the_heat.title"
     }
   },
   "requirements": [
