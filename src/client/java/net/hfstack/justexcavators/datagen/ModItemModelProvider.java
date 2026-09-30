@@ -43,6 +43,10 @@ public final class ModItemModelProvider extends FabricModelProvider {
 		generateCore(generators, ModItems.WIDE_EXCAVATION_CORE, "wide_excavation_core");
 		generateCore(generators, ModItems.ADVANCED_EXCAVATION_CORE, "advanced_excavation_core");
 		generateCore(generators, ModItems.SILK_CORE, "silk_core");
+		generateCore(generators, ModItems.COLLECTOR_CORE, "collector_core", "silk_core");
+		generateCore(generators, ModItems.SMELTING_CORE, "smelting_core", "silk_core");
+		generateCore(generators, ModItems.FILTER_CORE, "filter_core", "silk_core");
+		generateCore(generators, ModItems.VOID_CORE, "void_core", "silk_core");
 	}
 
 	private static void generateExcavator(ItemModelGenerators generators, Item item, String material) {
@@ -79,7 +83,20 @@ public final class ModItemModelProvider extends FabricModelProvider {
 	}
 
 	private static void generateCore(ItemModelGenerators generators, Item item, String textureName) {
-		Identifier model = createModel(generators, textureName, false);
+		generateCore(generators, item, textureName, textureName);
+	}
+
+	private static void generateCore(
+			ItemModelGenerators generators,
+			Item item,
+			String modelName,
+			String textureName
+	) {
+		Identifier model = ModelTemplates.FLAT_ITEM.create(
+				JustExcavators.id("item/" + modelName),
+				TextureMapping.layer0(new Material(JustExcavators.id("item/" + textureName))),
+				generators.modelOutput
+		);
 		generators.itemModelOutput.accept(item, ItemModelUtils.plainModel(model));
 	}
 
