@@ -1,6 +1,6 @@
 # JustExcavators — Enhancement Cores
 
-> **Status:** conceito definido para implementação futura no mod
+> **Status:** implementação em andamento; fundação de dados e compatibilidade concluída
 > **Projeto:** JustExcavators
 > **Plataforma inicial:** Fabric
 > **Objetivo deste documento:** registrar os Enhancement Cores planejados, suas regras de gameplay, compatibilidades, restrições e ideias futuras antes da implementação pelo Codex.
@@ -1187,11 +1187,6 @@ Smelting deverá evitar procurar recipes de forma ineficiente para cada bloco ca
 As ideias abaixo NÃO fazem parte do escopo atual.
 
 São apenas ideias para futuras versões.
-
-## Enhancement Workbench
-
-A Enhancement Workbench deixou de ser uma ideia futura e passou a integrar o
-escopo confirmado. Suas regras definitivas estão descritas nas seções 13 a 15.
 
 ## Fortune Core
 

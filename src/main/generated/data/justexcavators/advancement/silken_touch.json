@@ -6,7 +6,9 @@
         "items": [
           {
             "components": {
-              "justexcavators:enhancements": true
+              "justexcavators:enhancements": {
+                "slot_1": "silk"
+              }
             },
             "items": "#justexcavators:excavators"
           }
