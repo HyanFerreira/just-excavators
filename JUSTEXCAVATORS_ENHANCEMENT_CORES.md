@@ -625,6 +625,7 @@ Cada Excavator poderá possuir no máximo dois Enhancement Cores.
 | Combinação | Resultado |
 |---|---|
 | Silk + Collector | Preserva os blocos e envia os drops ao inventário. |
+| Silk + Smelting | Calcula o loot com Silk Touch e processa os drops que possuírem receita de fornalha. |
 | Silk + Filter | Preserva somente os blocos iguais ao bloco central. |
 | Collector + Smelting | Processa os drops e envia o resultado ao inventário. |
 | Collector + Filter | Envia ao inventário apenas os drops dos blocos filtrados. |
@@ -635,7 +636,6 @@ Cada Excavator poderá possuir no máximo dois Enhancement Cores.
 
 | Combinação | Motivo |
 |---|---|
-| Silk + Smelting | Um Core preserva o bloco enquanto o outro tenta processar seu drop. |
 | Silk + Void | O Void descartaria aquilo que o Silk tentaria preservar. |
 | Collector + Void | O Void não produz drops para o Collector recolher. |
 | Smelting + Void | O resultado processado seria descartado imediatamente. |
@@ -646,8 +646,8 @@ Regra conceitual:
 ```text
 Máximo: 2 Enhancement Cores
 
-Silk, Smelting e Void
-→ mutuamente exclusivos entre si
+Void
+→ compatível apenas com Filter
 
 Collector e Filter
 → compatíveis entre si
@@ -657,6 +657,9 @@ Collector
 
 Filter
 → compatível com Silk, Collector, Smelting e Void
+
+Silk
+→ compatível com Collector, Smelting e Filter
 ```
 
 Mesmo quando três Cores seriam logicamente compatíveis, o limite de dois continuará valendo.
@@ -671,7 +674,7 @@ Silk + Collector + Filter
 
 - Silk Core é incompatível com Fortune;
 - Silk Core é redundante com Silk Touch encantado e sua aplicação deve ser impedida;
-- Smelting Core é incompatível com Silk Touch encantado;
+- Smelting Core é compatível com Fortune e com Silk Touch encantado;
 - Fortune e Silk Touch são inúteis com Void Core e não poderão coexistir com ele.
 
 Essas regras devem ser verificadas nos dois sentidos: ao instalar um Core em uma ferramenta encantada e ao tentar aplicar um encantamento em uma ferramenta que já possui o Core incompatível.
@@ -947,13 +950,22 @@ Slots vazios poderão ser omitidos ou exibidos como `Empty`, desde que a interfa
 
 # 13. Aplicação do Core
 
-A forma definitiva ainda deve ser definida pelo Codex.
+Os Enhancement Cores serão administrados exclusivamente através da:
 
-Possibilidades:
+```text
+Enhancement Workbench
+Mesa de Trabalho de Aprimoramento
+```
 
-- Smithing Table;
-- crafting especial;
-- recipe customizada.
+A mesa terá três slots funcionais:
+
+```text
+       [ Excavator ]
+
+[ Core slot 1 ] [ Core slot 2 ]
+```
+
+O inventário e a hotbar do jogador também serão exibidos.
 
 Requisitos:
 
@@ -963,8 +975,16 @@ Requisitos:
 - preservar excavation mode;
 - preencher um slot vazio quando a combinação for válida;
 - validar incompatibilidades antes da aplicação;
-- substituir o Enhancement Core escolhido corretamente quando os dois slots estiverem ocupados;
+- projetar nos dois slots os Cores armazenados na Excavator;
+- permitir remover e devolver Cores instalados;
+- substituir explicitamente o Core do slot clicado;
+- manter toda alteração autoritativa no servidor;
 - impedir duplicação.
+
+A mesa será uma workstation temporária, sem inventário persistente no bloco. Ao
+fechar a interface, a Excavator e itens reais no cursor retornam ao inventário;
+se não houver espaço, caem junto ao jogador. Os Cores ainda exibidos permanecem
+armazenados na Excavator.
 
 ---
 
@@ -984,11 +1004,18 @@ Filter Core
 Silk + Filter Excavator
 ```
 
-Quando houver um slot vazio, o novo Core compatível deverá ser adicionado sem remover o Core existente.
+Quando houver um slot vazio, o novo Core compatível poderá ser colocado no slot
+1 ou no slot 2 sem mover automaticamente o Core já instalado.
 
-Quando os dois slots estiverem ocupados, a aplicação deverá indicar claramente qual Core será substituído. Nenhum Core deverá ser removido de forma ambígua ou silenciosa.
+Quando os dois slots estiverem ocupados, o jogador deverá clicar diretamente no
+Core que deseja substituir enquanto segura o novo Core. A troca só ocorrerá se
+a combinação resultante for válida.
 
-O Core substituído não precisa necessariamente ser devolvido.
+O Core substituído será devolvido ao cursor ou ao inventário do jogador.
+
+Shift + clique instala no primeiro slot vazio compatível. Se os dois slots
+estiverem ocupados, o atalho rejeita a operação e nunca escolhe uma substituição
+automaticamente.
 
 Isso evita obrigar o jogador a criar várias cópias da mesma ferramenta.
 
@@ -1015,16 +1042,18 @@ diamond_excavator
 Item Component
 ```
 
-Conceitualmente:
+Conceitualmente, os dois slots são posições opcionais fixas:
 
 ```text
 excavation_mode = WIDE
-enhancements = [SILK, COLLECTOR]
+slot_1 = SILK
+slot_2 = COLLECTOR
 ```
 
 A representação deverá:
 
-- aceitar zero, um ou dois Cores;
+- aceitar zero, um ou dois Cores em posições independentes;
+- preservar `slot_2` quando `slot_1` estiver vazio;
 - rejeitar Cores duplicados;
 - rejeitar combinações incompatíveis;
 - manter uma ordem estável para serialização, tooltip e sincronização em multiplayer.
@@ -1038,7 +1067,6 @@ Possível estrutura:
 ```text
 EnhancementType
 {
-    NONE,
     SILK,
     COLLECTOR,
     SMELTING,
@@ -1058,17 +1086,21 @@ A implementação deverá possuir uma ordem clara.
 Exemplo conceitual:
 
 ```text
-1. calcular área
-2. validar bloco
-3. aplicar Filter, se presente
-4. quebrar bloco
-5. calcular loot
-6. aplicar Silk / Smelting / Void
-7. aplicar Collector
-8. consumir durabilidade
+1. capturar ferramenta, Cores, bloco central e contexto
+2. validar permissões, proteção, ferramenta e bloco
+3. calcular área
+4. aplicar Filter somente aos blocos adicionais
+5. montar o loot context efetivo, incluindo Silk ou Fortune
+6. calcular loot através da loot table
+7. aplicar Smelting ou Void
+8. aplicar Collector ou gerar os drops no mundo
+9. gerar o XP permitido
+10. consumir durabilidade
 ```
 
-Mais de uma etapa poderá ocorrer na mesma quebra. A ordem acima é obrigatória para que combinações como `Smelting + Collector` e `Silk + Collector` tenham resultado previsível.
+Silk participa do cálculo da loot table; não é uma transformação aplicada depois
+que os drops normais já foram calculados. A ordem acima torna previsíveis
+combinações como `Silk + Smelting`, `Smelting + Collector` e `Silk + Collector`.
 
 A arquitetura deve centralizar a validação e evitar lógica duplicada.
 
@@ -1129,7 +1161,7 @@ Testar:
 Testar:
 
 - instalação do primeiro e do segundo Core;
-- rejeição de um terceiro Core;
+- rejeição de Shift + clique quando os dois slots estiverem ocupados;
 - todas as combinações permitidas;
 - todas as combinações proibidas;
 - rejeição de dois Cores iguais;
@@ -1158,48 +1190,8 @@ São apenas ideias para futuras versões.
 
 ## Enhancement Workbench
 
-### Ideia
-
-Adicionar um bloco com interface própria para gerenciar os Enhancement Cores instalados em uma Excavator.
-
-Nome conceitual:
-
-```text
-Enhancement Workbench
-```
-
-A interface poderia possuir três slots funcionais:
-
-```text
-[ Excavator ] [ Core 1 ] [ Core 2 ]
-```
-
-Ao inserir uma Excavator, a mesa identificaria os Cores armazenados na ItemStack e os exibiria nos dois slots de melhoria.
-
-Possíveis comportamentos:
-
-- instalar Cores compatíveis;
-- remover e devolver Cores instalados;
-- substituir um dos dois Cores;
-- bloquear combinações incompatíveis;
-- permitir o rodízio de builds sem fabricar várias Excavators.
-
-Essa proposta trataria os Cores como módulos reutilizáveis. A interface precisaria manter toda alteração server-side, preservar os dados da ferramenta e impedir duplicação durante inserção, retirada, fechamento da tela ou quebra do bloco.
-
-### Pontos ainda não definidos
-
-- nome e aparência final do bloco;
-- receita de fabricação;
-- troca gratuita ou com custo de XP/material;
-- comportamento ao quebrar a mesa com itens inseridos;
-- interface e mensagens para combinações inválidas;
-- se a mesa substituirá completamente ou apenas complementará os métodos de aplicação inicialmente considerados.
-
-Status:
-
-```text
-IDEIA FUTURA EM AVALIAÇÃO
-```
+A Enhancement Workbench deixou de ser uma ideia futura e passou a integrar o
+escopo confirmado. Suas regras definitivas estão descritas nas seções 13 a 15.
 
 ## Fortune Core
 
@@ -1352,6 +1344,7 @@ provavelmente não é um bom Enhancement Core.
 ## Confirmados
 
 ```text
+Enhancement Workbench
 Silk Core
 Collector Core
 Smelting Core
@@ -1366,12 +1359,6 @@ Fortune Core
 Reinforcement Core
 Stability Core
 Replanting / Preservation Core
-```
-
-## Sistema futuro em avaliação
-
-```text
-Enhancement Workbench
 ```
 
 ## Não recomendado atualmente
@@ -1436,7 +1423,7 @@ Ao planejar a implementação:
 9. criar testes individuais para cada Core;
 10. manter Silk, Collector, Smelting, Filter e Void como os Enhancement Cores principais definidos neste documento;
 11. centralizar a validação das combinações permitidas e proibidas;
-12. impedir Cores duplicados e a instalação de um terceiro Core;
+12. impedir Cores duplicados e substituições implícitas via Shift + clique;
 13. respeitar as incompatibilidades com Fortune e Silk Touch encantado.
 
 ---

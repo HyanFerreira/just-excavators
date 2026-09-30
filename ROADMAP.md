@@ -518,6 +518,77 @@ Critérios de aceite:
 - build de servidor dedicado validado;
 - documentação da 1.0 corresponde ao comportamento real.
 
+## 4.1 Expansão — Enhancement Cores
+
+Este roadmap complementa as fases históricas acima sem reescrevê-las. A
+especificação aprovada está em
+`docs/superpowers/specs/2026-09-30-enhancement-cores-design.md`.
+
+### Enhancement Cores — Fase 0: modelo, compatibilidade e migração
+
+Estado: `CONCLUÍDO`
+
+- [x] Definir Silk, Collector, Smelting, Filter e Void como tipos serializáveis.
+- [x] Centralizar a matriz de compatibilidade entre Cores e encantamentos.
+- [x] Substituir o booleano Silk por dois slots opcionais fixos.
+- [x] Preservar um slot 2 ocupado quando o slot 1 estiver vazio.
+- [x] Ler o componente booleano legado e gravar apenas o novo formato.
+- [x] Adaptar temporariamente receita, tooltip, advancement e rebolo do Silk.
+- [x] Cobrir regras, mutações e migração do codec com testes unitários.
+
+### Enhancement Cores — Fase 1: Mesa de Trabalho de Aprimoramento
+
+Estado: `PENDENTE`
+
+- [ ] Registrar bloco, item do bloco e menu server-side sem inventário persistente.
+- [ ] Implementar os três slots e o inventário do jogador.
+- [ ] Implementar instalação, remoção, substituição explícita e Shift + clique.
+- [ ] Impedir perda e duplicação ao fechar, desconectar ou remover o bloco.
+- [ ] Registrar a tela cliente e adaptar a textura funcional da GUI.
+
+### Enhancement Cores — Fase 2: pipeline de loot e Silk nativo
+
+Estado: `PENDENTE`
+
+- [ ] Abranger o bloco central e o AOE com um contexto server-side comum.
+- [ ] Fazer Silk participar do loot context sem encantamento persistente.
+- [ ] Remover a aplicação pela Smithing Table e os workarounds transitórios.
+- [ ] Preservar callbacks, estatísticas, proteção e compatibilidade com loot tables.
+
+### Enhancement Cores — Fase 3: Filter, Collector e Void
+
+Estado: `PENDENTE`
+
+- [ ] Filtrar apenas blocos adicionais pelo tipo do bloco central.
+- [ ] Inserir drops no inventário e derrubar os excedentes na origem.
+- [ ] Remover drops e XP com Void, inclusive no modo 1 x 1 com Shift.
+
+### Enhancement Cores — Fase 4: Smelting
+
+Estado: `PENDENTE`
+
+- [ ] Processar cada unidade de drop através de receitas normais de fornalha.
+- [ ] Aplicar Silk ou Fortune antes de Smelting.
+- [ ] Preservar drops sem receita e não gerar XP de fornalha.
+- [ ] Cobrar dois pontos potenciais de durabilidade por bloco transformado.
+
+### Enhancement Cores — Fase 5: conteúdo e apresentação
+
+Estado: `PENDENTE`
+
+- [ ] Finalizar modelos, texturas, traduções e tooltips.
+- [ ] Definir e gerar receitas Survival da mesa e dos novos Cores.
+- [ ] Atualizar advancements e ajuda de compatibilidade da GUI.
+
+### Enhancement Cores — Fase 6: integração e playtests
+
+Estado: `PENDENTE`
+
+- [ ] Executar GameTests e build de servidor dedicado.
+- [ ] Validar todas as combinações permitidas e proibidas.
+- [ ] Testar multiplayer, inventário cheio, datapacks e mods de proteção.
+- [ ] Medir AOE Advanced com Collector, Smelting e Void.
+
 ## 5. Estratégia de testes
 
 ### Testes unitários
@@ -619,5 +690,6 @@ Ao iniciar uma nova sessão de desenvolvimento:
 
 ## 9. Próximo passo
 
-Iniciar a **Fase 11 — Validação de release 1.0**, incluindo os playtests de
-compatibilidade e multiplayer transferidos da Fase 9.
+Iniciar **Enhancement Cores — Fase 1: Mesa de Trabalho de Aprimoramento**.
+A Fase 11 histórica de validação será retomada depois que a expansão estiver
+integrada.
