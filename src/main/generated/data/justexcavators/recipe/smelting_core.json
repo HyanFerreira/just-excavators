@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": "minecraft:blaze_powder",
+    "H": "justexcavators:core_housing",
+    "M": "minecraft:magma_cream"
+  },
+  "pattern": [
+    "BMB",
+    "BHB",
+    "BMB"
+  ],
+  "result": {
+    "id": "justexcavators:smelting_core"
+  }
+}

@@ -797,124 +797,38 @@ Objetivo:
 
 # 11. Identidade visual dos Enhancement Cores
 
-Todos os Enhancement Cores devem pertencer à mesma família visual.
+Todos os Enhancement Cores pertencem à mesma família visual: um núcleo colorido
+preso em uma estrutura circular de ferro. A estrutura é compartilhada, enquanto
+a cor central comunica a função do Core.
 
-Porém cada um precisa ser reconhecível.
-
-## Silk Core — direção visual
-
-Palavras-chave:
-
-- delicado;
-- seda;
-- suavidade;
-- preservação.
-
-Possíveis cores:
-
-- branco;
-- azul claro;
-- ciano;
-- lilás suave.
-
-Símbolos possíveis:
-
-- fio;
-- tecido;
-- espiral suave;
-- teia estilizada.
-
-## Collector Core — direção visual
-
-Palavras-chave:
-
-- atração;
-- coleta;
-- magnetismo;
-- inventário.
-
-Possíveis cores:
-
-- azul;
-- roxo;
-- ciano.
-
-Símbolos possíveis:
-
-- ímã;
-- setas entrando no centro;
-- funil;
-- partículas convergindo.
-
-## Smelting Core — direção visual
-
-Palavras-chave:
-
-- calor;
-- forja;
-- forno;
-- fusão.
-
-Possíveis cores:
-
-- laranja;
-- amarelo;
-- vermelho;
-- carvão escuro.
-
-Símbolos possíveis:
-
-- chama;
-- forno;
-- núcleo incandescente.
-
-## Filter Core — direção visual
-
-Palavras-chave:
-
-- seleção;
-- separação;
-- precisão.
-
-Possíveis cores:
-
-- verde;
-- azul;
-- branco.
-
-Símbolos possíveis:
-
-- funil;
-- filtro;
-- grade;
-- blocos separados;
-- check central.
-
-## Void Core — direção visual
-
-Palavras-chave:
-
-- vazio;
-- destruição;
-- ausência;
-- anulação.
-
-Possíveis cores:
-
-- preto;
-- roxo escuro;
-- violeta;
-- azul profundo.
-
-Símbolos possíveis:
-
-- buraco;
-- centro negro;
-- espiral;
-- espaço vazio;
-- item sendo consumido.
+| Core | Cor principal | Referência vanilla | Sensação |
+|---|---|---|---|
+| Silk Core | Verde esmeralda | Emerald | preservação / delicadeza |
+| Collector Core | Azul intenso | Lapis Lazuli | atração / coleta |
+| Smelting Core | Laranja-amarelo | Blaze Powder / Lava | calor / fundição |
+| Filter Core | Roxo / lilás | Amethyst | seleção / precisão |
+| Void Core | Roxo muito escuro + preto | Ender / Obsidian / Crying Obsidian | vazio / destruição |
 
 O Void Core deve parecer mais perigoso que os demais.
+
+## Estrutura de Núcleo
+
+`Core Housing`, traduzido como `Estrutura de Núcleo`, representa o aro metálico
+vazio. Ele não concede efeito por conta própria e é usado somente como componente
+de fabricação dos cinco Enhancement Cores.
+
+Receita:
+
+```text
+NNN
+N N
+NNN
+
+N = Iron Nugget
+```
+
+Deep, Wide e Advanced Excavation Cores não usam essa estrutura, pois pertencem à
+progressão dos modos de escavação, não ao sistema de enhancements instaláveis.
 
 ---
 
@@ -974,7 +888,7 @@ Os Enhancement Cores serão administrados exclusivamente através da:
 
 ```text
 Enhancement Workbench
-Mesa de Trabalho de Aprimoramento
+Bancada de Aprimoramento
 ```
 
 A mesa terá três slots funcionais:
@@ -1361,6 +1275,7 @@ provavelmente não é um bom Enhancement Core.
 
 ```text
 Enhancement Workbench
+Core Housing
 Silk Core
 Collector Core
 Smelting Core

@@ -29,6 +29,7 @@ public final class ModPortugueseLanguageProvider extends FabricLanguageProvider 
 		translations.add(ModItems.DEEP_EXCAVATION_CORE, "Núcleo de Escavação Profunda");
 		translations.add(ModItems.WIDE_EXCAVATION_CORE, "Núcleo de Escavação Ampla");
 		translations.add(ModItems.ADVANCED_EXCAVATION_CORE, "Núcleo de Escavação Avançada");
+		translations.add(ModItems.CORE_HOUSING, "Estrutura de Núcleo");
 		translations.add(ModItems.SILK_CORE, "Núcleo de Seda");
 		translations.add(ModItems.COLLECTOR_CORE, "Núcleo Coletor");
 		translations.add(ModItems.SMELTING_CORE, "Núcleo de Fundição");

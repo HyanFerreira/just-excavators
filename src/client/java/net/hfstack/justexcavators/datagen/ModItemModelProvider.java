@@ -42,11 +42,12 @@ public final class ModItemModelProvider extends FabricModelProvider {
 		generateCore(generators, ModItems.DEEP_EXCAVATION_CORE, "deep_excavation_core");
 		generateCore(generators, ModItems.WIDE_EXCAVATION_CORE, "wide_excavation_core");
 		generateCore(generators, ModItems.ADVANCED_EXCAVATION_CORE, "advanced_excavation_core");
+		generateCore(generators, ModItems.CORE_HOUSING, "core_housing");
 		generateCore(generators, ModItems.SILK_CORE, "silk_core");
-		generateCore(generators, ModItems.COLLECTOR_CORE, "collector_core", "silk_core");
-		generateCore(generators, ModItems.SMELTING_CORE, "smelting_core", "silk_core");
-		generateCore(generators, ModItems.FILTER_CORE, "filter_core", "silk_core");
-		generateCore(generators, ModItems.VOID_CORE, "void_core", "silk_core");
+		generateCore(generators, ModItems.COLLECTOR_CORE, "collector_core");
+		generateCore(generators, ModItems.SMELTING_CORE, "smelting_core");
+		generateCore(generators, ModItems.FILTER_CORE, "filter_core");
+		generateCore(generators, ModItems.VOID_CORE, "void_core");
 		generators.itemModelOutput.accept(
 				ModItems.ENHANCEMENT_WORKBENCH,
 				ItemModelUtils.plainModel(JustExcavators.id("block/enhancement_workbench"))

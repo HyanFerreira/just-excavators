@@ -60,6 +60,14 @@ public final class ModRecipeProvider extends FabricRecipeProvider {
 			}
 
 			private void buildCores() {
+				shaped(RecipeCategory.MISC, ModItems.CORE_HOUSING)
+						.define('N', Items.IRON_NUGGET)
+						.pattern("NNN")
+						.pattern("N N")
+						.pattern("NNN")
+						.unlockedBy("has_iron_nugget", has(Items.IRON_NUGGET))
+						.save(output);
+
 				shaped(RecipeCategory.MISC, ModItems.DEEP_EXCAVATION_CORE)
 						.define('R', Items.REDSTONE)
 						.define('I', Items.IRON_BLOCK)
@@ -94,11 +102,52 @@ public final class ModRecipeProvider extends FabricRecipeProvider {
 						.define('S', Items.STRING)
 						.define('A', Items.AMETHYST_SHARD)
 						.define('L', Items.LAPIS_LAZULI)
+						.define('H', ModItems.CORE_HOUSING)
+						.pattern("SAS")
+						.pattern("LHL")
+						.pattern("SAS")
+						.unlockedBy("has_core_housing", has(ModItems.CORE_HOUSING))
+						.save(output);
+
+				shaped(RecipeCategory.MISC, ModItems.COLLECTOR_CORE)
+						.define('L', Items.LAPIS_LAZULI)
 						.define('E', Items.ENDER_PEARL)
-						.pattern("SAS")
+						.define('H', ModItems.CORE_HOUSING)
 						.pattern("LEL")
-						.pattern("SAS")
-						.unlockedBy("has_ender_pearl", has(Items.ENDER_PEARL))
+						.pattern("LHL")
+						.pattern("LEL")
+						.unlockedBy("has_core_housing", has(ModItems.CORE_HOUSING))
+						.save(output);
+
+				shaped(RecipeCategory.MISC, ModItems.SMELTING_CORE)
+						.define('B', Items.BLAZE_POWDER)
+						.define('M', Items.MAGMA_CREAM)
+						.define('H', ModItems.CORE_HOUSING)
+						.pattern("BMB")
+						.pattern("BHB")
+						.pattern("BMB")
+						.unlockedBy("has_core_housing", has(ModItems.CORE_HOUSING))
+						.save(output);
+
+				shaped(RecipeCategory.MISC, ModItems.FILTER_CORE)
+						.define('A', Items.AMETHYST_SHARD)
+						.define('Q', Items.QUARTZ)
+						.define('H', ModItems.CORE_HOUSING)
+						.pattern("AQA")
+						.pattern("AHA")
+						.pattern("AQA")
+						.unlockedBy("has_core_housing", has(ModItems.CORE_HOUSING))
+						.save(output);
+
+				shaped(RecipeCategory.MISC, ModItems.VOID_CORE)
+						.define('O', Items.OBSIDIAN)
+						.define('C', Items.CRYING_OBSIDIAN)
+						.define('E', Items.ENDER_PEARL)
+						.define('H', ModItems.CORE_HOUSING)
+						.pattern("OCO")
+						.pattern("EHE")
+						.pattern("OCO")
+						.unlockedBy("has_core_housing", has(ModItems.CORE_HOUSING))
 						.save(output);
 			}
 

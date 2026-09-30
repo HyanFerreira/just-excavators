@@ -29,6 +29,7 @@ public final class ModEnglishLanguageProvider extends FabricLanguageProvider {
 		translations.add(ModItems.DEEP_EXCAVATION_CORE, "Deep Excavation Core");
 		translations.add(ModItems.WIDE_EXCAVATION_CORE, "Wide Excavation Core");
 		translations.add(ModItems.ADVANCED_EXCAVATION_CORE, "Advanced Excavation Core");
+		translations.add(ModItems.CORE_HOUSING, "Core Housing");
 		translations.add(ModItems.SILK_CORE, "Silk Core");
 		translations.add(ModItems.COLLECTOR_CORE, "Collector Core");
 		translations.add(ModItems.SMELTING_CORE, "Smelting Core");

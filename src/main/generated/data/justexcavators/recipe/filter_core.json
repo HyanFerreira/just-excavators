@@ -3,15 +3,14 @@
   "key": {
     "A": "minecraft:amethyst_shard",
     "H": "justexcavators:core_housing",
-    "L": "minecraft:lapis_lazuli",
-    "S": "minecraft:string"
+    "Q": "minecraft:quartz"
   },
   "pattern": [
-    "SAS",
-    "LHL",
-    "SAS"
+    "AQA",
+    "AHA",
+    "AQA"
   ],
   "result": {
-    "id": "justexcavators:silk_core"
+    "id": "justexcavators:filter_core"
   }
 }

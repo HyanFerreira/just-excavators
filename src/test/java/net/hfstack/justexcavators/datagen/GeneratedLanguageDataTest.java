@@ -34,6 +34,12 @@ final class GeneratedLanguageDataTest {
 		);
 	}
 
+	@Test
+	void translatesCoreHousingInEverySupportedLanguage() throws IOException {
+		assertEquals("Core Housing", translation("en_us", "item.justexcavators.core_housing"));
+		assertEquals("Estrutura de Núcleo", translation("pt_br", "item.justexcavators.core_housing"));
+	}
+
 	private static String translation(String language, String key) throws IOException {
 		JsonObject translations = JsonParser.parseString(Files.readString(
 				LANG_DIRECTORY.resolve(language + ".json")

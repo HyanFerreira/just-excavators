@@ -26,6 +26,7 @@ public final class ModItems {
 	public static final Item DEEP_EXCAVATION_CORE = register("deep_excavation_core", Item::new);
 	public static final Item WIDE_EXCAVATION_CORE = register("wide_excavation_core", Item::new);
 	public static final Item ADVANCED_EXCAVATION_CORE = register("advanced_excavation_core", Item::new);
+	public static final Item CORE_HOUSING = register("core_housing", Item::new);
 	public static final Item SILK_CORE = registerEnhancementCore("silk_core", EnhancementType.SILK);
 	public static final Item COLLECTOR_CORE = registerEnhancementCore("collector_core", EnhancementType.COLLECTOR);
 	public static final Item SMELTING_CORE = registerEnhancementCore("smelting_core", EnhancementType.SMELTING);

@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_core_housing": {
+    "has_iron_nugget": {
       "conditions": {
         "items": [
           {
-            "items": "justexcavators:core_housing"
+            "items": "minecraft:iron_nugget"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "justexcavators:silk_core"
+        "recipes": "justexcavators:core_housing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_core_housing"
+      "has_iron_nugget"
     ]
   ],
   "rewards": {
     "recipes": [
-      "justexcavators:silk_core"
+      "justexcavators:core_housing"
     ]
   }
 }

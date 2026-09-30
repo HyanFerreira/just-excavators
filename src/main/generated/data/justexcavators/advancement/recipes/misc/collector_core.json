@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "justexcavators:silk_core"
+        "recipes": "justexcavators:collector_core"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "justexcavators:silk_core"
+      "justexcavators:collector_core"
     ]
   }
 }

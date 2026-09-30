@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "E": "minecraft:ender_pearl",
+    "H": "justexcavators:core_housing",
+    "L": "minecraft:lapis_lazuli"
+  },
+  "pattern": [
+    "LEL",
+    "LHL",
+    "LEL"
+  ],
+  "result": {
+    "id": "justexcavators:collector_core"
+  }
+}
