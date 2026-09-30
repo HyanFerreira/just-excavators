@@ -3,7 +3,7 @@
 > **Alvo inicial:** Minecraft 26.3, Fabric, Java 25  
 > **Escopo:** versão 1.0 definida em `JUSTEXCAVATORS_IDEA.md`  
 > **Última atualização:** 2026-09-30
-> **Estado atual:** Enhancement Cores — Fases 0 e 1 concluídas; próxima etapa é o pipeline de loot e Silk nativo
+> **Estado atual:** Enhancement Cores — Fases 0, 1 e 2 concluídas; próxima etapa é Filter, Collector e Void
 
 Este documento é o guia operacional do desenvolvimento. Ele registra decisões,
 ordem de execução, critérios de aceite e pontos de retomada para que o trabalho
@@ -548,12 +548,12 @@ Estado: `CONCLUÍDO`
 
 ### Enhancement Cores — Fase 2: pipeline de loot e Silk nativo
 
-Estado: `PENDENTE`
+Estado: `CONCLUÍDO`
 
-- [ ] Abranger o bloco central e o AOE com um contexto server-side comum.
-- [ ] Fazer Silk participar do loot context sem encantamento persistente.
-- [ ] Remover a aplicação pela Smithing Table e os workarounds transitórios.
-- [ ] Preservar callbacks, estatísticas, proteção e compatibilidade com loot tables.
+- [x] Abranger o bloco central e o AOE com um contexto server-side comum.
+- [x] Fazer Silk participar do loot context sem encantamento persistente.
+- [x] Remover a aplicação pela Smithing Table e os workarounds transitórios.
+- [x] Preservar callbacks, estatísticas, proteção e compatibilidade com loot tables.
 
 ### Enhancement Cores — Fase 3: Filter, Collector e Void
 
@@ -690,6 +690,6 @@ Ao iniciar uma nova sessão de desenvolvimento:
 
 ## 9. Próximo passo
 
-Iniciar **Enhancement Cores — Fase 2: pipeline de loot e Silk nativo**.
+Iniciar **Enhancement Cores — Fase 3: Filter, Collector e Void**.
 A Fase 11 histórica de validação será retomada depois que a expansão estiver
 integrada.

@@ -3,17 +3,12 @@ package net.hfstack.justexcavators.item;
 import java.util.function.Consumer;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.component.TooltipDisplay;
-import net.minecraft.world.item.enchantment.Enchantments;
 
 import net.hfstack.justexcavators.component.ExcavatorComponents;
 import net.hfstack.justexcavators.component.ExcavatorEnhancements;
@@ -25,22 +20,6 @@ public final class ExcavatorItem extends Item {
 
 	public ExcavatorItem(Item.Properties properties, ToolMaterial material) {
 		super(configure(properties, material));
-	}
-
-	@Override
-	public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, EquipmentSlot slot) {
-		ExcavatorEnhancements enhancements = stack.getOrDefault(
-				ExcavatorComponents.ENHANCEMENTS,
-				ExcavatorEnhancements.EMPTY
-		);
-		boolean hasSilkTouch = stack.getEnchantments().keySet().stream()
-				.anyMatch(enchantment -> enchantment.is(Enchantments.SILK_TOUCH));
-		if (enhancements.has(EnhancementType.SILK) && !hasSilkTouch) {
-			stack.enchant(
-					level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH),
-					1
-			);
-		}
 	}
 
 	@Override

@@ -3,8 +3,7 @@
 	"package": "net.hfstack.justexcavators.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"mixins": [
-		"GrindstoneMenuMixin",
-		"GrindstoneResultSlotMixin",
+		"BlockDropMixin",
 		"ServerPlayerGameModeMixin"
 	],
 	"client": [

@@ -3,7 +3,6 @@ package net.hfstack.justexcavators.workbench;
 import java.util.Optional;
 import java.util.OptionalInt;
 
-import net.minecraft.core.registries.Registries;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -13,7 +12,6 @@ import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 
 import net.hfstack.justexcavators.block.ModBlocks;
@@ -167,7 +165,6 @@ public final class EnhancementWorkbenchMenu extends AbstractContainerMenu {
 	}
 
 	private void apply(CoreClickResult result, Player player) {
-		ExcavatorEnhancements previous = currentEnhancements();
 		ItemStack carried = getCarried();
 		if (result.consumedFromCursor() > 0) {
 			carried.shrink(result.consumedFromCursor());
@@ -176,28 +173,12 @@ public final class EnhancementWorkbenchMenu extends AbstractContainerMenu {
 		result.inventoryReturn().ifPresent(type -> player.getInventory().add(
 				EnhancementCoreCatalog.stackOf(type)
 		));
-		setEnhancements(previous, result.enhancements(), player);
+		setEnhancements(result.enhancements());
 	}
 
-	private void setEnhancements(
-			ExcavatorEnhancements previous,
-			ExcavatorEnhancements enhancements,
-			Player player
-	) {
+	private void setEnhancements(ExcavatorEnhancements enhancements) {
 		ItemStack stack = tool.getItem(0);
 		stack.set(ExcavatorComponents.ENHANCEMENTS, enhancements);
-		if (!previous.has(EnhancementType.SILK) && enhancements.has(EnhancementType.SILK)) {
-			stack.enchant(
-					player.registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
-							.getOrThrow(Enchantments.SILK_TOUCH),
-					1
-			);
-		} else if (previous.has(EnhancementType.SILK) && !enhancements.has(EnhancementType.SILK)) {
-			EnchantmentHelper.updateEnchantments(
-					stack,
-					mutable -> mutable.removeIf(holder -> holder.is(Enchantments.SILK_TOUCH))
-			);
-		}
 		tool.setChanged();
 		refreshProjections();
 		broadcastChanges();
@@ -226,7 +207,7 @@ public final class EnhancementWorkbenchMenu extends AbstractContainerMenu {
 				return ItemStack.EMPTY;
 			}
 			player.getInventory().add(original.copy());
-			setEnhancements(currentEnhancements(), removal.orElseThrow().enhancements(), player);
+			setEnhancements(removal.orElseThrow().enhancements());
 			return original;
 		}
 
@@ -250,7 +231,7 @@ public final class EnhancementWorkbenchMenu extends AbstractContainerMenu {
 				if (target.isPresent()) {
 					ExcavatorEnhancements before = currentEnhancements();
 					stack.shrink(1);
-					setEnhancements(before, before.withSlot(target.getAsInt(), type.orElseThrow()), player);
+					setEnhancements(before.withSlot(target.getAsInt(), type.orElseThrow()));
 				} else if (index < PLAYER_MAIN_END) {
 					if (!moveItemStackTo(stack, PLAYER_MAIN_END, PLAYER_END, false)) return ItemStack.EMPTY;
 				} else if (!moveItemStackTo(stack, PLAYER_INVENTORY_START, PLAYER_MAIN_END, false)) {

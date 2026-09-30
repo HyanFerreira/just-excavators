@@ -1,7 +1,6 @@
 package net.hfstack.justexcavators.datagen;
 
 import java.util.Map;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
@@ -26,14 +25,12 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.item.crafting.ShapedRecipePattern;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 
 import net.hfstack.justexcavators.JustExcavators;
 import net.hfstack.justexcavators.component.ExcavatorComponents;
 import net.hfstack.justexcavators.excavation.ExcavationMode;
 import net.hfstack.justexcavators.item.ModItems;
-import net.hfstack.justexcavators.recipe.SilkCoreSmithingRecipe;
 
 public final class ModRecipeProvider extends FabricRecipeProvider {
 	public ModRecipeProvider(
@@ -60,7 +57,6 @@ public final class ModRecipeProvider extends FabricRecipeProvider {
 				buildCores();
 				buildExcavators();
 				buildNetheriteUpgrade();
-				buildSilkCoreUpgrade();
 			}
 
 			private void buildCores() {
@@ -178,24 +174,6 @@ public final class ModRecipeProvider extends FabricRecipeProvider {
 				)
 						.unlocks("has_netherite_ingot", has(Items.NETHERITE_INGOT))
 						.save(output, JustExcavators.MOD_ID + ":netherite_excavator_smithing");
-			}
-
-			private void buildSilkCoreUpgrade() {
-				ResourceKey<Recipe<?>> key = ResourceKey.create(
-						Registries.RECIPE,
-						JustExcavators.id("silk_core_smithing")
-				);
-				SilkCoreSmithingRecipe recipe = new SilkCoreSmithingRecipe(
-						new Recipe.CommonInfo(true),
-						Optional.empty(),
-						Ingredient.of(ModItems.EXCAVATORS.stream()),
-						Optional.of(Ingredient.of(ModItems.SILK_CORE)),
-						registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH)
-				);
-				RecipeUnlockAdvancementBuilder advancement = new RecipeUnlockAdvancementBuilder();
-				advancement.unlockedBy("has_silk_core", has(ModItems.SILK_CORE));
-
-				output.accept(key, recipe, advancement.build(output, key, RecipeCategory.TOOLS));
 			}
 		};
 	}
