@@ -8,6 +8,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.ServerPlayerGameMode;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
+
+import net.hfstack.justexcavators.enhancement.ActiveEnhancements;
 
 public final class ExcavationHandler {
 	private ExcavationHandler() {
@@ -20,7 +23,9 @@ public final class ExcavationHandler {
 			BlockPos origin,
 			Direction hitFace,
 			ExcavationMode excavationMode,
-			ItemStack originalTool
+			ItemStack originalTool,
+			ActiveEnhancements enhancements,
+			BlockState centralState
 	) {
 		List<BlockPos> positions = ExcavationAreaCalculator.calculate(origin, hitFace, excavationMode);
 
@@ -35,7 +40,16 @@ public final class ExcavationHandler {
 				continue;
 			}
 
-			gameMode.destroyBlock(target);
+			try (ExcavationBreakContext.Scope ignored = ExcavationBreakContext.open(
+					player,
+					originalTool,
+					enhancements,
+					origin,
+					centralState,
+					true
+			)) {
+				gameMode.destroyBlock(target);
+			}
 		}
 	}
 

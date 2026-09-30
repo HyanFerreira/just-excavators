@@ -13,6 +13,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.protocol.game.ServerboundPlayerActionPacket.Action;
@@ -20,12 +23,19 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.ServerPlayerGameMode;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import net.hfstack.justexcavators.component.ExcavatorComponents;
 import net.hfstack.justexcavators.excavation.ExcavationExecutionPolicy;
+import net.hfstack.justexcavators.excavation.ExcavationBreakContext;
 import net.hfstack.justexcavators.excavation.ExcavationHandler;
 import net.hfstack.justexcavators.excavation.ExcavationMode;
 import net.hfstack.justexcavators.excavation.ExcavationTargetValidator;
+import net.hfstack.justexcavators.component.ExcavatorEnhancements;
+import net.hfstack.justexcavators.enhancement.ActiveEnhancements;
 
 @Mixin(ServerPlayerGameMode.class)
 abstract class ServerPlayerGameModeMixin {
@@ -124,6 +134,15 @@ abstract class ServerPlayerGameModeMixin {
 		}
 
 		ItemStack tool = player.getMainHandItem();
+		ExcavatorEnhancements installed = tool.getOrDefault(
+				ExcavatorComponents.ENHANCEMENTS,
+				ExcavatorEnhancements.EMPTY
+		);
+		ActiveEnhancements enhancements = ActiveEnhancements.resolve(
+				installed,
+				hasEnchantment(tool, Enchantments.SILK_TOUCH),
+				hasEnchantment(tool, Enchantments.FORTUNE)
+		);
 		Direction hitFace = pos.equals(justexcavators$packetHitPos)
 				? justexcavators$packetHitFace
 				: justexcavators$trackedHits().get(pos);
@@ -131,10 +150,46 @@ abstract class ServerPlayerGameModeMixin {
 				pos.immutable(),
 				hitFace,
 				tool,
+				enhancements,
+				level.getBlockState(pos),
 				tool.getOrDefault(ExcavatorComponents.EXCAVATION_MODE, ExcavationMode.BASIC),
 				hitFace != null && ExcavationTargetValidator.isValidTarget(level, pos, tool),
 				player.isShiftKeyDown()
 		);
+	}
+
+	@WrapOperation(
+			method = "destroyBlock",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/world/level/block/Block;playerDestroy(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/entity/BlockEntity;Lnet/minecraft/world/item/ItemStack;)V"
+			)
+	)
+	private void justexcavators$scopeCentralBreak(
+			Block block,
+			ServerLevel level,
+			ServerPlayer player,
+			BlockPos pos,
+			BlockState state,
+			BlockEntity blockEntity,
+			ItemStack lootTool,
+			Operation<Void> original
+	) {
+		BreakContext context = justexcavators$breakContext;
+		if (context == null || ExcavationBreakContext.current().isPresent()) {
+			original.call(block, level, player, pos, state, blockEntity, lootTool);
+			return;
+		}
+		try (ExcavationBreakContext.Scope ignored = ExcavationBreakContext.open(
+				player,
+				context.tool(),
+				context.enhancements(),
+				context.origin(),
+				context.centralState(),
+				false
+		)) {
+			original.call(block, level, player, pos, state, blockEntity, lootTool);
+		}
 	}
 
 	@Inject(method = "destroyBlock", at = @At("RETURN"))
@@ -170,7 +225,9 @@ abstract class ServerPlayerGameModeMixin {
 					context.origin(),
 					context.hitFace(),
 					context.mode(),
-					context.tool()
+					context.tool(),
+					context.enhancements(),
+					context.centralState()
 			);
 		} finally {
 			justexcavators$excavating = false;
@@ -194,10 +251,20 @@ abstract class ServerPlayerGameModeMixin {
 	}
 
 	@Unique
+	private static boolean hasEnchantment(
+			ItemStack stack,
+			net.minecraft.resources.ResourceKey<net.minecraft.world.item.enchantment.Enchantment> enchantment
+	) {
+		return stack.getEnchantments().keySet().stream().anyMatch(holder -> holder.is(enchantment));
+	}
+
+	@Unique
 	private record BreakContext(
 			BlockPos origin,
 			Direction hitFace,
 			ItemStack tool,
+			ActiveEnhancements enhancements,
+			BlockState centralState,
 			ExcavationMode mode,
 			boolean centralEligible,
 			boolean sneaking
