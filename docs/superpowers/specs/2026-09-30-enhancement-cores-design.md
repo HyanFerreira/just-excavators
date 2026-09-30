@@ -74,14 +74,15 @@ There is no `NONE` value. Absence is represented by an empty slot.
 
 ### Installed enhancements
 
-`ExcavatorEnhancements` is an immutable ordered collection with zero, one, or
-two entries. Order represents Workbench slot 1 and slot 2 and therefore must
-remain stable across persistence, tooltip rendering, networking, and menu
-interaction.
+`ExcavatorEnhancements` is an immutable pair of optional fixed positions named
+`slot_1` and `slot_2`. Either position may be independently empty, allowing a
+player to install the first Core in either visible Workbench slot. Slot identity
+must remain stable across persistence, tooltip rendering, networking, and menu
+interaction; removing slot 1 must not move slot 2 automatically.
 
 Every construction or mutation operation enforces these invariants:
 
-- no more than two entries;
+- exactly two addressable positions, each empty or containing one Core;
 - no duplicate type;
 - every pair must be compatible;
 - invalid serialized data is rejected rather than silently normalized.
@@ -135,9 +136,9 @@ fallback must never duplicate drops.
 The persistent codec accepts both formats:
 
 1. the legacy boolean, where `true` becomes `[SILK]` and `false` becomes `[]`;
-2. the new ordered collection.
+2. the new fixed-slot representation.
 
-New writes always use the ordered collection. The network codec uses only the
+New writes always use the fixed-slot representation. The network codec uses only the
 new representation after the persistent value has been decoded. Existing
 Excavators retain their name, damage, enchantments, excavation mode, and Silk
 Core state.
@@ -166,7 +167,7 @@ the normal validity check.
 ```
 
 Slot 0 accepts exactly one Excavator. Slots 1 and 2 expose the corresponding
-ordered component entries and accept exactly one registered Enhancement Core.
+fixed component positions and accept exactly one registered Enhancement Core.
 They remain disabled while slot 0 is empty.
 
 The Excavator component is authoritative. Enhancement slots are server-owned
@@ -175,7 +176,7 @@ Core must not create a second recoverable copy.
 
 ### Loading a tool
 
-When an Excavator enters slot 0, the server loads its ordered enhancements into
+When an Excavator enters slot 0, the server loads its fixed enhancement slots into
 slots 1 and 2. Empty component positions produce empty slots. A non-Excavator
 cannot enter slot 0.
 
@@ -362,7 +363,7 @@ while sneaking. Its tooltip includes a prominent destructive warning.
 
 ## Tooltips and feedback
 
-An Excavator tooltip lists enhancements in component order:
+An Excavator tooltip lists enhancements in fixed slot order:
 
 ```text
 Enhancement Cores (2/2):
@@ -436,7 +437,8 @@ dedicated server can load the mod safely.
 
 The feature is acceptable when:
 
-1. every Excavator stores and synchronizes zero to two valid ordered Cores;
+1. every Excavator stores and synchronizes two fixed optional Core slots containing
+   zero to two valid Cores;
 2. legacy Silk Excavators load without data loss;
 3. the Workbench supports safe installation, removal, direct replacement, and
    Shift-click behavior without duplication;
