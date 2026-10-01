@@ -35,12 +35,13 @@ public final class EnhancementWorkbenchScreen
 	private static final int SOURCE_WIDTH = 256;
 	private static final int SOURCE_HEIGHT = 256;
 	private static final int INFO_SIZE = 14;
-	private static final int INFO_X = 154;
-	private static final int INFO_Y = 8;
-	private static final int TITLE_X = 8;
-	private static final int TITLE_Y = 6;
+	private static final int INFO_X = 180;
+	private static final int INFO_Y = 4;
+	private static final int TITLE_CENTER_X = 88;
+	private static final int TITLE_Y = 7;
 	private static final float TITLE_SCALE = 0.9F;
-	private static final int TITLE_COLOR = 0xFF404040;
+	private static final int TITLE_MAX_WIDTH = 116;
+	private static final int TITLE_COLOR = 0xFFFFFFFF;
 	private static final int PANEL_X = 7;
 	private static final int PANEL_Y = 22;
 	private static final int PANEL_WIDTH = 162;
@@ -111,10 +112,15 @@ public final class EnhancementWorkbenchScreen
 
 	@Override
 	protected void extractLabels(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
+		int titleWidth = font.width(title);
+		float titleScale = Math.min(
+				TITLE_SCALE,
+				TITLE_MAX_WIDTH / (float) Math.max(titleWidth, 1)
+		);
 		graphics.pose().pushMatrix();
-		graphics.pose().translate(TITLE_X, TITLE_Y);
-		graphics.pose().scale(TITLE_SCALE);
-		graphics.text(font, title, 0, 0, TITLE_COLOR, false);
+		graphics.pose().translate(TITLE_CENTER_X, TITLE_Y);
+		graphics.pose().scale(titleScale);
+		graphics.text(font, title, -titleWidth / 2, 0, TITLE_COLOR, false);
 		graphics.pose().popMatrix();
 	}
 

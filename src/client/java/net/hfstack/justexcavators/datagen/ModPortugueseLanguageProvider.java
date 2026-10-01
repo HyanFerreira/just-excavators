@@ -41,8 +41,8 @@ public final class ModPortugueseLanguageProvider extends FabricLanguageProvider 
 		translations.add("gui.justexcavators.enhancement_workbench.compatibility.close", "Fechar painel de compatibilidade");
 		translations.add("gui.justexcavators.enhancement_workbench.compatibility.title", "Núcleos compatíveis");
 		translations.add("gui.justexcavators.enhancement_workbench.compatibility.no_duplicates", "Sem núcleos repetidos");
-		translations.add("resourcePack.justexcavators.decorated_workbench_gui.name", "Just Excavators: GUI Decorada da Bancada");
-		translations.add("resourcePack.justexcavators.decorated_workbench_gui.description", "Restaura a interface decorada da Bancada de Aprimoramento.");
+		translations.add("resourcePack.justexcavators.vanilla_workbench_gui.name", "Just Excavators: GUI Vanilla da Bancada");
+		translations.add("resourcePack.justexcavators.vanilla_workbench_gui.description", "Restaura a interface vanilla da Bancada de Aprimoramento.");
 		translations.add("tag.item.justexcavators.excavators", "Escavadoras");
 		translations.add("advancement.justexcavators.bigger_shovel.title", "Pá Maior");
 		translations.add("advancement.justexcavators.bigger_shovel.description", "Obtenha sua primeira Escavadora");

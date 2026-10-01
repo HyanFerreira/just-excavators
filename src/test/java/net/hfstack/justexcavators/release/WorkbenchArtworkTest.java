@@ -8,7 +8,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Set;
 
 import javax.imageio.ImageIO;
 
@@ -19,22 +18,22 @@ final class WorkbenchArtworkTest {
 			"src", "main", "resources", "assets", "justexcavators"
 	);
 	private static final Path BLOCK_MODELS = Path.of("artwork", "block-models");
-	private static final Path DECORATED_GUI_PACK = Path.of(
-			"src", "main", "resources", "resourcepacks", "decorated_workbench_gui"
+	private static final Path RECOLORED_GUI = Path.of(
+			"artwork", "enhancement_workbench_recolored.png"
+	);
+	private static final Path VANILLA_GUI_PACK = Path.of(
+			"src", "main", "resources", "resourcepacks", "vanilla_workbench_gui"
 	);
 
 	@Test
-	void guiUsesVanillaAtlasAndVisibleBounds() throws IOException {
+	void guiUsesSelectedArtworkAndVisibleBounds() throws IOException {
 		BufferedImage image = readImage(
 				ASSETS.resolve("textures/gui/container/enhancement_workbench.png")
-		);
-		BufferedImage vanilla = readImage(
-				ASSETS.resolve("textures/gui/container/enhancement_workbench_vanilla.png")
 		);
 
 		assertEquals(256, image.getWidth());
 		assertEquals(256, image.getHeight());
-		assertImagesEqual(vanilla, image);
+		assertImagesEqual(readImage(RECOLORED_GUI), image);
 		assertEquals(0, image.getRGB(176, 0) >>> 24);
 		assertEquals(0, image.getRGB(0, 166) >>> 24);
 		assertEquals(175, maximumOpaqueCoordinate(image, true));
@@ -42,23 +41,27 @@ final class WorkbenchArtworkTest {
 	}
 
 	@Test
-	void decoratedGuiIsAnOptionalBuiltInResourcePack() throws IOException {
-		Path decoratedTexture = DECORATED_GUI_PACK.resolve(
+	void vanillaGuiIsAnOptionalBuiltInResourcePack() throws IOException {
+		Path vanillaTexture = VANILLA_GUI_PACK.resolve(
 				"assets/justexcavators/textures/gui/container/enhancement_workbench.png"
 		);
-		assertDimensions(decoratedTexture, 256, 256);
-		assertTrue(Files.exists(DECORATED_GUI_PACK.resolve("pack.mcmeta")));
+		assertDimensions(vanillaTexture, 256, 256);
+		assertImagesEqual(
+				readImage(ASSETS.resolve("textures/gui/container/enhancement_workbench_vanilla.png")),
+				readImage(vanillaTexture)
+		);
+		assertTrue(Files.exists(VANILLA_GUI_PACK.resolve("pack.mcmeta")));
 
 		String clientInitializer = Files.readString(Path.of(
 				"src", "client", "java", "net", "hfstack", "justexcavators", "client",
 				"JustExcavatorsClient.java"
 		));
-		assertTrue(clientInitializer.contains("JustExcavators.id(\"decorated_workbench_gui\")"));
+		assertTrue(clientInitializer.contains("JustExcavators.id(\"vanilla_workbench_gui\")"));
 		assertTrue(clientInitializer.contains("PackActivationType.NORMAL"));
 	}
 
 	@Test
-	void informationIconHasMatchingHoverSpritesAndTopRightPlacement() throws IOException {
+	void informationIconHasMatchingHoverSpritesAndOutsideRightPlacement() throws IOException {
 		assertDimensions(ASSETS.resolve("textures/gui/container/info.png"), 14, 14);
 		assertDimensions(ASSETS.resolve("textures/gui/container/info_highlighted.png"), 14, 14);
 
@@ -67,8 +70,8 @@ final class WorkbenchArtworkTest {
 				"EnhancementWorkbenchScreen.java"
 		));
 		assertTrue(screen.contains("private static final int INFO_SIZE = 14;"));
-		assertTrue(screen.contains("private static final int INFO_X = 154;"));
-		assertTrue(screen.contains("private static final int INFO_Y = 8;"));
+		assertTrue(screen.contains("private static final int INFO_X = 180;"));
+		assertTrue(screen.contains("private static final int INFO_Y = 4;"));
 		assertTrue(screen.contains("infoHovered ? INFO_HIGHLIGHTED_TEXTURE : INFO_TEXTURE"));
 		assertTrue(screen.contains("private static final int PANEL_WIDTH = 162;"));
 		assertTrue(screen.contains("private static final int PANEL_HEIGHT = 136;"));
@@ -76,20 +79,6 @@ final class WorkbenchArtworkTest {
 		assertTrue(screen.contains("EnhancementCompatibility.isValidPair(source, candidate)"));
 		assertTrue(screen.contains("compatibilityPanelOpen = !compatibilityPanelOpen;"));
 		assertTrue(screen.contains("event.key() == InputConstants.KEY_ESCAPE"));
-	}
-
-	@Test
-	void workbenchSlotsUseVanillaSlotPixels() throws IOException {
-		BufferedImage image = readImage(
-				ASSETS.resolve("textures/gui/container/enhancement_workbench.png")
-		);
-
-		assertVanillaSlot(image, 81, 24);
-		assertVanillaSlot(image, 52, 53);
-		assertVanillaSlot(image, 109, 53);
-		assertNoResidualFrame(image, 81, 24);
-		assertNoResidualFrame(image, 52, 53);
-		assertNoResidualFrame(image, 109, 53);
 	}
 
 	@Test
@@ -105,12 +94,13 @@ final class WorkbenchArtworkTest {
 
 		assertTrue(screen.contains("private static final int SOURCE_WIDTH = 256;"));
 		assertTrue(screen.contains("private static final int SOURCE_HEIGHT = 256;"));
-		assertTrue(screen.contains("private static final int TITLE_X = 8;"));
-		assertTrue(screen.contains("private static final int TITLE_Y = 6;"));
+		assertTrue(screen.contains("private static final int TITLE_CENTER_X = 88;"));
+		assertTrue(screen.contains("private static final int TITLE_Y = 7;"));
 		assertTrue(screen.contains("private static final float TITLE_SCALE = 0.9F;"));
-		assertTrue(screen.contains("private static final int TITLE_COLOR = 0xFF404040;"));
-		assertTrue(screen.contains("graphics.text(font, title, 0, 0, TITLE_COLOR, false);"));
-		assertFalse(screen.contains("TITLE_MAX_WIDTH"));
+		assertTrue(screen.contains("private static final int TITLE_MAX_WIDTH = 116;"));
+		assertTrue(screen.contains("private static final int TITLE_COLOR = 0xFFFFFFFF;"));
+		assertTrue(screen.contains("graphics.pose().translate(TITLE_CENTER_X, TITLE_Y);"));
+		assertTrue(screen.contains("graphics.text(font, title, -titleWidth / 2, 0, TITLE_COLOR, false);"));
 		assertTrue(screen.contains("super(menu, inventory, title, 176, 166);"));
 		assertTrue(menu.contains("addSlot(new Slot(tool, 0, 81, 24)"));
 		assertTrue(menu.contains("addSlot(coreSlot(0, 52, 53));"));
@@ -188,40 +178,6 @@ final class WorkbenchArtworkTest {
 		for (int y = 0; y < expected.getHeight(); y++) {
 			for (int x = 0; x < expected.getWidth(); x++) {
 				assertEquals(expected.getRGB(x, y), actual.getRGB(x, y), "Pixel at " + x + "," + y);
-			}
-		}
-	}
-
-	private static void assertVanillaSlot(BufferedImage image, int itemX, int itemY) {
-		for (int offset = 0; offset < 16; offset++) {
-			assertEquals(0x373737, image.getRGB(itemX - 1 + offset, itemY - 1) & 0xFFFFFF);
-			assertEquals(0x373737, image.getRGB(itemX - 1, itemY + offset) & 0xFFFFFF);
-			assertEquals(0xFFFFFF, image.getRGB(itemX + 16, itemY + offset) & 0xFFFFFF);
-			assertEquals(0xFFFFFF, image.getRGB(itemX + offset, itemY + 16) & 0xFFFFFF);
-		}
-		for (int y = itemY; y < itemY + 16; y++) {
-			for (int x = itemX; x < itemX + 16; x++) {
-				assertEquals(
-						0x8B8B8B,
-						image.getRGB(x, y) & 0xFFFFFF,
-						"Unexpected line inside slot at " + x + "," + y
-				);
-			}
-		}
-	}
-
-	private static void assertNoResidualFrame(BufferedImage image, int itemX, int itemY) {
-		Set<Integer> slotEdgeColors = Set.of(0x373737, 0x555555, 0xFFFFFF);
-		for (int y = itemY - 4; y <= itemY + 19; y++) {
-			for (int x = itemX - 4; x <= itemX + 19; x++) {
-				boolean insideSlot = x >= itemX - 1 && x <= itemX + 16
-						&& y >= itemY - 1 && y <= itemY + 16;
-				if (!insideSlot) {
-					assertTrue(
-							!slotEdgeColors.contains(image.getRGB(x, y) & 0xFFFFFF),
-							"Residual slot frame at " + x + "," + y
-					);
-				}
 			}
 		}
 	}

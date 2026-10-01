@@ -15,18 +15,18 @@ public final class JustExcavatorsClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		MenuScreens.register(ModMenuTypes.ENHANCEMENT_WORKBENCH, EnhancementWorkbenchScreen::new);
-		registerDecoratedWorkbenchGui();
+		registerVanillaWorkbenchGui();
 	}
 
-	private static void registerDecoratedWorkbenchGui() {
+	private static void registerVanillaWorkbenchGui() {
 		boolean registered = ResourceLoader.registerBuiltinPack(
-				JustExcavators.id("decorated_workbench_gui"),
+				JustExcavators.id("vanilla_workbench_gui"),
 				FabricLoader.getInstance().getModContainer(JustExcavators.MOD_ID).orElseThrow(),
-				Component.translatable("resourcePack.justexcavators.decorated_workbench_gui.name"),
+				Component.translatable("resourcePack.justexcavators.vanilla_workbench_gui.name"),
 				PackActivationType.NORMAL
 		);
 		if (!registered) {
-			JustExcavators.LOGGER.warn("Could not register the decorated workbench GUI resource pack.");
+			JustExcavators.LOGGER.warn("Could not register the vanilla workbench GUI resource pack.");
 		}
 	}
 }
