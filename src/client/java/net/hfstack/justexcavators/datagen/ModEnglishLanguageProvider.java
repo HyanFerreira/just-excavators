@@ -37,9 +37,10 @@ public final class ModEnglishLanguageProvider extends FabricLanguageProvider {
 		translations.add(ModItems.VOID_CORE, "Void Core");
 		translations.add(ModItems.ENHANCEMENT_WORKBENCH, "Enhancement Workbench");
 		translations.add("container.justexcavators.enhancement_workbench", "Enhancement Workbench");
-		translations.add("gui.justexcavators.enhancement_workbench.info", "Enhancement Workbench");
-		translations.add("gui.justexcavators.enhancement_workbench.info.tool_slot", "Top slot: Excavator");
-		translations.add("gui.justexcavators.enhancement_workbench.info.core_slots", "Bottom slots: compatible Enhancement Cores");
+		translations.add("gui.justexcavators.enhancement_workbench.compatibility.open", "Show compatible Enhancement Cores");
+		translations.add("gui.justexcavators.enhancement_workbench.compatibility.close", "Close compatibility panel");
+		translations.add("gui.justexcavators.enhancement_workbench.compatibility.title", "Compatible cores");
+		translations.add("gui.justexcavators.enhancement_workbench.compatibility.no_duplicates", "No duplicate cores");
 		translations.add("resourcePack.justexcavators.decorated_workbench_gui.name", "Just Excavators: Decorated Workbench GUI");
 		translations.add("resourcePack.justexcavators.decorated_workbench_gui.description", "Restores the decorated Enhancement Workbench interface.");
 		translations.add("tag.item.justexcavators.excavators", "Excavators");
