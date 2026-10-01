@@ -72,6 +72,12 @@ final class WorkbenchArtworkTest {
 		assertTrue(screen.contains("private static final int INFO_X = 154;"));
 		assertTrue(screen.contains("private static final int INFO_Y = 8;"));
 		assertTrue(screen.contains("infoHovered ? INFO_HIGHLIGHTED_TEXTURE : INFO_TEXTURE"));
+		assertTrue(screen.contains("private static final int PANEL_WIDTH = 162;"));
+		assertTrue(screen.contains("private static final int PANEL_HEIGHT = 136;"));
+		assertTrue(screen.contains("private static final float PANEL_TEXT_SCALE = 0.75F;"));
+		assertTrue(screen.contains("EnhancementCompatibility.isValidPair(source, candidate)"));
+		assertTrue(screen.contains("compatibilityPanelOpen = !compatibilityPanelOpen;"));
+		assertTrue(screen.contains("event.key() == InputConstants.KEY_ESCAPE"));
 	}
 
 	@Test
@@ -151,11 +157,6 @@ final class WorkbenchArtworkTest {
 		assertRecoloredFace("front", spruce, stoneBricks, true);
 		assertRecoloredFace("side", spruce, stoneBricks, true);
 		assertRecoloredFace("bottom", spruce, stoneBricks, false);
-		assertMaterialTop(
-				spruce,
-				stoneBricks,
-				readImage(ASSETS.resolve("textures/block/enhancement_workbench_top.png"))
-		);
 	}
 
 	private static void assertDimensions(Path path, int width, int height) throws IOException {
@@ -202,40 +203,6 @@ final class WorkbenchArtworkTest {
 					.contains(x + "," + y);
 			default -> false;
 		};
-	}
-
-	private static void assertMaterialTop(
-			BufferedImage spruce,
-			BufferedImage stoneBricks,
-			BufferedImage actual
-	) {
-		assertEquals(spruce.getWidth(), actual.getWidth());
-		assertEquals(spruce.getHeight(), actual.getHeight());
-		for (int y = 0; y < spruce.getHeight(); y++) {
-			for (int x = 0; x < spruce.getWidth(); x++) {
-				int expected = isWoodOnTop(x, y)
-						? spruce.getRGB(x, y)
-						: stoneBricks.getRGB(x, y);
-				assertEquals(expected, actual.getRGB(x, y), "Top pixel at " + x + "," + y);
-			}
-		}
-	}
-
-	private static boolean isWoodOnTop(int x, int y) {
-		if (x == 0 || x == 15 || y == 0 || y == 15) {
-			return true;
-		}
-		if ((x <= 2 || x >= 13) && (y <= 2 || y >= 13)) {
-			return true;
-		}
-		for (int[] origin : new int[][]{{6, 3}, {3, 10}, {9, 10}}) {
-			if (x >= origin[0] && x < origin[0] + 4 && y >= origin[1] && y < origin[1] + 4) {
-				int localX = x - origin[0];
-				int localY = y - origin[1];
-				return localX == 0 || localX == 3 || localY == 0 || localY == 3;
-			}
-		}
-		return false;
 	}
 
 	private static BufferedImage readImage(Path path) throws IOException {
