@@ -1,0 +1,9 @@
+{
+  "pack": {
+    "description": {
+      "translate": "resourcePack.justexcavators.decorated_workbench_gui.description"
+    },
+    "min_format": [97, 1],
+    "max_format": [97, 1]
+  }
+}

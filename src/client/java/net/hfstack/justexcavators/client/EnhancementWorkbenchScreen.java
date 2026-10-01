@@ -1,5 +1,7 @@
 package net.hfstack.justexcavators.client;
 
+import java.util.List;
+
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -15,10 +17,20 @@ public final class EnhancementWorkbenchScreen
 	private static final Identifier TEXTURE = JustExcavators.id(
 			"textures/gui/container/enhancement_workbench.png"
 	);
+	private static final Identifier INFO_TEXTURE = JustExcavators.id(
+			"textures/gui/container/info.png"
+	);
+	private static final Identifier INFO_HIGHLIGHTED_TEXTURE = JustExcavators.id(
+			"textures/gui/container/info_highlighted.png"
+	);
 	private static final int SOURCE_WIDTH = 256;
 	private static final int SOURCE_HEIGHT = 256;
-	private static final float TITLE_MAX_WIDTH = 118.0F;
-	private static final int TITLE_Y = 7;
+	private static final int INFO_SIZE = 14;
+	private static final int INFO_X = 154;
+	private static final int INFO_Y = 8;
+	private static final int TITLE_X = 8;
+	private static final int TITLE_Y = 6;
+	private static final float TITLE_SCALE = 0.9F;
 	private static final int TITLE_COLOR = 0xFF404040;
 
 	public EnhancementWorkbenchScreen(
@@ -44,20 +56,43 @@ public final class EnhancementWorkbenchScreen
 				SOURCE_WIDTH,
 				SOURCE_HEIGHT
 		);
+
+		boolean infoHovered = mouseX >= leftPos + INFO_X
+				&& mouseX < leftPos + INFO_X + INFO_SIZE
+				&& mouseY >= topPos + INFO_Y
+				&& mouseY < topPos + INFO_Y + INFO_SIZE;
+		graphics.blit(
+				RenderPipelines.GUI_TEXTURED,
+				infoHovered ? INFO_HIGHLIGHTED_TEXTURE : INFO_TEXTURE,
+				leftPos + INFO_X,
+				topPos + INFO_Y,
+				0.0F,
+				0.0F,
+				INFO_SIZE,
+				INFO_SIZE,
+				INFO_SIZE,
+				INFO_SIZE
+		);
+		if (infoHovered) {
+			graphics.setComponentTooltipForNextFrame(
+					font,
+					List.of(
+							Component.translatable("gui.justexcavators.enhancement_workbench.info"),
+							Component.translatable("gui.justexcavators.enhancement_workbench.info.tool_slot"),
+							Component.translatable("gui.justexcavators.enhancement_workbench.info.core_slots")
+					),
+					mouseX,
+					mouseY
+			);
+		}
 	}
 
 	@Override
 	protected void extractLabels(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
-		int titleWidth = font.width(title);
-		float titleScale = Math.min(1.0F, TITLE_MAX_WIDTH / titleWidth);
-		if (titleScale == 1.0F) {
-			graphics.centeredText(font, title, imageWidth / 2, TITLE_Y, TITLE_COLOR);
-		} else {
-			graphics.pose().pushMatrix();
-			graphics.pose().translate(imageWidth / 2.0F, TITLE_Y);
-			graphics.pose().scale(titleScale);
-			graphics.text(font, title, -titleWidth / 2, 0, TITLE_COLOR, false);
-			graphics.pose().popMatrix();
-		}
+		graphics.pose().pushMatrix();
+		graphics.pose().translate(TITLE_X, TITLE_Y);
+		graphics.pose().scale(TITLE_SCALE);
+		graphics.text(font, title, 0, 0, TITLE_COLOR, false);
+		graphics.pose().popMatrix();
 	}
 }

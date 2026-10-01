@@ -37,6 +37,11 @@ public final class ModPortugueseLanguageProvider extends FabricLanguageProvider 
 		translations.add(ModItems.VOID_CORE, "Núcleo do Vazio");
 		translations.add(ModItems.ENHANCEMENT_WORKBENCH, "Bancada de Aprimoramento");
 		translations.add("container.justexcavators.enhancement_workbench", "Bancada de Aprimoramento");
+		translations.add("gui.justexcavators.enhancement_workbench.info", "Bancada de Aprimoramento");
+		translations.add("gui.justexcavators.enhancement_workbench.info.tool_slot", "Slot superior: Escavadora");
+		translations.add("gui.justexcavators.enhancement_workbench.info.core_slots", "Slots inferiores: Núcleos de Aprimoramento compatíveis");
+		translations.add("resourcePack.justexcavators.decorated_workbench_gui.name", "Just Excavators: GUI Decorada da Bancada");
+		translations.add("resourcePack.justexcavators.decorated_workbench_gui.description", "Restaura a interface decorada da Bancada de Aprimoramento.");
 		translations.add("tag.item.justexcavators.excavators", "Escavadoras");
 		translations.add("advancement.justexcavators.bigger_shovel.title", "Pá Maior");
 		translations.add("advancement.justexcavators.bigger_shovel.description", "Obtenha sua primeira Escavadora");
