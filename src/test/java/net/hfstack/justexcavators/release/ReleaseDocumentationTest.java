@@ -14,11 +14,11 @@ final class ReleaseDocumentationTest {
 	void readmeDescribesTheCurrentEnhancementWorkflow() throws IOException {
 		String readme = Files.readString(Path.of("README.md"));
 
-		assertTrue(readme.contains("Enhancement Workbench"));
-		assertTrue(readme.contains("Collector Core"));
-		assertTrue(readme.contains("Smelting Core"));
-		assertTrue(readme.contains("Filter Core"));
-		assertTrue(readme.contains("Void Core"));
+		assertTrue(readme.contains("Bancada de Aprimoramento"));
+		assertTrue(readme.contains("Núcleo Coletor"));
+		assertTrue(readme.contains("Núcleo de Fundição"));
+		assertTrue(readme.contains("Núcleo de Filtro"));
+		assertTrue(readme.contains("Núcleo do Vazio"));
 		assertFalse(readme.contains("Silk enhancement: combine any Excavator with a Silk Core in the Smithing"));
 		assertFalse(readme.contains("A Grindstone removes ordinary enchantments but preserves Silk Touch"));
 	}
