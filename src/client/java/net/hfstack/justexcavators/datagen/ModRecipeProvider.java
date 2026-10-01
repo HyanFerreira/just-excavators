@@ -124,7 +124,7 @@ public final class ModRecipeProvider extends FabricRecipeProvider {
 				shaped(RecipeCategory.MISC, ModItems.ENHANCEMENT_WORKBENCH)
 						.define('O', ItemTags.PLANKS)
 						.define('H', Items.ANVIL)
-						.define('N', Items.STONE_BRICKS)
+						.define('N', Items.DEEPSLATE_TILES)
 						.pattern("OOO")
 						.pattern("OHO")
 						.pattern("NNN")

@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "H": "minecraft:anvil",
-    "N": "minecraft:stone_bricks",
+    "N": "minecraft:deepslate_tiles",
     "O": "#minecraft:planks"
   },
   "pattern": [

@@ -90,12 +90,12 @@ final class GeneratedEnhancementCoreDataTest {
 	}
 
 	@Test
-	void enhancementWorkbenchUsesPlanksAnvilAndStoneBricks() throws IOException {
+	void enhancementWorkbenchUsesPlanksAnvilAndDeepslateTiles() throws IOException {
 		JsonObject recipe = recipe("enhancement_workbench");
 		JsonObject key = recipe.getAsJsonObject("key");
 		assertEquals("#minecraft:planks", key.get("O").getAsString());
 		assertEquals("minecraft:anvil", key.get("H").getAsString());
-		assertEquals("minecraft:stone_bricks", key.get("N").getAsString());
+		assertEquals("minecraft:deepslate_tiles", key.get("N").getAsString());
 		assertPattern(recipe, "OOO", "OHO", "NNN");
 		assertEquals(
 				"justexcavators:enhancement_workbench",

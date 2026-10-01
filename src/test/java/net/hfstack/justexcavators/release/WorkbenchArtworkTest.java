@@ -18,9 +18,7 @@ final class WorkbenchArtworkTest {
 	private static final Path ASSETS = Path.of(
 			"src", "main", "resources", "assets", "justexcavators"
 	);
-	private static final Path REFERENCE_BLOCKS = Path.of(
-			"artwork", "minecraft", "block"
-	);
+	private static final Path BLOCK_MODELS = Path.of("artwork", "block-models");
 	private static final Path DECORATED_GUI_PACK = Path.of(
 			"src", "main", "resources", "resourcepacks", "decorated_workbench_gui"
 	);
@@ -122,19 +120,18 @@ final class WorkbenchArtworkTest {
 	}
 
 	@Test
-	void blockTexturesUseTheFourSmithingTableFacesAtNativeResolution() throws IOException {
-		for (String face : new String[]{"top", "front", "side", "bottom"}) {
+	void blockTexturesUseTheFiveProvidedFacesAtNativeResolution() throws IOException {
+		for (String face : new String[]{"top", "front", "back", "side", "bottom"}) {
 			assertDimensions(
 					ASSETS.resolve("textures/block/enhancement_workbench_" + face + ".png"),
 					16,
 					16
 			);
 		}
-		assertFalse(Files.exists(ASSETS.resolve("textures/block/enhancement_workbench_back.png")));
 	}
 
 	@Test
-	void blockAndItemUseTheSmithingTableFaceLayout() throws IOException {
+	void blockAndItemUseTheProvidedFaceLayout() throws IOException {
 		String blockstate = Files.readString(ASSETS.resolve("blockstates/enhancement_workbench.json"));
 		String model = Files.readString(ASSETS.resolve("models/block/enhancement_workbench.json"));
 		String item = Files.readString(Path.of(
@@ -145,64 +142,38 @@ final class WorkbenchArtworkTest {
 		assertTrue(blockstate.contains("justexcavators:block/enhancement_workbench"));
 		assertTrue(item.contains("justexcavators:block/enhancement_workbench"));
 		assertTrue(model.contains("\"particle\": \"justexcavators:block/enhancement_workbench_front\""));
-		assertTrue(model.contains("\"south\": \"justexcavators:block/enhancement_workbench_front\""));
-		assertFalse(model.contains("enhancement_workbench_back"));
+		assertTrue(model.contains("\"north\": \"justexcavators:block/enhancement_workbench_front\""));
+		assertTrue(model.contains("\"south\": \"justexcavators:block/enhancement_workbench_back\""));
 	}
 
 	@Test
-	void blockTexturesRecolorSmithingMaterialsWithoutChangingToolPixels() throws IOException {
-		BufferedImage spruce = readImage(REFERENCE_BLOCKS.resolve("spruce_planks.png"));
-		BufferedImage stoneBricks = readImage(REFERENCE_BLOCKS.resolve("stone_bricks.png"));
-
-		assertRecoloredFace("front", spruce, stoneBricks, true);
-		assertRecoloredFace("side", spruce, stoneBricks, true);
-		assertRecoloredFace("bottom", spruce, stoneBricks, false);
+	void blockTexturesMatchTheProvidedArtwork() throws IOException {
+		assertImagesEqual(
+				readImage(BLOCK_MODELS.resolve("block_top.png")),
+				readImage(ASSETS.resolve("textures/block/enhancement_workbench_top.png"))
+		);
+		assertImagesEqual(
+				readImage(BLOCK_MODELS.resolve("block_frente.png")),
+				readImage(ASSETS.resolve("textures/block/enhancement_workbench_front.png"))
+		);
+		assertImagesEqual(
+				readImage(BLOCK_MODELS.resolve("block_costas.png")),
+				readImage(ASSETS.resolve("textures/block/enhancement_workbench_back.png"))
+		);
+		assertImagesEqual(
+				readImage(BLOCK_MODELS.resolve("block_lados.png")),
+				readImage(ASSETS.resolve("textures/block/enhancement_workbench_side.png"))
+		);
+		assertImagesEqual(
+				readImage(BLOCK_MODELS.resolve("block_base.png")),
+				readImage(ASSETS.resolve("textures/block/enhancement_workbench_bottom.png"))
+		);
 	}
 
 	private static void assertDimensions(Path path, int width, int height) throws IOException {
 		BufferedImage image = readImage(path);
 		assertEquals(width, image.getWidth(), () -> "Unexpected width: " + path);
 		assertEquals(height, image.getHeight(), () -> "Unexpected height: " + path);
-	}
-
-	private static void assertRecoloredFace(
-			String face,
-			BufferedImage spruce,
-			BufferedImage stoneBricks,
-			boolean preserveTools
-	) throws IOException {
-		BufferedImage source = readImage(REFERENCE_BLOCKS.resolve("smithing_table_" + face + ".png"));
-		BufferedImage actual = readImage(ASSETS.resolve("textures/block/enhancement_workbench_" + face + ".png"));
-		for (int y = 0; y < 16; y++) {
-			for (int x = 0; x < 16; x++) {
-				int sourceColor = source.getRGB(x, y);
-				boolean toolPixel = preserveTools && x >= 2 && x <= 13 && y >= 4
-						&& (!isReddishWood(sourceColor) || isWoodenToolPixel(face, x, y));
-				int expected = toolPixel
-						? sourceColor
-						: isReddishWood(sourceColor)
-								? stoneBricks.getRGB(x, y)
-								: spruce.getRGB(x, y);
-				assertEquals(expected, actual.getRGB(x, y), face + " at " + x + "," + y);
-			}
-		}
-	}
-
-	private static boolean isReddishWood(int argb) {
-		int red = argb >> 16 & 0xFF;
-		int green = argb >> 8 & 0xFF;
-		int blue = argb & 0xFF;
-		return red - green >= 20 && red - blue >= 15;
-	}
-
-	private static boolean isWoodenToolPixel(String face, int x, int y) {
-		return switch (face) {
-			case "front" -> Set.of("5,8", "3,9", "5,9", "3,10", "5,10", "3,11")
-					.contains(x + "," + y);
-			case "side" -> Set.of("5,5", "5,9", "5,10", "5,11", "5,12")
-					.contains(x + "," + y);
-			default -> false;
-		};
 	}
 
 	private static BufferedImage readImage(Path path) throws IOException {
