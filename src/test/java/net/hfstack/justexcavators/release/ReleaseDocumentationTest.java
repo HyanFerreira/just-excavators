@@ -27,7 +27,7 @@ final class ReleaseDocumentationTest {
 	void changelogRecordsTheCurrentVersionAndEnhancementCores() throws IOException {
 		String changelog = Files.readString(Path.of("CHANGELOG.md"));
 
-		assertTrue(changelog.contains("## [0.1.0]"));
+		assertTrue(changelog.contains("## [1.0.0]"));
 		assertTrue(changelog.contains("Enhancement Workbench"));
 		assertTrue(changelog.contains("Silk, Collector, Smelting, Filter, and Void"));
 	}

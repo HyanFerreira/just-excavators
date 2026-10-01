@@ -12,7 +12,7 @@ o fluxo normal do jogo.
 
 ## Versão Atual
 
-### 0.1.0
+### 1.0.0
 
 Principais funcionalidades:
 

@@ -2,33 +2,35 @@
 
 All notable changes to Just Excavators are documented in this file.
 
-## [0.1.0] - 2026-09-30
+## [1.0.0] - 2026-10-01
 
 ### Added
 
 - Stone, Copper, Iron, Golden, Diamond, and Netherite Excavators.
-- Basic, Deep, Wide, and Advanced excavation profiles with face-oriented,
-  server-authoritative area mining.
-- Deep, Wide, and Advanced Excavation Cores and their crafting progression.
-- Enhancement Workbench with two fixed, server-authoritative Core slots.
+- Basic (`3x3x1`), Deep (`3x3x3`), Wide (`5x5x1`), and Advanced (`5x5x3`) excavation profiles.
+- Face-oriented, server-authoritative area mining for floors, ceilings, and walls.
+- Deep, Wide, and Advanced Excavation Cores with their own crafting progression.
+- Enhancement Workbench with two fixed Core slots and an in-game compatibility panel.
 - Silk, Collector, Smelting, Filter, and Void Enhancement Cores.
-- Localized tooltips, English and Brazilian Portuguese translations, recipe
-  advancements, tags, block loot, and generated models.
+- Survival recipes for the Workbench, Excavators, Excavation Cores, Core Housing, and Enhancement Cores.
+- Diamond-to-Netherite upgrades that preserve the tool profile, durability, name, enchantments, and installed Cores.
+- Dedicated advancement branches for excavation progression and Enhancement Core progression.
+- English and Brazilian Portuguese translations, localized tooltips, generated recipes, models, tags, and block loot.
+- A built-in optional resource pack that restores the vanilla-style Enhancement Workbench interface.
 
-### Behavior and compatibility
+### Gameplay
 
-- Vanilla permission, protection, loot-table, XP, enchantment, durability, and
-  game-mode behavior is preserved for every block break.
-- Sneaking limits an Excavator to the central block.
-- Legacy Silk component data migrates without retaining its old synthetic Silk
-  Touch enchantment.
-- Just Excavators loads standalone and alongside JustHammers without a required
-  dependency.
+- Holding sneak disables area mining and breaks only the selected block.
+- Only shovel-mineable blocks are considered for additional area targets.
+- Protected, unbreakable, excluded, fluid-containing, and block-entity targets are skipped safely.
+- Every successful block break uses the normal Minecraft lifecycle for loot, XP, statistics, permissions, and durability.
+- Unbreaking, Mending, Efficiency, Fortune, and Silk Touch interactions follow vanilla behavior.
+- Collector overflow drops at the original block position instead of being deleted.
+- Smelting uses currently loaded furnace recipes, including compatible datapack and modded recipes.
+- Datapacks can exclude blocks through the `justexcavators:excavator_no_aoe` block tag.
 
-### Known pre-release content gaps
+### Compatibility
 
-- The Enhancement Workbench and the Collector, Smelting, Filter, and Void Cores
-  do not yet have Survival recipes.
-- Collector, Smelting, Filter, and Void Cores still use provisional artwork.
-- Interactive multiplayer, claims-mod, gravity-block, and broader gameplay
-  playtests remain part of the release gate.
+- Requires Minecraft 26.3, Fabric Loader 0.19.5 or newer, Fabric API, and Java 25 or newer.
+- Must be installed on both the client and server.
+- Runs independently without requiring JustHammers.
