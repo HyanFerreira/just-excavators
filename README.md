@@ -156,7 +156,7 @@ Ferraria. O perfil e o estado da ferramenta são preservados.
 
 ## Requisitos
 
-- **Minecraft:** 26.3
+- **Minecraft:** 26.1, 26.1.1 ou 26.1.2
 - **Loader:** Fabric
 - **Java:** 25 ou superior
 - **Fabric API**

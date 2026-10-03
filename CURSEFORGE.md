@@ -110,7 +110,7 @@ you to install compatible Core pairs and collect all five Enhancement Cores.
 
 ➡️ **Required on client and server**
 
-➡️ Requires **Minecraft 26.3**
+➡️ Requires **Minecraft 26.1, 26.1.1 or 26.1.2**
 
 ➡️ Requires **Fabric Loader 0.19.5+**
 

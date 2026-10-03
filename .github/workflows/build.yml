@@ -9,6 +9,18 @@ on: [pull_request, push]
 jobs:
   build:
     runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        include:
+          - minecraft: '26.1'
+            fabric_api: '0.145.1+26.1'
+          - minecraft: '26.1.1'
+            fabric_api: '0.145.4+26.1.1'
+          - minecraft: '26.1.2'
+            fabric_api: '0.155.3+26.1.2'
+    env:
+      ORG_GRADLE_PROJECT_minecraft_version: ${{ matrix.minecraft }}
+      ORG_GRADLE_PROJECT_fabric_api_version: ${{ matrix.fabric_api }}
     steps:
       - name: checkout repository
         uses: actions/checkout@v6
@@ -26,5 +38,5 @@ jobs:
       - name: capture build artifacts
         uses: actions/upload-artifact@v7
         with:
-          name: Artifacts
+          name: Artifacts-${{ matrix.minecraft }}
           path: build/libs/

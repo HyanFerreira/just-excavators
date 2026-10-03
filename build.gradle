@@ -14,6 +14,11 @@ loom {
 	}
 }
 
+// Generated resources are committed to the repository. The 26.1 data-generator
+// API predates the 26.3 API used by main, so backport builds do not compile the
+// generator-only sources.
+sourceSets.client.java.exclude("net/hfstack/justexcavators/datagen/**")
+
 fabricApi {
 	configureDataGeneration {
 		client = true
@@ -36,8 +41,6 @@ dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
-	localRuntime "mezz.jei:jei-${project.minecraft_version}-fabric:${project.jei_version}"
-
 	testImplementation "org.junit.jupiter:junit-jupiter:5.13.4"
 	testRuntimeOnly "org.junit.platform:junit-platform-launcher"
 }

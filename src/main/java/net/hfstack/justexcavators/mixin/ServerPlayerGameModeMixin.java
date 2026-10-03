@@ -84,7 +84,7 @@ abstract class ServerPlayerGameModeMixin {
 			int sequence,
 			CallbackInfo callback
 	) {
-		if (action == Action.START_DESTROY_BLOCK || action == Action.CHANGE_DESTROY_DIRECTION) {
+		if (action == Action.START_DESTROY_BLOCK) {
 			justexcavators$packetHitPos = pos.immutable();
 			justexcavators$packetHitFace = direction;
 		}

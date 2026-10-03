@@ -21,17 +21,14 @@
 		],
 		"client": [
 			"net.hfstack.justexcavators.client.JustExcavatorsClient"
-		],
-		"fabric-datagen": [
-			"net.hfstack.justexcavators.datagen.JustExcavatorsDataGenerator"
 		]
 	},
 	"mixins": [
 		"justexcavators.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.19.5",
-		"minecraft": "~26.3",
+		"fabricloader": ">=0.18.4",
+		"minecraft": ">=26.1 <=26.1.2",
 		"java": ">=25",
 		"fabric-api": "*"
 	}

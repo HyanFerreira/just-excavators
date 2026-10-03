@@ -16,7 +16,7 @@ public final class MinecraftTestBootstrap {
 		if (registries == null) {
 			SharedConstants.tryDetectVersion();
 			Bootstrap.bootStrap();
-			registries = VanillaRegistries.createWorldLookup();
+			registries = VanillaRegistries.createLookup();
 			BuiltInRegistries.DATA_COMPONENT_INITIALIZERS.build(registries)
 					.forEach(pending -> pending.apply());
 		}
