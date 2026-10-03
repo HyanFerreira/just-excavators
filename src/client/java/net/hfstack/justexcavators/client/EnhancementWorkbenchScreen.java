@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.mojang.blaze3d.platform.InputConstants;
 
-import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.input.KeyEvent;
@@ -58,12 +58,13 @@ public final class EnhancementWorkbenchScreen
 			Inventory inventory,
 			Component title
 	) {
-		super(menu, inventory, title, 176, 166);
+		super(menu, inventory, title);
+		imageWidth = 176;
+		imageHeight = 166;
 	}
 
 	@Override
-	public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
-		super.extractBackground(graphics, mouseX, mouseY, partialTick);
+	protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
 		graphics.blit(
 				RenderPipelines.GUI_TEXTURED,
 				TEXTURE,
@@ -102,16 +103,15 @@ public final class EnhancementWorkbenchScreen
 	}
 
 	@Override
-	public void extractContents(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
-		super.extractContents(graphics, mouseX, mouseY, partialTick);
+	public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+		super.render(graphics, mouseX, mouseY, partialTick);
 		if (compatibilityPanelOpen) {
-			graphics.nextStratum();
-			extractCompatibilityPanel(graphics, mouseX, mouseY);
+			renderCompatibilityPanel(graphics, mouseX, mouseY);
 		}
 	}
 
 	@Override
-	protected void extractLabels(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
+	protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
 		int titleWidth = font.width(title);
 		float titleScale = Math.min(
 				TITLE_SCALE,
@@ -120,7 +120,7 @@ public final class EnhancementWorkbenchScreen
 		graphics.pose().pushMatrix();
 		graphics.pose().translate(TITLE_CENTER_X, TITLE_Y);
 		graphics.pose().scale(titleScale);
-		graphics.text(font, title, -titleWidth / 2, 0, TITLE_COLOR, false);
+		graphics.drawString(font, title, -titleWidth / 2, 0, TITLE_COLOR, false);
 		graphics.pose().popMatrix();
 	}
 
@@ -152,7 +152,7 @@ public final class EnhancementWorkbenchScreen
 		return super.keyPressed(event);
 	}
 
-	private void extractCompatibilityPanel(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
+	private void renderCompatibilityPanel(GuiGraphics graphics, int mouseX, int mouseY) {
 		int panelLeft = leftPos + PANEL_X;
 		int panelTop = topPos + PANEL_Y;
 		drawVanillaPanel(graphics, panelLeft, panelTop, PANEL_WIDTH, PANEL_HEIGHT);
@@ -169,7 +169,7 @@ public final class EnhancementWorkbenchScreen
 			int itemY = topPos + PANEL_ROW_Y + row * PANEL_ROW_SPACING;
 			int sourceX = leftPos + PANEL_ROW_X;
 			hoveredCore = renderCore(graphics, source, sourceX, itemY, mouseX, mouseY, hoveredCore);
-			graphics.text(font, "→", sourceX + 22, itemY + 4, TITLE_COLOR, false);
+			graphics.drawString(font, "→", sourceX + 22, itemY + 4, TITLE_COLOR, false);
 
 			int compatibleX = sourceX + 36;
 			for (EnhancementType candidate : CORE_TYPES) {
@@ -200,7 +200,7 @@ public final class EnhancementWorkbenchScreen
 	}
 
 	private static ItemStack renderCore(
-			GuiGraphicsExtractor graphics,
+			GuiGraphics graphics,
 			EnhancementType type,
 			int x,
 			int y,
@@ -210,14 +210,14 @@ public final class EnhancementWorkbenchScreen
 	) {
 		drawVanillaSlot(graphics, x, y);
 		ItemStack stack = EnhancementCoreCatalog.stackOf(type);
-		graphics.item(stack, x, y);
+		graphics.renderItem(stack, x, y);
 		return mouseX >= x && mouseX < x + 16 && mouseY >= y && mouseY < y + 16
 				? stack
 				: hoveredCore;
 	}
 
 	private static void drawVanillaPanel(
-			GuiGraphicsExtractor graphics,
+			GuiGraphics graphics,
 			int x,
 			int y,
 			int width,
@@ -228,14 +228,14 @@ public final class EnhancementWorkbenchScreen
 		graphics.fill(x + 2, y + 2, x + width - 2, y + height - 2, 0xFFC6C6C6);
 	}
 
-	private static void drawVanillaSlot(GuiGraphicsExtractor graphics, int x, int y) {
+	private static void drawVanillaSlot(GuiGraphics graphics, int x, int y) {
 		graphics.fill(x - 1, y - 1, x + 17, y + 17, 0xFFFFFFFF);
 		graphics.fill(x - 1, y - 1, x + 16, y + 16, 0xFF373737);
 		graphics.fill(x, y, x + 16, y + 16, 0xFF8B8B8B);
 	}
 
 	private void drawCenteredPanelText(
-			GuiGraphicsExtractor graphics,
+			GuiGraphics graphics,
 			Component text,
 			int centerX,
 			int y
@@ -244,7 +244,7 @@ public final class EnhancementWorkbenchScreen
 		graphics.pose().pushMatrix();
 		graphics.pose().translate(centerX, y);
 		graphics.pose().scale(PANEL_TEXT_SCALE);
-		graphics.text(font, text, -textWidth / 2, 0, TITLE_COLOR, false);
+		graphics.drawString(font, text, -textWidth / 2, 0, TITLE_COLOR, false);
 		graphics.pose().popMatrix();
 	}
 

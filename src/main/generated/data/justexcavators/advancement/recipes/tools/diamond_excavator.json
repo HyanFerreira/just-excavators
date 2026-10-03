@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "justexcavators:diamond_excavator"
+        "recipe": "justexcavators:diamond_excavator"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

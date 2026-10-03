@@ -100,8 +100,9 @@ final class WorkbenchArtworkTest {
 		assertTrue(screen.contains("private static final int TITLE_MAX_WIDTH = 116;"));
 		assertTrue(screen.contains("private static final int TITLE_COLOR = 0xFFFFFFFF;"));
 		assertTrue(screen.contains("graphics.pose().translate(TITLE_CENTER_X, TITLE_Y);"));
-		assertTrue(screen.contains("graphics.text(font, title, -titleWidth / 2, 0, TITLE_COLOR, false);"));
-		assertTrue(screen.contains("super(menu, inventory, title, 176, 166);"));
+		assertTrue(screen.contains("graphics.drawString(font, title, -titleWidth / 2, 0, TITLE_COLOR, false);"));
+		assertTrue(screen.contains("imageWidth = 176;"));
+		assertTrue(screen.contains("imageHeight = 166;"));
 		assertTrue(menu.contains("addSlot(new Slot(tool, 0, 81, 24)"));
 		assertTrue(menu.contains("addSlot(coreSlot(0, 52, 53));"));
 		assertTrue(menu.contains("addSlot(coreSlot(1, 109, 53));"));

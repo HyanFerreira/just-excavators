@@ -22,8 +22,10 @@ import net.minecraft.network.protocol.game.ServerboundPlayerActionPacket.Action;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.ServerPlayerGameMode;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -84,7 +86,7 @@ abstract class ServerPlayerGameModeMixin {
 			int sequence,
 			CallbackInfo callback
 	) {
-		if (action == Action.START_DESTROY_BLOCK || action == Action.CHANGE_DESTROY_DIRECTION) {
+		if (action == Action.START_DESTROY_BLOCK) {
 			justexcavators$packetHitPos = pos.immutable();
 			justexcavators$packetHitFace = direction;
 		}
@@ -94,7 +96,7 @@ abstract class ServerPlayerGameModeMixin {
 			method = "handleBlockBreakAction",
 			at = @At(
 					value = "FIELD",
-					target = "Lnet/minecraft/server/level/ServerPlayerGameMode;destroyDirection:Lnet/minecraft/core/Direction;",
+					target = "Lnet/minecraft/server/level/ServerPlayerGameMode;destroyPos:Lnet/minecraft/core/BlockPos;",
 					opcode = Opcodes.PUTFIELD,
 					shift = At.Shift.AFTER
 			)
@@ -164,13 +166,13 @@ abstract class ServerPlayerGameModeMixin {
 			method = "destroyBlock",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/world/level/block/Block;playerDestroy(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/entity/BlockEntity;Lnet/minecraft/world/item/ItemStack;)V"
+					target = "Lnet/minecraft/world/level/block/Block;playerDestroy(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/entity/BlockEntity;Lnet/minecraft/world/item/ItemStack;)V"
 			)
 	)
 	private void justexcavators$scopeCentralBreak(
 			Block block,
-			ServerLevel level,
-			ServerPlayer player,
+			Level level,
+			Player player,
 			BlockPos pos,
 			BlockState state,
 			BlockEntity blockEntity,
@@ -183,7 +185,7 @@ abstract class ServerPlayerGameModeMixin {
 			return;
 		}
 		try (ExcavationBreakContext.Scope ignored = ExcavationBreakContext.open(
-				player,
+				(ServerPlayer) player,
 				context.tool(),
 				context.enhancements(),
 				context.origin(),
@@ -193,7 +195,7 @@ abstract class ServerPlayerGameModeMixin {
 			original.call(block, level, player, pos, state, blockEntity, lootTool);
 			ExcavationBreakContext.current().ifPresent(breakScope -> EnhancementDurability.apply(
 					context.tool(),
-					player,
+					(ServerPlayer) player,
 					context.enhancements().has(EnhancementType.SMELTING),
 					breakScope.transformedAnyDrop()
 			));

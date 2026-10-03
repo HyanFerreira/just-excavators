@@ -5,7 +5,7 @@ import static net.hfstack.justexcavators.enhancement.EnhancementType.FILTER;
 import static net.hfstack.justexcavators.enhancement.EnhancementType.SILK;
 import static net.hfstack.justexcavators.enhancement.EnhancementType.SMELTING;
 import static net.hfstack.justexcavators.enhancement.EnhancementType.VOID;
-import static net.minecraft.world.inventory.ContainerInput.PICKUP;
+import static net.minecraft.world.inventory.ClickType.PICKUP;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -15,7 +15,7 @@ import java.util.OptionalInt;
 
 import org.junit.jupiter.api.Test;
 
-import net.minecraft.world.inventory.ContainerInput;
+import net.minecraft.world.inventory.ClickType;
 
 import net.hfstack.justexcavators.component.ExcavatorEnhancements;
 import net.hfstack.justexcavators.enhancement.EnhancementType;
@@ -122,10 +122,10 @@ final class EnhancementWorkbenchTransactionsTest {
 
 	@Test
 	void onlyNormalPickupMayMutateAProjectedCoreSlotDirectly() {
-		for (ContainerInput input : ContainerInput.values()) {
+		for (ClickType input : ClickType.values()) {
 			assertEquals(input == PICKUP, EnhancementWorkbenchTransactions.acceptsCoreInput(input));
 		}
-		assertFalse(EnhancementWorkbenchTransactions.acceptsCoreInput(ContainerInput.QUICK_MOVE));
+		assertFalse(EnhancementWorkbenchTransactions.acceptsCoreInput(ClickType.QUICK_MOVE));
 	}
 
 	private static CoreClickResult click(

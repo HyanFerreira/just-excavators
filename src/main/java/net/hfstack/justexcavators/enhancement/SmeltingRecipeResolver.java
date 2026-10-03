@@ -18,7 +18,7 @@ public final class SmeltingRecipeResolver {
 		SingleRecipeInput recipeInput = new SingleRecipeInput(input.copyWithCount(1));
 		return level.recipeAccess()
 				.getRecipeFor(RecipeType.SMELTING, recipeInput, level)
-				.map(holder -> holder.value().assemble(recipeInput))
+				.map(holder -> holder.value().assemble(recipeInput, level.registryAccess()))
 				.filter(result -> !result.isEmpty());
 	}
 }

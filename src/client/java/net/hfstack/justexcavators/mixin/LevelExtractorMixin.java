@@ -1,7 +1,7 @@
 package net.hfstack.justexcavators.mixin;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.extract.LevelExtractor;
+import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 import org.spongepowered.asm.mixin.injection.ModifyArgs;
 
 /** Expands the vanilla block-outline shape to the active Excavator profile. */
-@Mixin(LevelExtractor.class)
+@Mixin(LevelRenderer.class)
 abstract class LevelExtractorMixin {
 	private static final double PREVIEW_INSET = 0.0025D;
 
@@ -34,7 +34,7 @@ abstract class LevelExtractorMixin {
 			method = "extractBlockOutline",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/client/renderer/state/level/BlockOutlineRenderState;<init>(Lnet/minecraft/core/BlockPos;ZZLnet/minecraft/world/phys/shapes/VoxelShape;)V"
+					target = "Lnet/minecraft/client/renderer/state/BlockOutlineRenderState;<init>(Lnet/minecraft/core/BlockPos;ZZLnet/minecraft/world/phys/shapes/VoxelShape;)V"
 			),
 			index = 3
 	)
@@ -46,7 +46,7 @@ abstract class LevelExtractorMixin {
 			method = "extractBlockOutline",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/client/renderer/state/level/BlockOutlineRenderState;<init>(Lnet/minecraft/core/BlockPos;ZZLnet/minecraft/world/phys/shapes/VoxelShape;Lnet/minecraft/world/phys/shapes/VoxelShape;Lnet/minecraft/world/phys/shapes/VoxelShape;Lnet/minecraft/world/phys/shapes/VoxelShape;)V"
+					target = "Lnet/minecraft/client/renderer/state/BlockOutlineRenderState;<init>(Lnet/minecraft/core/BlockPos;ZZLnet/minecraft/world/phys/shapes/VoxelShape;Lnet/minecraft/world/phys/shapes/VoxelShape;Lnet/minecraft/world/phys/shapes/VoxelShape;Lnet/minecraft/world/phys/shapes/VoxelShape;)V"
 			)
 	)
 	private void justexcavators$expandContextualOutline(Args args) {

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "justexcavators:stone_advanced_excavator"
+        "recipe": "justexcavators:stone_advanced_excavator"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

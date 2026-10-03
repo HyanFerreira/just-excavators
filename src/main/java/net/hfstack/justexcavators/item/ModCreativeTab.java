@@ -1,6 +1,6 @@
 package net.hfstack.justexcavators.item;
 
-import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -23,7 +23,7 @@ public final class ModCreativeTab {
 	public static final CreativeModeTab TAB = Registry.register(
 			BuiltInRegistries.CREATIVE_MODE_TAB,
 			KEY,
-			FabricCreativeModeTab.builder()
+			FabricItemGroup.builder()
 					.title(Component.translatable("itemGroup.justexcavators"))
 					.icon(ModCreativeTab::createIcon)
 					.displayItems((parameters, output) -> {

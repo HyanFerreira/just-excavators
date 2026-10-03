@@ -8,7 +8,7 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerInput;
+import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
@@ -111,9 +111,9 @@ public final class EnhancementWorkbenchMenu extends AbstractContainerMenu {
 	}
 
 	@Override
-	public void clicked(int slotId, int button, ContainerInput input, Player player) {
+	public void clicked(int slotId, int button, ClickType input, Player player) {
 		if (slotId == CORE_SLOT_1 || slotId == CORE_SLOT_2) {
-			if (input == ContainerInput.QUICK_MOVE) {
+			if (input == ClickType.QUICK_MOVE) {
 				super.clicked(slotId, button, input, player);
 			} else if (EnhancementWorkbenchTransactions.acceptsCoreInput(input)
 					&& !player.level().isClientSide()) {

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "justexcavators:iron_excavator"
+        "recipe": "justexcavators:iron_excavator"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

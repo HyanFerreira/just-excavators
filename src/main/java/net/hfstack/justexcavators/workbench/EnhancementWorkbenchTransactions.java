@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.OptionalInt;
 
-import net.minecraft.world.inventory.ContainerInput;
+import net.minecraft.world.inventory.ClickType;
 
 import net.hfstack.justexcavators.component.ExcavatorEnhancements;
 import net.hfstack.justexcavators.enhancement.EnhancementCompatibility;
@@ -98,8 +98,8 @@ public final class EnhancementWorkbenchTransactions {
 		return OptionalInt.empty();
 	}
 
-	public static boolean acceptsCoreInput(ContainerInput input) {
-		return Objects.requireNonNull(input, "input") == ContainerInput.PICKUP;
+	public static boolean acceptsCoreInput(ClickType input) {
+		return Objects.requireNonNull(input, "input") == ClickType.PICKUP;
 	}
 
 	private static boolean enchantmentsAllow(

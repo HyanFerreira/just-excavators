@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipes": "justexcavators:advanced_excavation_core"
+        "recipe": "justexcavators:advanced_excavation_core"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
