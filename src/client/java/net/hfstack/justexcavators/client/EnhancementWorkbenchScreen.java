@@ -5,13 +5,11 @@ import java.util.List;
 import com.mojang.blaze3d.platform.InputConstants;
 
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.input.KeyEvent;
-import net.minecraft.client.input.MouseButtonEvent;
-import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 
@@ -23,13 +21,13 @@ import net.hfstack.justexcavators.workbench.EnhancementWorkbenchMenu;
 
 public final class EnhancementWorkbenchScreen
 		extends AbstractContainerScreen<EnhancementWorkbenchMenu> {
-	private static final Identifier TEXTURE = JustExcavators.id(
+	private static final ResourceLocation TEXTURE = JustExcavators.id(
 			"textures/gui/container/enhancement_workbench.png"
 	);
-	private static final Identifier INFO_TEXTURE = JustExcavators.id(
+	private static final ResourceLocation INFO_TEXTURE = JustExcavators.id(
 			"textures/gui/container/info.png"
 	);
-	private static final Identifier INFO_HIGHLIGHTED_TEXTURE = JustExcavators.id(
+	private static final ResourceLocation INFO_HIGHLIGHTED_TEXTURE = JustExcavators.id(
 			"textures/gui/container/info_highlighted.png"
 	);
 	private static final int SOURCE_WIDTH = 256;
@@ -66,7 +64,6 @@ public final class EnhancementWorkbenchScreen
 	@Override
 	protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
 		graphics.blit(
-				RenderPipelines.GUI_TEXTURED,
 				TEXTURE,
 				leftPos,
 				topPos,
@@ -80,7 +77,6 @@ public final class EnhancementWorkbenchScreen
 
 		boolean infoHovered = isWithinInfoButton(mouseX, mouseY);
 		graphics.blit(
-				RenderPipelines.GUI_TEXTURED,
 				infoHovered ? INFO_HIGHLIGHTED_TEXTURE : INFO_TEXTURE,
 				leftPos + INFO_X,
 				topPos + INFO_Y,
@@ -92,7 +88,8 @@ public final class EnhancementWorkbenchScreen
 				INFO_SIZE
 		);
 		if (infoHovered) {
-			graphics.setTooltipForNextFrame(
+			graphics.renderTooltip(
+					font,
 					Component.translatable(compatibilityPanelOpen
 							? "gui.justexcavators.enhancement_workbench.compatibility.close"
 							: "gui.justexcavators.enhancement_workbench.compatibility.open"),
@@ -117,39 +114,39 @@ public final class EnhancementWorkbenchScreen
 				TITLE_SCALE,
 				TITLE_MAX_WIDTH / (float) Math.max(titleWidth, 1)
 		);
-		graphics.pose().pushMatrix();
-		graphics.pose().translate(TITLE_CENTER_X, TITLE_Y);
-		graphics.pose().scale(titleScale);
+		graphics.pose().pushPose();
+		graphics.pose().translate(TITLE_CENTER_X, TITLE_Y, 0.0F);
+		graphics.pose().scale(titleScale, titleScale, 1.0F);
 		graphics.drawString(font, title, -titleWidth / 2, 0, TITLE_COLOR, false);
-		graphics.pose().popMatrix();
+		graphics.pose().popPose();
 	}
 
 	@Override
-	public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
-		if (event.button() == InputConstants.MOUSE_BUTTON_LEFT
-				&& isWithinInfoButton(event.x(), event.y())) {
+	public boolean mouseClicked(double mouseX, double mouseY, int button) {
+		if (button == InputConstants.MOUSE_BUTTON_LEFT
+				&& isWithinInfoButton(mouseX, mouseY)) {
 			compatibilityPanelOpen = !compatibilityPanelOpen;
-			AbstractWidget.playButtonClickSound(minecraft.getSoundManager());
+			minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
 			return true;
 		}
 		if (compatibilityPanelOpen) {
-			if (!isWithinCompatibilityPanel(event.x(), event.y())) {
+			if (!isWithinCompatibilityPanel(mouseX, mouseY)) {
 				compatibilityPanelOpen = false;
 			}
 			return true;
 		}
-		return super.mouseClicked(event, doubleClick);
+		return super.mouseClicked(mouseX, mouseY, button);
 	}
 
 	@Override
-	public boolean keyPressed(KeyEvent event) {
+	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
 		if (compatibilityPanelOpen) {
-			if (event.key() == InputConstants.KEY_ESCAPE) {
+			if (keyCode == InputConstants.KEY_ESCAPE) {
 				compatibilityPanelOpen = false;
 			}
 			return true;
 		}
-		return super.keyPressed(event);
+		return super.keyPressed(keyCode, scanCode, modifiers);
 	}
 
 	private void renderCompatibilityPanel(GuiGraphics graphics, int mouseX, int mouseY) {
@@ -195,7 +192,7 @@ public final class EnhancementWorkbenchScreen
 				panelTop + PANEL_HEIGHT - 12
 		);
 		if (!hoveredCore.isEmpty()) {
-			graphics.setTooltipForNextFrame(font, hoveredCore, mouseX, mouseY);
+			graphics.renderTooltip(font, hoveredCore, mouseX, mouseY);
 		}
 	}
 
@@ -241,11 +238,11 @@ public final class EnhancementWorkbenchScreen
 			int y
 	) {
 		int textWidth = font.width(text);
-		graphics.pose().pushMatrix();
-		graphics.pose().translate(centerX, y);
-		graphics.pose().scale(PANEL_TEXT_SCALE);
+		graphics.pose().pushPose();
+		graphics.pose().translate(centerX, y, 0.0F);
+		graphics.pose().scale(PANEL_TEXT_SCALE, PANEL_TEXT_SCALE, 1.0F);
 		graphics.drawString(font, text, -textWidth / 2, 0, TITLE_COLOR, false);
-		graphics.pose().popMatrix();
+		graphics.pose().popPose();
 	}
 
 	private boolean isWithinInfoButton(double mouseX, double mouseY) {

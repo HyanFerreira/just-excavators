@@ -1,9 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "H": "minecraft:blaze_powder",
-    "M": "justexcavators:core_housing",
-    "O": "minecraft:magma_cream"
+    "H": {
+      "item": "minecraft:blaze_powder"
+    },
+    "M": {
+      "item": "justexcavators:core_housing"
+    },
+    "O": {
+      "item": "minecraft:magma_cream"
+    }
   },
   "pattern": [
     "OHO",

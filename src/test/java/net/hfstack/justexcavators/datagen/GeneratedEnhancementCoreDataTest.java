@@ -72,9 +72,9 @@ final class GeneratedEnhancementCoreDataTest {
 		for (Map.Entry<String, List<String>> entry : materials.entrySet()) {
 			JsonObject recipe = recipe(entry.getKey());
 			JsonObject key = recipe.getAsJsonObject("key");
-			assertEquals(entry.getValue().get(0), key.get("O").getAsString(), entry.getKey());
-			assertEquals(entry.getValue().get(1), key.get("H").getAsString(), entry.getKey());
-			assertEquals("justexcavators:core_housing", key.get("M").getAsString(), entry.getKey());
+			assertEquals(entry.getValue().get(0), ingredient(key, "O"), entry.getKey());
+			assertEquals(entry.getValue().get(1), ingredient(key, "H"), entry.getKey());
+			assertEquals("justexcavators:core_housing", ingredient(key, "M"), entry.getKey());
 			assertPattern(recipe, "OHO", "HMH", "OHO");
 		}
 	}
@@ -83,8 +83,8 @@ final class GeneratedEnhancementCoreDataTest {
 	void housingUsesIronIngotsWithNuggetCorners() throws IOException {
 		JsonObject recipe = recipe("core_housing");
 		JsonObject key = recipe.getAsJsonObject("key");
-		assertEquals("minecraft:iron_nugget", key.get("O").getAsString());
-		assertEquals("minecraft:iron_ingot", key.get("H").getAsString());
+		assertEquals("minecraft:iron_nugget", ingredient(key, "O"));
+		assertEquals("minecraft:iron_ingot", ingredient(key, "H"));
 		assertPattern(recipe, "OHO", "H H", "OHO");
 		assertEquals("justexcavators:core_housing", recipe.getAsJsonObject("result").get("id").getAsString());
 	}
@@ -93,9 +93,9 @@ final class GeneratedEnhancementCoreDataTest {
 	void enhancementWorkbenchUsesPlanksAnvilAndDeepslateTiles() throws IOException {
 		JsonObject recipe = recipe("enhancement_workbench");
 		JsonObject key = recipe.getAsJsonObject("key");
-		assertEquals("#minecraft:planks", key.get("O").getAsString());
-		assertEquals("minecraft:anvil", key.get("H").getAsString());
-		assertEquals("minecraft:deepslate_tiles", key.get("N").getAsString());
+		assertEquals("#minecraft:planks", ingredient(key, "O"));
+		assertEquals("minecraft:anvil", ingredient(key, "H"));
+		assertEquals("minecraft:deepslate_tiles", ingredient(key, "N"));
 		assertPattern(recipe, "OOO", "OHO", "NNN");
 		assertEquals(
 				"justexcavators:enhancement_workbench",
@@ -117,6 +117,13 @@ final class GeneratedEnhancementCoreDataTest {
 		assertEquals(List.of(rows), recipe.getAsJsonArray("pattern").asList().stream()
 				.map(element -> element.getAsString())
 				.toList());
+	}
+
+	private static String ingredient(JsonObject key, String symbol) {
+		JsonObject ingredient = key.getAsJsonObject(symbol);
+		return ingredient.has("tag")
+				? "#" + ingredient.get("tag").getAsString()
+				: ingredient.get("item").getAsString();
 	}
 
 	private static JsonObject json(Path path) throws IOException {

@@ -26,7 +26,7 @@ public final class ModBlocks {
 	private static Block register(String name) {
 		ResourceKey<Block> key = ENHANCEMENT_WORKBENCH_KEY;
 		Block block = new EnhancementWorkbenchBlock(
-				BlockBehaviour.Properties.ofFullCopy(Blocks.CRAFTING_TABLE).setId(key)
+				BlockBehaviour.Properties.ofFullCopy(Blocks.CRAFTING_TABLE)
 		);
 		return Registry.register(BuiltInRegistries.BLOCK, key, block);
 	}

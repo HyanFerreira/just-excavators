@@ -1,9 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "E": "justexcavators:netherite_excavator",
-    "I": "minecraft:iron_block",
-    "R": "minecraft:redstone"
+    "E": {
+      "item": "justexcavators:netherite_excavator"
+    },
+    "I": {
+      "item": "minecraft:iron_block"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
   },
   "pattern": [
     "RRR",

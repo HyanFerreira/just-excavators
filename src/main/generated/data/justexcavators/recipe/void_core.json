@@ -1,9 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "H": "minecraft:ender_pearl",
-    "M": "justexcavators:core_housing",
-    "O": "minecraft:ender_eye"
+    "H": {
+      "item": "minecraft:ender_pearl"
+    },
+    "M": {
+      "item": "justexcavators:core_housing"
+    },
+    "O": {
+      "item": "minecraft:ender_eye"
+    }
   },
   "pattern": [
     "OHO",

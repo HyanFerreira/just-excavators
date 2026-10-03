@@ -78,7 +78,7 @@ final class WorkbenchArtworkTest {
 		assertTrue(screen.contains("private static final float PANEL_TEXT_SCALE = 0.75F;"));
 		assertTrue(screen.contains("EnhancementCompatibility.isValidPair(source, candidate)"));
 		assertTrue(screen.contains("compatibilityPanelOpen = !compatibilityPanelOpen;"));
-		assertTrue(screen.contains("event.key() == InputConstants.KEY_ESCAPE"));
+		assertTrue(screen.contains("keyCode == InputConstants.KEY_ESCAPE"));
 	}
 
 	@Test
@@ -99,7 +99,7 @@ final class WorkbenchArtworkTest {
 		assertTrue(screen.contains("private static final float TITLE_SCALE = 0.9F;"));
 		assertTrue(screen.contains("private static final int TITLE_MAX_WIDTH = 116;"));
 		assertTrue(screen.contains("private static final int TITLE_COLOR = 0xFFFFFFFF;"));
-		assertTrue(screen.contains("graphics.pose().translate(TITLE_CENTER_X, TITLE_Y);"));
+		assertTrue(screen.contains("graphics.pose().translate(TITLE_CENTER_X, TITLE_Y, 0.0F);"));
 		assertTrue(screen.contains("graphics.drawString(font, title, -titleWidth / 2, 0, TITLE_COLOR, false);"));
 		assertTrue(screen.contains("imageWidth = 176;"));
 		assertTrue(screen.contains("imageHeight = 166;"));

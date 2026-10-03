@@ -279,7 +279,8 @@ public final class EnhancementWorkbenchMenu extends AbstractContainerMenu {
 
 	private static boolean canFullyAdd(Inventory inventory, ItemStack incoming) {
 		int remaining = incoming.getCount();
-		for (ItemStack present : inventory.getNonEquipmentItems()) {
+		for (int index = 0; index < inventory.getContainerSize(); index++) {
+			ItemStack present = inventory.getItem(index);
 			if (present.isEmpty()) {
 				remaining -= incoming.getMaxStackSize();
 			} else if (ItemStack.isSameItemSameComponents(present, incoming)) {

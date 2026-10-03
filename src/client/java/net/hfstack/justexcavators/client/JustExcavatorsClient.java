@@ -1,8 +1,8 @@
 package net.hfstack.justexcavators.client;
 
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
-import net.fabricmc.fabric.api.resource.v1.pack.PackActivationType;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
 
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -19,11 +19,11 @@ public final class JustExcavatorsClient implements ClientModInitializer {
 	}
 
 	private static void registerVanillaWorkbenchGui() {
-		boolean registered = ResourceLoader.registerBuiltinPack(
+		boolean registered = ResourceManagerHelper.registerBuiltinResourcePack(
 				JustExcavators.id("vanilla_workbench_gui"),
 				FabricLoader.getInstance().getModContainer(JustExcavators.MOD_ID).orElseThrow(),
 				Component.translatable("resourcePack.justexcavators.vanilla_workbench_gui.name"),
-				PackActivationType.NORMAL
+				ResourcePackActivationType.NORMAL
 		);
 		if (!registered) {
 			JustExcavators.LOGGER.warn("Could not register the vanilla workbench GUI resource pack.");

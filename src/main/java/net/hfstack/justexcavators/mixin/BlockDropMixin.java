@@ -19,7 +19,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gamerules.GameRules;
+import net.minecraft.world.level.GameRules;
 
 import net.hfstack.justexcavators.enhancement.EnhancementDropDelivery;
 import net.hfstack.justexcavators.enhancement.EnhancementType;
@@ -49,7 +49,7 @@ abstract class BlockDropMixin {
 			ItemStack tool
 	) {
 		if (!(level instanceof ServerLevel serverLevel)
-				|| !serverLevel.getGameRules().get(GameRules.BLOCK_DROPS)) {
+				|| !serverLevel.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS)) {
 			original.call(drops, vanillaWorldDrop);
 			return;
 		}

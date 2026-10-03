@@ -1,9 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "H": "minecraft:anvil",
-    "N": "minecraft:deepslate_tiles",
-    "O": "#minecraft:planks"
+    "H": {
+      "item": "minecraft:anvil"
+    },
+    "N": {
+      "item": "minecraft:deepslate_tiles"
+    },
+    "O": {
+      "tag": "minecraft:planks"
+    }
   },
   "pattern": [
     "OOO",

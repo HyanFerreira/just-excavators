@@ -1,9 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "H": "minecraft:emerald",
-    "M": "justexcavators:core_housing",
-    "O": "minecraft:string"
+    "H": {
+      "item": "minecraft:emerald"
+    },
+    "M": {
+      "item": "justexcavators:core_housing"
+    },
+    "O": {
+      "item": "minecraft:string"
+    }
   },
   "pattern": [
     "OHO",

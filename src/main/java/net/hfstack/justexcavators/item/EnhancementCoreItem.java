@@ -2,14 +2,12 @@ package net.hfstack.justexcavators.item;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.TooltipDisplay;
 
 import net.hfstack.justexcavators.enhancement.EnhancementType;
 
@@ -25,11 +23,10 @@ public final class EnhancementCoreItem extends Item {
 	public void appendHoverText(
 			ItemStack stack,
 			TooltipContext context,
-			TooltipDisplay display,
-			Consumer<Component> textConsumer,
+			List<Component> text,
 			TooltipFlag flag
 	) {
-		tooltipLines(type).forEach(textConsumer);
+		text.addAll(tooltipLines(type));
 	}
 
 	static List<Component> tooltipLines(EnhancementType type) {

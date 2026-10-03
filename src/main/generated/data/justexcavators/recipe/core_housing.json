@@ -1,8 +1,12 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "H": "minecraft:iron_ingot",
-    "O": "minecraft:iron_nugget"
+    "H": {
+      "item": "minecraft:iron_ingot"
+    },
+    "O": {
+      "item": "minecraft:iron_nugget"
+    }
   },
   "pattern": [
     "OHO",

@@ -2,9 +2,15 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "C": "justexcavators:deep_excavation_core",
-    "M": "minecraft:stone",
-    "S": "minecraft:stick"
+    "C": {
+      "item": "justexcavators:deep_excavation_core"
+    },
+    "M": {
+      "item": "minecraft:stone"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
   },
   "pattern": [
     "MCM",

@@ -1,31 +1,30 @@
 package net.hfstack.justexcavators.item;
 
-import java.util.function.Consumer;
+import java.util.List;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ShovelItem;
+import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.ToolMaterial;
-import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.level.Level;
 
 import net.hfstack.justexcavators.component.ExcavatorComponents;
 import net.hfstack.justexcavators.component.ExcavatorEnhancements;
 import net.hfstack.justexcavators.excavation.ExcavationMode;
 
-public final class ExcavatorItem extends Item {
+public final class ExcavatorItem extends ShovelItem {
 	private static final int DURABILITY_MULTIPLIER = 3;
 
-	public ExcavatorItem(Item.Properties properties, ToolMaterial material) {
-		super(configure(properties, material));
+	public ExcavatorItem(Item.Properties properties, Tier material) {
+		super(withScaledDurability(material), configure(properties));
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, EquipmentSlot slot) {
+	public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean selected) {
 		LegacySilkMigration.migrate(stack, ExcavatorComponents.ENHANCEMENTS);
 	}
 
@@ -33,17 +32,16 @@ public final class ExcavatorItem extends Item {
 	public void appendHoverText(
 			ItemStack stack,
 			TooltipContext context,
-			TooltipDisplay display,
-			Consumer<Component> textConsumer,
+			List<Component> text,
 			TooltipFlag flag
 	) {
 		ExcavationMode mode = stack.getOrDefault(ExcavatorComponents.EXCAVATION_MODE, ExcavationMode.BASIC);
 
-		textConsumer.accept(Component.translatable(
+		text.add(Component.translatable(
 				"tooltip.justexcavators.mode",
 				Component.translatable(mode.translationKey())
 		).withStyle(ChatFormatting.GRAY));
-		textConsumer.accept(Component.translatable(
+		text.add(Component.translatable(
 				"tooltip.justexcavators.area",
 				mode.width(),
 				mode.height(),
@@ -53,32 +51,28 @@ public final class ExcavatorItem extends Item {
 				ExcavatorComponents.ENHANCEMENTS,
 				ExcavatorEnhancements.EMPTY
 		);
-		EnhancementTooltipContent.lines(enhancements).forEach(textConsumer);
-		textConsumer.accept(Component.translatable("tooltip.justexcavators.precision")
+		text.addAll(EnhancementTooltipContent.lines(enhancements));
+		text.add(Component.translatable("tooltip.justexcavators.precision")
 				.withStyle(ChatFormatting.DARK_GRAY));
 	}
 
-	private static Item.Properties configure(Item.Properties properties, ToolMaterial material) {
+	private static Item.Properties configure(Item.Properties properties) {
 		properties
-				.shovel(withScaledDurability(material), 1.5F, -3.0F)
 				.component(ExcavatorComponents.EXCAVATION_MODE, ExcavationMode.BASIC)
 				.component(ExcavatorComponents.ENHANCEMENTS, ExcavatorEnhancements.EMPTY);
-
-		if (material == ToolMaterial.NETHERITE) {
-			properties.fireResistant();
-		}
-
 		return properties;
 	}
 
-	private static ToolMaterial withScaledDurability(ToolMaterial material) {
-		return new ToolMaterial(
-				material.incorrectBlocksForDrops(),
-				material.durability() * DURABILITY_MULTIPLIER,
-				material.speed(),
-				material.attackDamageBonus(),
-				material.enchantmentValue(),
-				material.repairItems()
-		);
+	private static Tier withScaledDurability(Tier material) {
+		return new ScaledTier(material);
+	}
+
+	private record ScaledTier(Tier delegate) implements Tier {
+		@Override public int getUses() { return delegate.getUses() * DURABILITY_MULTIPLIER; }
+		@Override public float getSpeed() { return delegate.getSpeed(); }
+		@Override public float getAttackDamageBonus() { return delegate.getAttackDamageBonus(); }
+		@Override public net.minecraft.tags.TagKey<net.minecraft.world.level.block.Block> getIncorrectBlocksForDrops() { return delegate.getIncorrectBlocksForDrops(); }
+		@Override public int getEnchantmentValue() { return delegate.getEnchantmentValue(); }
+		@Override public net.minecraft.world.item.crafting.Ingredient getRepairIngredient() { return delegate.getRepairIngredient(); }
 	}
 }

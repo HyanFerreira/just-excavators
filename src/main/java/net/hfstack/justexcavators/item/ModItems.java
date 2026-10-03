@@ -9,19 +9,24 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ToolMaterial;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.Tiers;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.tags.BlockTags;
 
 import net.hfstack.justexcavators.JustExcavators;
 import net.hfstack.justexcavators.block.ModBlocks;
 import net.hfstack.justexcavators.enhancement.EnhancementType;
 
 public final class ModItems {
-	public static final ExcavatorItem STONE_EXCAVATOR = registerExcavator("stone_excavator", ToolMaterial.STONE);
-	public static final ExcavatorItem COPPER_EXCAVATOR = registerExcavator("copper_excavator", ToolMaterial.COPPER);
-	public static final ExcavatorItem IRON_EXCAVATOR = registerExcavator("iron_excavator", ToolMaterial.IRON);
-	public static final ExcavatorItem GOLDEN_EXCAVATOR = registerExcavator("golden_excavator", ToolMaterial.GOLD);
-	public static final ExcavatorItem DIAMOND_EXCAVATOR = registerExcavator("diamond_excavator", ToolMaterial.DIAMOND);
-	public static final ExcavatorItem NETHERITE_EXCAVATOR = registerExcavator("netherite_excavator", ToolMaterial.NETHERITE);
+	private static final Tier COPPER_TIER = new SimpleTier();
+	public static final ExcavatorItem STONE_EXCAVATOR = registerExcavator("stone_excavator", Tiers.STONE);
+	public static final ExcavatorItem COPPER_EXCAVATOR = registerExcavator("copper_excavator", COPPER_TIER);
+	public static final ExcavatorItem IRON_EXCAVATOR = registerExcavator("iron_excavator", Tiers.IRON);
+	public static final ExcavatorItem GOLDEN_EXCAVATOR = registerExcavator("golden_excavator", Tiers.GOLD);
+	public static final ExcavatorItem DIAMOND_EXCAVATOR = registerExcavator("diamond_excavator", Tiers.DIAMOND);
+	public static final ExcavatorItem NETHERITE_EXCAVATOR = registerExcavator("netherite_excavator", Tiers.NETHERITE, true);
 
 	public static final Item DEEP_EXCAVATION_CORE = register("deep_excavation_core", Item::new);
 	public static final Item WIDE_EXCAVATION_CORE = register("wide_excavation_core", Item::new);
@@ -34,7 +39,7 @@ public final class ModItems {
 	public static final Item VOID_CORE = registerEnhancementCore("void_core", EnhancementType.VOID);
 	public static final Item ENHANCEMENT_WORKBENCH = register(
 			"enhancement_workbench",
-			properties -> new BlockItem(ModBlocks.ENHANCEMENT_WORKBENCH, properties.useBlockDescriptionPrefix())
+			properties -> new BlockItem(ModBlocks.ENHANCEMENT_WORKBENCH, properties)
 	);
 
 	public static final List<ExcavatorItem> EXCAVATORS = List.of(
@@ -64,8 +69,12 @@ public final class ModItems {
 		// Loading this class performs the item registrations.
 	}
 
-	private static ExcavatorItem registerExcavator(String name, ToolMaterial material) {
-		return register(name, properties -> new ExcavatorItem(properties, material));
+	private static ExcavatorItem registerExcavator(String name, Tier material) {
+		return registerExcavator(name, material, false);
+	}
+
+	private static ExcavatorItem registerExcavator(String name, Tier material, boolean fireResistant) {
+		return register(name, properties -> new ExcavatorItem(fireResistant ? properties.fireResistant() : properties, material));
 	}
 
 	private static EnhancementCoreItem registerEnhancementCore(String name, EnhancementType type) {
@@ -74,7 +83,16 @@ public final class ModItems {
 
 	private static <T extends Item> T register(String name, Function<Item.Properties, T> factory) {
 		ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, JustExcavators.id(name));
-		T item = factory.apply(new Item.Properties().setId(key));
+		T item = factory.apply(new Item.Properties());
 		return Registry.register(BuiltInRegistries.ITEM, key, item);
+	}
+
+	private static final class SimpleTier implements Tier {
+		@Override public int getUses() { return 190; }
+		@Override public float getSpeed() { return 5.0F; }
+		@Override public float getAttackDamageBonus() { return 1.5F; }
+		@Override public net.minecraft.tags.TagKey<net.minecraft.world.level.block.Block> getIncorrectBlocksForDrops() { return BlockTags.INCORRECT_FOR_STONE_TOOL; }
+		@Override public int getEnchantmentValue() { return 13; }
+		@Override public Ingredient getRepairIngredient() { return Ingredient.of(Items.COPPER_INGOT); }
 	}
 }
