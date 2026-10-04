@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "justexcavators:deep_excavation_core"
+        "recipe": "justexcavators:deep_excavation_core"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

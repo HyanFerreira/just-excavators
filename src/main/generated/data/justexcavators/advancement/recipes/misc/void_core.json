@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "justexcavators:void_core"
+        "recipe": "justexcavators:void_core"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

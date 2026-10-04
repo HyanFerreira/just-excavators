@@ -114,6 +114,30 @@ final class GeneratedAdvancementDataTest {
 		assertFalse(itemIds.contains("justexcavators:core_housing"));
 	}
 
+	@Test
+	void recipeUnlockCriteriaUseMinecraft261Schema() throws IOException {
+		Path recipeAdvancements = ADVANCEMENTS.resolve("recipes");
+		List<Path> files;
+		try (var paths = Files.walk(recipeAdvancements)) {
+			files = paths.filter(path -> path.toString().endsWith(".json")).toList();
+		}
+
+		assertFalse(files.isEmpty(), "expected generated recipe advancements");
+		for (Path file : files) {
+			JsonObject advancement = JsonParser.parseString(Files.readString(file)).getAsJsonObject();
+			JsonObject conditions = advancement
+					.getAsJsonObject("criteria")
+					.getAsJsonObject("has_the_recipe")
+					.getAsJsonObject("conditions");
+			assertTrue(conditions.has("recipe"), file.toString());
+			assertFalse(conditions.has("recipes"), file.toString());
+
+			JsonObject rewards = advancement.getAsJsonObject("rewards");
+			assertTrue(rewards.has("recipes"), file.toString());
+			assertFalse(rewards.has("recipe"), file.toString());
+		}
+	}
+
 	private static void assertParent(String id, String expectedParent) throws IOException {
 		assertEquals(expectedParent, advancement(id).get("parent").getAsString(), id);
 	}
