@@ -15,52 +15,32 @@ import net.hfstack.justexcavators.excavation.ExcavationMode;
 import net.hfstack.justexcavators.excavation.ExcavationTargetValidator;
 import net.hfstack.justexcavators.item.ExcavatorItem;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
-import org.spongepowered.asm.mixin.injection.ModifyArgs;
 
 /** Expands the vanilla block-outline shape to the active Excavator profile. */
 @Mixin(LevelRenderer.class)
 abstract class LevelExtractorMixin {
 	private static final double PREVIEW_INSET = 0.0025D;
 
-	@Shadow
-	private Minecraft minecraft;
-
-	@ModifyArg(
-			method = "extractBlockOutline",
+	@ModifyExpressionValue(
+			method = "renderHitOutline",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/client/renderer/state/BlockOutlineRenderState;<init>(Lnet/minecraft/core/BlockPos;ZZLnet/minecraft/world/phys/shapes/VoxelShape;)V"
-			),
-			index = 3
+					target = "Lnet/minecraft/world/level/block/state/BlockState;getShape(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/phys/shapes/CollisionContext;)Lnet/minecraft/world/phys/shapes/VoxelShape;"
+			)
 	)
-	private VoxelShape justexcavators$expandSimpleOutline(VoxelShape shape) {
+	private VoxelShape justexcavators$expandHitOutline(VoxelShape shape) {
 		return justexcavators$previewShape(shape);
 	}
 
-	@ModifyArgs(
-			method = "extractBlockOutline",
-			at = @At(
-					value = "INVOKE",
-					target = "Lnet/minecraft/client/renderer/state/BlockOutlineRenderState;<init>(Lnet/minecraft/core/BlockPos;ZZLnet/minecraft/world/phys/shapes/VoxelShape;Lnet/minecraft/world/phys/shapes/VoxelShape;Lnet/minecraft/world/phys/shapes/VoxelShape;Lnet/minecraft/world/phys/shapes/VoxelShape;)V"
-			)
-	)
-	private void justexcavators$expandContextualOutline(Args args) {
-		for (int index = 3; index <= 6; index++) {
-			args.set(index, justexcavators$previewShape(args.get(index)));
-		}
-	}
-
-	private VoxelShape justexcavators$previewShape(Object value) {
-		if (!(value instanceof VoxelShape shape)
-				|| minecraft.player == null
+	private VoxelShape justexcavators$previewShape(VoxelShape shape) {
+		Minecraft minecraft = Minecraft.getInstance();
+		if (minecraft.player == null
 				|| minecraft.player.isShiftKeyDown()
 				|| !(minecraft.hitResult instanceof BlockHitResult hit)) {
-			return value instanceof VoxelShape shape ? shape : Shapes.empty();
+			return shape;
 		}
 
 		ItemStack tool = minecraft.player.getMainHandItem();

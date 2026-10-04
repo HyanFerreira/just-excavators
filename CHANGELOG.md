@@ -2,7 +2,12 @@
 
 All notable changes to Just Excavators are documented in this file.
 
-## [1.0.0] - 2026-10-01
+## [1.0.0] - 2026-10-03
+
+### Release target
+
+- Fabric release for Minecraft 1.21.1.
+- Includes the complete feature set of the original release, including the excavation-area preview.
 
 ### Added
 
@@ -31,6 +36,6 @@ All notable changes to Just Excavators are documented in this file.
 
 ### Compatibility
 
-- Requires Minecraft 26.3, Fabric Loader 0.19.5 or newer, Fabric API, and Java 25 or newer.
+- Requires Minecraft 1.21.1, Fabric Loader 0.16.14 or newer, Fabric API, and Java 21 or newer.
 - Must be installed on both the client and server.
 - Runs independently without requiring JustHammers.
