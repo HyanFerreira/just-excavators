@@ -3,7 +3,6 @@
     "description": {
       "translate": "resourcePack.justexcavators.vanilla_workbench_gui.description"
     },
-    "min_format": [97, 1],
-    "max_format": [97, 1]
+    "pack_format": 15
   }
 }
