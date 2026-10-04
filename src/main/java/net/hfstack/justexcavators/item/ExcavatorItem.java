@@ -11,6 +11,7 @@ import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 import net.hfstack.justexcavators.component.ExcavatorComponents;
 import net.hfstack.justexcavators.component.ExcavatorEnhancements;
@@ -20,22 +21,22 @@ public final class ExcavatorItem extends ShovelItem {
 	private static final int DURABILITY_MULTIPLIER = 3;
 
 	public ExcavatorItem(Item.Properties properties, Tier material) {
-		super(withScaledDurability(material), configure(properties));
+		super(withScaledDurability(material), 1.5F, -3.0F, properties);
 	}
 
 	@Override
 	public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean selected) {
-		LegacySilkMigration.migrate(stack, ExcavatorComponents.ENHANCEMENTS);
+		LegacySilkMigration.migrate(stack);
 	}
 
 	@Override
 	public void appendHoverText(
 			ItemStack stack,
-			TooltipContext context,
+			@Nullable Level level,
 			List<Component> text,
 			TooltipFlag flag
 	) {
-		ExcavationMode mode = stack.getOrDefault(ExcavatorComponents.EXCAVATION_MODE, ExcavationMode.BASIC);
+		ExcavationMode mode = ExcavatorComponents.getMode(stack);
 
 		text.add(Component.translatable(
 				"tooltip.justexcavators.mode",
@@ -47,20 +48,10 @@ public final class ExcavatorItem extends ShovelItem {
 				mode.height(),
 				mode.depth()
 		).withStyle(ChatFormatting.GRAY));
-		ExcavatorEnhancements enhancements = stack.getOrDefault(
-				ExcavatorComponents.ENHANCEMENTS,
-				ExcavatorEnhancements.EMPTY
-		);
+		ExcavatorEnhancements enhancements = ExcavatorComponents.getEnhancements(stack);
 		text.addAll(EnhancementTooltipContent.lines(enhancements));
 		text.add(Component.translatable("tooltip.justexcavators.precision")
 				.withStyle(ChatFormatting.DARK_GRAY));
-	}
-
-	private static Item.Properties configure(Item.Properties properties) {
-		properties
-				.component(ExcavatorComponents.EXCAVATION_MODE, ExcavationMode.BASIC)
-				.component(ExcavatorComponents.ENHANCEMENTS, ExcavatorEnhancements.EMPTY);
-		return properties;
 	}
 
 	private static Tier withScaledDurability(Tier material) {
@@ -68,10 +59,10 @@ public final class ExcavatorItem extends ShovelItem {
 	}
 
 	private record ScaledTier(Tier delegate) implements Tier {
+		@Override public int getLevel() { return delegate.getLevel(); }
 		@Override public int getUses() { return delegate.getUses() * DURABILITY_MULTIPLIER; }
 		@Override public float getSpeed() { return delegate.getSpeed(); }
 		@Override public float getAttackDamageBonus() { return delegate.getAttackDamageBonus(); }
-		@Override public net.minecraft.tags.TagKey<net.minecraft.world.level.block.Block> getIncorrectBlocksForDrops() { return delegate.getIncorrectBlocksForDrops(); }
 		@Override public int getEnchantmentValue() { return delegate.getEnchantmentValue(); }
 		@Override public net.minecraft.world.item.crafting.Ingredient getRepairIngredient() { return delegate.getRepairIngredient(); }
 	}

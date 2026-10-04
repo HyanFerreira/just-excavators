@@ -10,7 +10,6 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
@@ -136,8 +135,7 @@ abstract class BlockDropMixin {
 				.map(context -> SilkLootTool.forLoot(
 						tool,
 						context.enhancements(),
-						level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
-								.getOrThrow(Enchantments.SILK_TOUCH)
+						Enchantments.SILK_TOUCH
 				))
 				.orElse(tool);
 		original.call(state, level, pos, blockEntity, entity, effectiveTool);

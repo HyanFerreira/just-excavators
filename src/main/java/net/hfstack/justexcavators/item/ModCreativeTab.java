@@ -30,7 +30,7 @@ public final class ModCreativeTab {
 						ModItems.EXCAVATORS.forEach(excavator -> {
 							for (ExcavationMode mode : ExcavationMode.values()) {
 								ItemStack stack = new ItemStack(excavator);
-								stack.set(ExcavatorComponents.EXCAVATION_MODE, mode);
+								ExcavatorComponents.setMode(stack, mode);
 								output.accept(stack);
 							}
 						});
@@ -46,7 +46,7 @@ public final class ModCreativeTab {
 
 	private static ItemStack createIcon() {
 		ItemStack icon = new ItemStack(ModItems.DIAMOND_EXCAVATOR);
-		icon.set(ExcavatorComponents.EXCAVATION_MODE, ExcavationMode.ADVANCED);
+		ExcavatorComponents.setMode(icon, ExcavationMode.ADVANCED);
 		return icon;
 	}
 

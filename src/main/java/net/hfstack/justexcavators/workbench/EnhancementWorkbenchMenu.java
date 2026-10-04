@@ -89,7 +89,7 @@ public final class EnhancementWorkbenchMenu extends AbstractContainerMenu {
 						stack.getCount(),
 						true,
 						hasEnchantment(Enchantments.SILK_TOUCH),
-						hasEnchantment(Enchantments.FORTUNE)
+						hasEnchantment(Enchantments.BLOCK_FORTUNE)
 				).isPresent();
 			}
 
@@ -103,10 +103,6 @@ public final class EnhancementWorkbenchMenu extends AbstractContainerMenu {
 				return hasTool();
 			}
 
-			@Override
-			public boolean isFake() {
-				return true;
-			}
 		};
 	}
 
@@ -154,7 +150,7 @@ public final class EnhancementWorkbenchMenu extends AbstractContainerMenu {
 				carried.getCount(),
 				canInventoryAccept(player, currentEnhancements().slot(slot)),
 				hasEnchantment(Enchantments.SILK_TOUCH),
-				hasEnchantment(Enchantments.FORTUNE)
+				hasEnchantment(Enchantments.BLOCK_FORTUNE)
 		);
 		transaction.ifPresent(result -> apply(result, player));
 	}
@@ -179,7 +175,7 @@ public final class EnhancementWorkbenchMenu extends AbstractContainerMenu {
 
 	private void setEnhancements(ExcavatorEnhancements enhancements) {
 		ItemStack stack = tool.getItem(0);
-		stack.set(ExcavatorComponents.ENHANCEMENTS, enhancements);
+		ExcavatorComponents.setEnhancements(stack, enhancements);
 		tool.setChanged();
 		refreshProjections();
 		broadcastChanges();
@@ -202,7 +198,7 @@ public final class EnhancementWorkbenchMenu extends AbstractContainerMenu {
 		if (index == CORE_SLOT_1 || index == CORE_SLOT_2) {
 			Optional<CoreClickResult> removal = EnhancementWorkbenchTransactions.click(
 					currentEnhancements(), index - CORE_SLOT_1, Optional.empty(), 0, true,
-					hasEnchantment(Enchantments.SILK_TOUCH), hasEnchantment(Enchantments.FORTUNE)
+					hasEnchantment(Enchantments.SILK_TOUCH), hasEnchantment(Enchantments.BLOCK_FORTUNE)
 			);
 			if (removal.isEmpty() || !canFullyAdd(player.getInventory(), original)) {
 				return ItemStack.EMPTY;
@@ -227,7 +223,7 @@ public final class EnhancementWorkbenchMenu extends AbstractContainerMenu {
 				OptionalInt target = type.isEmpty() || !hasTool() ? OptionalInt.empty()
 						: EnhancementWorkbenchTransactions.firstQuickInstallSlot(
 								currentEnhancements(), type.orElseThrow(),
-								hasEnchantment(Enchantments.SILK_TOUCH), hasEnchantment(Enchantments.FORTUNE)
+								hasEnchantment(Enchantments.SILK_TOUCH), hasEnchantment(Enchantments.BLOCK_FORTUNE)
 						);
 				if (target.isPresent()) {
 					ExcavatorEnhancements before = currentEnhancements();
@@ -259,7 +255,7 @@ public final class EnhancementWorkbenchMenu extends AbstractContainerMenu {
 		refreshing = true;
 		try {
 			if (hasTool()) {
-				LegacySilkMigration.migrate(tool.getItem(0), ExcavatorComponents.ENHANCEMENTS);
+				LegacySilkMigration.migrate(tool.getItem(0));
 			}
 			EnhancementWorkbenchProjection<ItemStack> projected = EnhancementWorkbenchProjection.from(
 					currentEnhancements(),
@@ -283,7 +279,7 @@ public final class EnhancementWorkbenchMenu extends AbstractContainerMenu {
 			ItemStack present = inventory.getItem(index);
 			if (present.isEmpty()) {
 				remaining -= incoming.getMaxStackSize();
-			} else if (ItemStack.isSameItemSameComponents(present, incoming)) {
+			} else if (ItemStack.isSameItemSameTags(present, incoming)) {
 				remaining -= Math.max(0, present.getMaxStackSize() - present.getCount());
 			}
 			if (remaining <= 0) {
@@ -294,14 +290,12 @@ public final class EnhancementWorkbenchMenu extends AbstractContainerMenu {
 	}
 
 	private ExcavatorEnhancements currentEnhancements() {
-		return hasTool() ? tool.getItem(0).getOrDefault(
-				ExcavatorComponents.ENHANCEMENTS,
-				ExcavatorEnhancements.EMPTY
-		) : ExcavatorEnhancements.EMPTY;
+		return hasTool() ? ExcavatorComponents.getEnhancements(tool.getItem(0)) : ExcavatorEnhancements.EMPTY;
 	}
 
-	private boolean hasEnchantment(net.minecraft.resources.ResourceKey<net.minecraft.world.item.enchantment.Enchantment> key) {
-		return hasTool() && tool.getItem(0).getEnchantments().keySet().stream().anyMatch(holder -> holder.is(key));
+	private boolean hasEnchantment(net.minecraft.world.item.enchantment.Enchantment enchantment) {
+		return hasTool() && net.minecraft.world.item.enchantment.EnchantmentHelper
+				.getItemEnchantmentLevel(enchantment, tool.getItem(0)) > 0;
 	}
 
 	@Override

@@ -36,7 +36,7 @@ final class EnhancementDropDeliveryTest {
 
 		assertEquals(new DeliveryResult(0, 4, 0), result);
 		assertFalse(inventoryCalled.get());
-		assertSame(drop, world.getFirst());
+		assertSame(drop, world.get(0));
 	}
 
 	@Test
@@ -59,7 +59,7 @@ final class EnhancementDropDeliveryTest {
 
 		assertEquals(new DeliveryResult(5, 2, 0), result);
 		assertEquals(1, world.size());
-		assertEquals(2, world.getFirst().getCount());
+		assertEquals(2, world.get(0).getCount());
 	}
 
 	@Test
@@ -70,7 +70,7 @@ final class EnhancementDropDeliveryTest {
 		);
 
 		assertEquals(new DeliveryResult(0, 3, 0), result);
-		assertEquals(3, world.getFirst().getCount());
+		assertEquals(3, world.get(0).getCount());
 	}
 
 	@Test

@@ -74,7 +74,7 @@ public final class ExcavationHandler {
 				mainHand == originalTool,
 				!mainHand.isEmpty() && (!mainHand.isDamageableItem() || mainHand.getDamageValue() < mainHand.getMaxDamage()),
 				mainHand.isDamageableItem() && mainHand.getDamageValue() + 1 >= mainHand.getMaxDamage(),
-				player.hasInfiniteMaterials()
+				player.getAbilities().instabuild
 		);
 	}
 

@@ -9,12 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import net.minecraft.core.Holder;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.block.Blocks;
 
 import net.hfstack.justexcavators.MinecraftTestBootstrap;
@@ -27,13 +26,12 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 final class EnhancementPipelineTest {
-	private static Holder<Enchantment> silkTouch;
+	private static Enchantment silkTouch;
 
 	@BeforeAll
 	static void bootstrap() {
-		silkTouch = MinecraftTestBootstrap.registries()
-				.lookupOrThrow(Registries.ENCHANTMENT)
-				.getOrThrow(Enchantments.SILK_TOUCH);
+		MinecraftTestBootstrap.registries();
+		silkTouch = Enchantments.SILK_TOUCH;
 	}
 
 	@Test
@@ -44,9 +42,9 @@ final class EnhancementPipelineTest {
 		ActiveEnhancements active = ActiveEnhancements.resolve(installed, false, false);
 		ItemStack original = new ItemStack(Items.DIAMOND_SHOVEL);
 		ItemStack effective = SilkLootTool.forLoot(original, active, silkTouch);
-		assertTrue(effective.getEnchantments().getLevel(silkTouch) > 0);
+		assertTrue(EnchantmentHelper.getItemEnchantmentLevel(silkTouch, effective) > 0);
 
-		ItemStack vanillaLoot = effective.getEnchantments().getLevel(silkTouch) > 0
+		ItemStack vanillaLoot = EnchantmentHelper.getItemEnchantmentLevel(silkTouch, effective) > 0
 				? new ItemStack(Items.IRON_ORE)
 				: new ItemStack(Items.RAW_IRON);
 		SmeltingResult result = SmeltingDropProcessor.process(
@@ -55,7 +53,7 @@ final class EnhancementPipelineTest {
 						? Optional.of(new ItemStack(Items.IRON_INGOT))
 						: Optional.empty()
 		);
-		assertEquals(Items.IRON_INGOT, result.outputs().getFirst().getItem());
+		assertEquals(Items.IRON_INGOT, result.outputs().get(0).getItem());
 		assertTrue(result.transformed());
 	}
 
@@ -69,7 +67,7 @@ final class EnhancementPipelineTest {
 				new ItemStack(Items.RAW_GOLD, 3),
 				ignored -> Optional.of(new ItemStack(Items.GOLD_INGOT))
 		);
-		assertEquals(3, result.outputs().getFirst().getCount());
+		assertEquals(3, result.outputs().get(0).getCount());
 	}
 
 	@Test
@@ -80,11 +78,11 @@ final class EnhancementPipelineTest {
 		);
 		List<ItemStack> world = new ArrayList<>();
 		DeliveryResult delivered = EnhancementDropDelivery.deliver(
-				smelted.outputs().getFirst(), true, false,
+				smelted.outputs().get(0), true, false,
 				incoming -> incoming.copyWithCount(2), world::add
 		);
 		assertEquals(new DeliveryResult(3, 2, 0), delivered);
-		assertEquals(2, world.getFirst().getCount());
+		assertEquals(2, world.get(0).getCount());
 	}
 
 	@Test

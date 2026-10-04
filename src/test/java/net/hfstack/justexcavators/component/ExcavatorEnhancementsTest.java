@@ -104,18 +104,18 @@ final class ExcavatorEnhancementsTest {
 				.withSlot(1, EnhancementType.SMELTING);
 		JsonElement encoded = ExcavatorEnhancements.CODEC
 				.encodeStart(JsonOps.INSTANCE, original)
-				.getOrThrow();
+				.getOrThrow(false, message -> {});
 
 		assertTrue(encoded.isJsonObject());
 		assertEquals("silk", encoded.getAsJsonObject().get("slot_1").getAsString());
 		assertEquals("smelting", encoded.getAsJsonObject().get("slot_2").getAsString());
 		assertEquals(original, ExcavatorEnhancements.CODEC
 				.parse(JsonOps.INSTANCE, encoded)
-				.getOrThrow());
+				.getOrThrow(false, message -> {}));
 
 		JsonElement migrated = ExcavatorEnhancements.CODEC
 				.encodeStart(JsonOps.INSTANCE, decode("true"))
-				.getOrThrow();
+				.getOrThrow(false, message -> {});
 		assertTrue(migrated.isJsonObject());
 		assertEquals("silk", migrated.getAsJsonObject().get("slot_1").getAsString());
 	}
@@ -127,7 +127,7 @@ final class ExcavatorEnhancementsTest {
 	}
 
 	private static ExcavatorEnhancements decode(String json) {
-		return parse(json).getOrThrow();
+		return parse(json).getOrThrow(false, message -> {});
 	}
 
 	private static com.mojang.serialization.DataResult<ExcavatorEnhancements> parse(String json) {

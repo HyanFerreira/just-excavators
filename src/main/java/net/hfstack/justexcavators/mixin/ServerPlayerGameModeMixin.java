@@ -138,14 +138,11 @@ abstract class ServerPlayerGameModeMixin {
 		}
 
 		ItemStack tool = player.getMainHandItem();
-		ExcavatorEnhancements installed = tool.getOrDefault(
-				ExcavatorComponents.ENHANCEMENTS,
-				ExcavatorEnhancements.EMPTY
-		);
+		ExcavatorEnhancements installed = ExcavatorComponents.getEnhancements(tool);
 		ActiveEnhancements enhancements = ActiveEnhancements.resolve(
 				installed,
 				hasEnchantment(tool, Enchantments.SILK_TOUCH),
-				hasEnchantment(tool, Enchantments.FORTUNE)
+				hasEnchantment(tool, Enchantments.BLOCK_FORTUNE)
 		);
 		Direction hitFace = pos.equals(justexcavators$packetHitPos)
 				? justexcavators$packetHitFace
@@ -156,7 +153,7 @@ abstract class ServerPlayerGameModeMixin {
 				tool,
 				enhancements,
 				level.getBlockState(pos),
-				tool.getOrDefault(ExcavatorComponents.EXCAVATION_MODE, ExcavationMode.BASIC),
+				ExcavatorComponents.getMode(tool),
 				hitFace != null && ExcavationTargetValidator.isValidTarget(level, pos, tool),
 				player.isShiftKeyDown()
 		);
@@ -263,9 +260,10 @@ abstract class ServerPlayerGameModeMixin {
 	@Unique
 	private static boolean hasEnchantment(
 			ItemStack stack,
-			net.minecraft.resources.ResourceKey<net.minecraft.world.item.enchantment.Enchantment> enchantment
+			net.minecraft.world.item.enchantment.Enchantment enchantment
 	) {
-		return stack.getEnchantments().keySet().stream().anyMatch(holder -> holder.is(enchantment));
+		return net.minecraft.world.item.enchantment.EnchantmentHelper
+				.getItemEnchantmentLevel(enchantment, stack) > 0;
 	}
 
 	@Unique

@@ -1,6 +1,5 @@
 package net.hfstack.justexcavators.enhancement;
 
-import net.minecraft.core.Holder;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 
@@ -11,7 +10,7 @@ public final class SilkLootTool {
 	public static ItemStack forLoot(
 			ItemStack original,
 			ActiveEnhancements enhancements,
-			Holder<Enchantment> silkTouch
+			Enchantment silkTouch
 	) {
 		if (!enhancements.has(EnhancementType.SILK)) {
 			return original;

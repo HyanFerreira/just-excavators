@@ -4,8 +4,8 @@ import java.util.Optional;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.SingleRecipeInput;
 
 public final class SmeltingRecipeResolver {
 	private SmeltingRecipeResolver() {
@@ -15,10 +15,10 @@ public final class SmeltingRecipeResolver {
 		if (input.isEmpty()) {
 			return Optional.empty();
 		}
-		SingleRecipeInput recipeInput = new SingleRecipeInput(input.copyWithCount(1));
+		SimpleContainer recipeInput = new SimpleContainer(input.copyWithCount(1));
 		return level.getRecipeManager()
 				.getRecipeFor(RecipeType.SMELTING, recipeInput, level)
-				.map(holder -> holder.value().assemble(recipeInput, level.registryAccess()))
+				.map(recipe -> recipe.assemble(recipeInput, level.registryAccess()))
 				.filter(result -> !result.isEmpty());
 	}
 }

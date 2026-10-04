@@ -1,7 +1,7 @@
 {
 	"required": true,
 	"package": "net.hfstack.justexcavators.mixin",
-	"compatibilityLevel": "JAVA_21",
+	"compatibilityLevel": "JAVA_17",
 	"mixins": [
 		"BlockDropMixin",
 		"ServerPlayerGameModeMixin"

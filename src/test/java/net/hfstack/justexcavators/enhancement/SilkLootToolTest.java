@@ -6,37 +6,30 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import net.minecraft.core.Holder;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.component.DataComponentType;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 
 import net.hfstack.justexcavators.MinecraftTestBootstrap;
 import net.hfstack.justexcavators.component.ExcavatorEnhancements;
+import net.hfstack.justexcavators.component.ExcavatorComponents;
 import net.hfstack.justexcavators.excavation.ExcavationMode;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 final class SilkLootToolTest {
-	private static Holder<Enchantment> silkTouch;
-	private static Holder<Enchantment> unbreaking;
-	private static final DataComponentType<ExcavationMode> MODE_COMPONENT =
-			DataComponentType.<ExcavationMode>builder().persistent(ExcavationMode.CODEC).build();
-	private static final DataComponentType<ExcavatorEnhancements> ENHANCEMENTS_COMPONENT =
-			DataComponentType.<ExcavatorEnhancements>builder().persistent(ExcavatorEnhancements.CODEC).build();
+	private static Enchantment silkTouch;
+	private static Enchantment unbreaking;
 
 	@BeforeAll
 	static void bootstrapRegistries() {
-		HolderLookup.Provider registries = MinecraftTestBootstrap.registries();
-		silkTouch = registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH);
-		unbreaking = registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.UNBREAKING);
+		MinecraftTestBootstrap.registries();
+		silkTouch = Enchantments.SILK_TOUCH;
+		unbreaking = Enchantments.UNBREAKING;
 	}
 
 	@Test
@@ -60,9 +53,9 @@ final class SilkLootToolTest {
 		ItemStack original = new ItemStack(Items.DIAMOND_SHOVEL);
 		original.setCount(3);
 		original.setDamageValue(17);
-		original.set(DataComponents.CUSTOM_NAME, Component.literal("Careful Digger"));
-		original.set(MODE_COMPONENT, ExcavationMode.WIDE);
-		original.set(ENHANCEMENTS_COMPONENT, installed);
+		original.setHoverName(Component.literal("Careful Digger"));
+		ExcavatorComponents.setMode(original, ExcavationMode.WIDE);
+		ExcavatorComponents.setEnhancements(original, installed);
 		original.enchant(unbreaking, 2);
 
 		ItemStack effective = SilkLootTool.forLoot(
@@ -75,12 +68,12 @@ final class SilkLootToolTest {
 		assertEquals(1, effective.getCount());
 		assertEquals(3, original.getCount());
 		assertEquals(17, effective.getDamageValue());
-		assertEquals(Component.literal("Careful Digger"), effective.get(DataComponents.CUSTOM_NAME));
-		assertEquals(ExcavationMode.WIDE, effective.get(MODE_COMPONENT));
-		assertEquals(installed, effective.get(ENHANCEMENTS_COMPONENT));
-		assertEquals(2, effective.getEnchantments().getLevel(unbreaking));
-		assertEquals(1, effective.getEnchantments().getLevel(silkTouch));
-		assertFalse(original.getEnchantments().keySet().stream().anyMatch(holder -> holder.is(Enchantments.SILK_TOUCH)));
-		assertTrue(effective.getEnchantments().keySet().stream().anyMatch(holder -> holder.is(Enchantments.SILK_TOUCH)));
+		assertEquals(Component.literal("Careful Digger"), effective.getHoverName());
+		assertEquals(ExcavationMode.WIDE, ExcavatorComponents.getMode(effective));
+		assertEquals(installed, ExcavatorComponents.getEnhancements(effective));
+		assertEquals(2, EnchantmentHelper.getItemEnchantmentLevel(unbreaking, effective));
+		assertEquals(1, EnchantmentHelper.getItemEnchantmentLevel(silkTouch, effective));
+		assertEquals(0, EnchantmentHelper.getItemEnchantmentLevel(silkTouch, original));
+		assertTrue(EnchantmentHelper.getItemEnchantmentLevel(silkTouch, effective) > 0);
 	}
 }

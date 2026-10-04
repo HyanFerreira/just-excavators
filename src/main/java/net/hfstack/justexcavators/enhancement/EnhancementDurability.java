@@ -27,10 +27,10 @@ public final class EnhancementDurability {
 			boolean transformedAnyDrop
 	) {
 		int damage = extraPotentialDamage(
-				smeltingActive, transformedAnyDrop, player.hasInfiniteMaterials()
+				smeltingActive, transformedAnyDrop, player.getAbilities().instabuild
 		);
 		if (damage > 0 && player.getMainHandItem() == originalTool && !originalTool.isEmpty()) {
-			originalTool.hurtAndBreak(damage, player, EquipmentSlot.MAINHAND);
+			originalTool.hurtAndBreak(damage, player, owner -> owner.broadcastBreakEvent(EquipmentSlot.MAINHAND));
 		}
 	}
 }

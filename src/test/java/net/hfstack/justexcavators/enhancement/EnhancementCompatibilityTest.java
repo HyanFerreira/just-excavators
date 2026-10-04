@@ -78,11 +78,11 @@ final class EnhancementCompatibilityTest {
 			String identifier = type.name().toLowerCase(java.util.Locale.ROOT);
 			EnhancementType decoded = EnhancementType.CODEC
 					.parse(JsonOps.INSTANCE, new JsonPrimitive(identifier))
-					.getOrThrow();
+					.getOrThrow(false, message -> {});
 			assertEquals(type, decoded);
 			assertEquals(new JsonPrimitive(identifier), EnhancementType.CODEC
 					.encodeStart(JsonOps.INSTANCE, type)
-					.getOrThrow());
+					.getOrThrow(false, message -> {}));
 		}
 	}
 

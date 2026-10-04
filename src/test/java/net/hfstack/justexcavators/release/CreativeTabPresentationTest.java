@@ -18,6 +18,6 @@ final class CreativeTabPresentationTest {
 
 		assertTrue(source.contains(".icon(ModCreativeTab::createIcon)"));
 		assertTrue(source.contains("new ItemStack(ModItems.DIAMOND_EXCAVATOR)"));
-		assertTrue(source.contains("icon.set(ExcavatorComponents.EXCAVATION_MODE, ExcavationMode.ADVANCED);"));
+		assertTrue(source.contains("ExcavatorComponents.setMode(icon, ExcavationMode.ADVANCED);"));
 	}
 }

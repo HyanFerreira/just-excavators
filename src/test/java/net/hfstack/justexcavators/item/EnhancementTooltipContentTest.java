@@ -33,7 +33,7 @@ final class EnhancementTooltipContentTest {
 	void everyCoreItemShowsItsDescriptionAndOnlyVoidShowsAWarning() {
 		for (EnhancementType type : EnhancementType.values()) {
 			List<Component> lines = EnhancementCoreItem.tooltipLines(type);
-			assertEquals(type.descriptionTranslationKey(), translatable(lines.getFirst()).getKey());
+			assertEquals(type.descriptionTranslationKey(), translatable(lines.get(0)).getKey());
 			assertEquals(type == EnhancementType.VOID ? 2 : 1, lines.size());
 		}
 		assertEquals(
@@ -72,7 +72,7 @@ final class EnhancementTooltipContentTest {
 	}
 
 	private static void assertHeader(ExcavatorEnhancements enhancements, int count) {
-		TranslatableContents header = translatable(EnhancementTooltipContent.lines(enhancements).getFirst());
+		TranslatableContents header = translatable(EnhancementTooltipContent.lines(enhancements).get(0));
 		assertEquals("tooltip.justexcavators.enhancements", header.getKey());
 		assertArrayEquals(new Object[] { count, 2 }, header.getArgs());
 	}

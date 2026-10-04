@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -49,13 +48,13 @@ final class SmeltingDropProcessorTest {
 	@Test
 	void preservesComponentsFromTheRecipeResult() {
 		ItemStack namedGlass = new ItemStack(Items.GLASS);
-		namedGlass.set(DataComponents.CUSTOM_NAME, Component.literal("Refined"));
+		namedGlass.setHoverName(Component.literal("Refined"));
 		SmeltingResult result = SmeltingDropProcessor.process(
 				new ItemStack(Items.SAND, 2), ignored -> Optional.of(namedGlass)
 		);
 
-		assertEquals(Component.literal("Refined"), result.outputs().getFirst().get(DataComponents.CUSTOM_NAME));
-		assertEquals(2, result.outputs().getFirst().getCount());
+		assertEquals(Component.literal("Refined"), result.outputs().get(0).getHoverName());
+		assertEquals(2, result.outputs().get(0).getCount());
 	}
 
 	@Test
@@ -92,7 +91,7 @@ final class SmeltingDropProcessorTest {
 
 	private static void assertStack(SmeltingResult result, net.minecraft.world.item.Item item, int count) {
 		assertEquals(1, result.outputs().size());
-		assertEquals(item, result.outputs().getFirst().getItem());
-		assertEquals(count, result.outputs().getFirst().getCount());
+		assertEquals(item, result.outputs().get(0).getItem());
+		assertEquals(count, result.outputs().get(0).getCount());
 	}
 }

@@ -88,10 +88,10 @@ public final class ModItems {
 	}
 
 	private static final class SimpleTier implements Tier {
+		@Override public int getLevel() { return 1; }
 		@Override public int getUses() { return 190; }
 		@Override public float getSpeed() { return 5.0F; }
 		@Override public float getAttackDamageBonus() { return 1.5F; }
-		@Override public net.minecraft.tags.TagKey<net.minecraft.world.level.block.Block> getIncorrectBlocksForDrops() { return BlockTags.INCORRECT_FOR_STONE_TOOL; }
 		@Override public int getEnchantmentValue() { return 13; }
 		@Override public Ingredient getRepairIngredient() { return Ingredient.of(Items.COPPER_INGOT); }
 	}

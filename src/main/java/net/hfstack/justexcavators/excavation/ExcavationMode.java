@@ -2,6 +2,9 @@ package net.hfstack.justexcavators.excavation;
 
 import com.mojang.serialization.Codec;
 
+import java.util.Arrays;
+import java.util.Optional;
+
 import net.minecraft.util.StringRepresentable;
 
 public enum ExcavationMode implements StringRepresentable {
@@ -47,5 +50,9 @@ public enum ExcavationMode implements StringRepresentable {
 
 	public String translationKey() {
 		return "excavation_mode.justexcavators." + serializedName;
+	}
+
+	public static Optional<ExcavationMode> fromSerializedName(String name) {
+		return Arrays.stream(values()).filter(mode -> mode.serializedName.equals(name)).findFirst();
 	}
 }

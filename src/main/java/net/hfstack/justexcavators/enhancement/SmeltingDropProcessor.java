@@ -41,8 +41,8 @@ public final class SmeltingDropProcessor {
 	private static void append(List<ItemStack> outputs, ItemStack incoming) {
 		int remaining = incoming.getCount();
 		if (!outputs.isEmpty()) {
-			ItemStack previous = outputs.getLast();
-			if (ItemStack.isSameItemSameComponents(previous, incoming)) {
+			ItemStack previous = outputs.get(outputs.size() - 1);
+			if (ItemStack.isSameItemSameTags(previous, incoming)) {
 				int moved = Math.min(remaining, previous.getMaxStackSize() - previous.getCount());
 				previous.grow(moved);
 				remaining -= moved;

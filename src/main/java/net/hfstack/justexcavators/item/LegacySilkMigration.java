@@ -1,9 +1,9 @@
 package net.hfstack.justexcavators.item;
 
-import java.util.Objects;
+import java.util.Map;
 
-import net.minecraft.core.component.DataComponentType;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 
@@ -13,25 +13,16 @@ public final class LegacySilkMigration {
 	private LegacySilkMigration() {
 	}
 
-	public static boolean migrate(
-			ItemStack stack,
-			DataComponentType<ExcavatorEnhancements> componentType
-	) {
-		Objects.requireNonNull(stack, "stack");
-		Objects.requireNonNull(componentType, "componentType");
-		ExcavatorEnhancements enhancements = stack.getOrDefault(
-				componentType,
-				ExcavatorEnhancements.EMPTY
-		);
+	public static boolean migrate(ItemStack stack) {
+		ExcavatorEnhancements enhancements = net.hfstack.justexcavators.component.ExcavatorComponents.getEnhancements(stack);
 		if (!enhancements.legacySilkMigrationRequired()) {
 			return false;
 		}
 
-		EnchantmentHelper.updateEnchantments(
-				stack,
-				mutable -> mutable.removeIf(holder -> holder.is(Enchantments.SILK_TOUCH))
-		);
-		stack.set(componentType, enhancements.canonical());
+		Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(stack);
+		enchantments.remove(Enchantments.SILK_TOUCH);
+		EnchantmentHelper.setEnchantments(enchantments, stack);
+		net.hfstack.justexcavators.component.ExcavatorComponents.setEnhancements(stack, enhancements.canonical());
 		return true;
 	}
 }

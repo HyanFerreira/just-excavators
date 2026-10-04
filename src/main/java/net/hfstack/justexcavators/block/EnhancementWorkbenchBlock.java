@@ -3,6 +3,7 @@ package net.hfstack.justexcavators.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
@@ -24,11 +25,12 @@ public final class EnhancementWorkbenchBlock extends Block {
 	}
 
 	@Override
-	protected InteractionResult useWithoutItem(
+	public InteractionResult use(
 			BlockState state,
 			Level level,
 			BlockPos pos,
 			Player player,
+			InteractionHand hand,
 			BlockHitResult hit
 	) {
 		if (!level.isClientSide()) {

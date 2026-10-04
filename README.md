@@ -156,7 +156,7 @@ Ferraria. O perfil e o estado da ferramenta são preservados.
 
 ## Requisitos
 
-- **Minecraft:** 1.21.1
+- **Minecraft:** 1.20.1
 - **Loader:** Fabric
 - **Java:** 25 ou superior
 - **Fabric API**
@@ -178,7 +178,7 @@ O mod deve ser instalado no cliente e no servidor.
 
 ## Desenvolvimento
 
-O desenvolvimento requer um JDK Java 21. Certifique-se de que `JAVA_HOME` aponta para ele antes de executar o Gradle.
+O desenvolvimento requer um JDK Java 17. Certifique-se de que `JAVA_HOME` aponta para ele antes de executar o Gradle.
 
 Build do projeto:
 

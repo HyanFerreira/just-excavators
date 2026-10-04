@@ -23,7 +23,7 @@ final class ExcavationAreaCalculatorTest {
 
 				assertEquals(mode.maxBlocks(), positions.size(), mode + " on " + face);
 				assertEquals(positions.size(), new HashSet<>(positions).size(), mode + " on " + face);
-				assertEquals(ORIGIN, positions.getFirst(), mode + " on " + face);
+				assertEquals(ORIGIN, positions.get(0), mode + " on " + face);
 			}
 		}
 	}

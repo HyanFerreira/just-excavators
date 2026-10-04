@@ -33,6 +33,10 @@ public enum EnhancementType {
 		return name().toLowerCase(Locale.ROOT);
 	}
 
+	public static Optional<EnhancementType> fromSerializedName(String name) {
+		return Optional.ofNullable(BY_SERIALIZED_NAME.get(name));
+	}
+
 	public String translationKey() {
 		return "enhancement.justexcavators." + serializedName();
 	}

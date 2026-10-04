@@ -57,10 +57,59 @@ processResources {
 	filesMatching("fabric.mod.json") {
 		expand "version": version
 	}
+
+	exclude "assets/justexcavators/items/**"
+	eachFile { details ->
+		details.path = details.path
+				.replace("data/justexcavators/recipe/", "data/justexcavators/recipes/")
+				.replace("data/justexcavators/advancement/", "data/justexcavators/advancements/")
+				.replace("data/justexcavators/loot_table/", "data/justexcavators/loot_tables/")
+				.replace("data/justexcavators/tags/block/", "data/justexcavators/tags/blocks/")
+				.replace("data/justexcavators/tags/item/", "data/justexcavators/tags/items/")
+	}
+
+	doLast {
+		outputs.files.asFileTree.matching { include "data/justexcavators/recipes/*.json" }.each { recipeFile ->
+			def json = new groovy.json.JsonSlurper().parse(recipeFile)
+			if (json.result instanceof Map && json.result.id) {
+				def components = json.result.components
+				json.result.item = json.result.remove("id")
+				json.result.remove("components")
+				if (components?."justexcavators:excavation_mode") {
+					json.type = "justexcavators:mode_shaped"
+					json.excavation_mode = components."justexcavators:excavation_mode"
+				}
+			}
+			recipeFile.text = groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(json))
+		}
+		outputs.files.asFileTree.matching { include "data/justexcavators/advancements/**/*.json" }.each { advancementFile ->
+			def json = new groovy.json.JsonSlurper().parse(advancementFile)
+			if (json.display?.icon?.id) {
+				json.display.icon.item = json.display.icon.remove("id")
+				json.display.icon.remove("components")
+			}
+			json.remove("sends_telemetry_event")
+			json.criteria?.values()?.each { criterion ->
+				if (criterion.conditions?.items instanceof List) {
+					criterion.conditions.items.each { predicate ->
+						if (predicate.items instanceof String && predicate.items.startsWith("#")) {
+							predicate.tag = predicate.items.substring(1)
+							predicate.remove("items")
+						} else if (predicate.items instanceof String) {
+							predicate.items = [predicate.items]
+						}
+						predicate.remove("components")
+						predicate.remove("predicates")
+					}
+				}
+			}
+			advancementFile.text = groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(json))
+		}
+	}
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 21
+	it.options.release = 17
 }
 
 tasks.withType(Jar).configureEach {
@@ -72,11 +121,11 @@ tasks.withType(Jar).configureEach {
 java {
 	withSourcesJar()
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(21)
+		languageVersion = JavaLanguageVersion.of(17)
 	}
 
-	sourceCompatibility = JavaVersion.VERSION_21
-	targetCompatibility = JavaVersion.VERSION_21
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
 }
 
 tasks.named("sourcesJar") {

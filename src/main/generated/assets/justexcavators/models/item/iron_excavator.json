@@ -2,5 +2,10 @@
   "parent": "minecraft:item/handheld",
   "textures": {
     "layer0": "justexcavators:item/iron_excavator"
-  }
+  },
+  "overrides": [
+    { "predicate": { "custom_model_data": 1 }, "model": "justexcavators:item/iron_deep_excavator" },
+    { "predicate": { "custom_model_data": 2 }, "model": "justexcavators:item/iron_wide_excavator" },
+    { "predicate": { "custom_model_data": 3 }, "model": "justexcavators:item/iron_advanced_excavator" }
+  ]
 }

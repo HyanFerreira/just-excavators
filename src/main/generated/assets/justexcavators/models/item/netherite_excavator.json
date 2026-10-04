@@ -2,5 +2,10 @@
   "parent": "minecraft:item/handheld",
   "textures": {
     "layer0": "justexcavators:item/netherite_excavator"
-  }
+  },
+  "overrides": [
+    { "predicate": { "custom_model_data": 1 }, "model": "justexcavators:item/netherite_deep_excavator" },
+    { "predicate": { "custom_model_data": 2 }, "model": "justexcavators:item/netherite_wide_excavator" },
+    { "predicate": { "custom_model_data": 3 }, "model": "justexcavators:item/netherite_advanced_excavator" }
+  ]
 }
