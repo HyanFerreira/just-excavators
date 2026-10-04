@@ -114,6 +114,37 @@ final class GeneratedAdvancementDataTest {
 		assertFalse(itemIds.contains("justexcavators:core_housing"));
 	}
 
+	@Test
+	void recipeUnlockCriteriaUseMinecraft263Schema() throws IOException {
+		Path recipeAdvancements = ADVANCEMENTS.resolve("recipes");
+		List<Path> files;
+		try (var paths = Files.walk(recipeAdvancements)) {
+			files = paths.filter(path -> path.toString().endsWith(".json")).toList();
+		}
+
+		assertFalse(files.isEmpty(), "expected generated recipe advancements");
+		for (Path file : files) {
+			JsonObject advancement = JsonParser.parseString(Files.readString(file)).getAsJsonObject();
+			JsonObject recipeCriterion = advancement
+					.getAsJsonObject("criteria")
+					.getAsJsonObject("has_the_recipe");
+			assertEquals("minecraft:recipe_unlocked", recipeCriterion.get("trigger").getAsString(), file.toString());
+
+			JsonObject conditions = recipeCriterion.getAsJsonObject("conditions");
+			assertTrue(conditions.has("recipes"), file.toString());
+			assertFalse(conditions.has("recipe"), file.toString());
+			assertTrue(conditions.get("recipes").isJsonPrimitive(), file.toString());
+
+			JsonObject rewards = advancement.getAsJsonObject("rewards");
+			assertTrue(rewards.has("recipes"), file.toString());
+			assertFalse(rewards.has("recipe"), file.toString());
+			assertTrue(rewards.get("recipes").isJsonArray(), file.toString());
+			JsonArray rewardedRecipes = rewards.getAsJsonArray("recipes");
+			assertEquals(1, rewardedRecipes.size(), file.toString());
+			assertEquals(conditions.get("recipes").getAsString(), rewardedRecipes.get(0).getAsString(), file.toString());
+		}
+	}
+
 	private static void assertParent(String id, String expectedParent) throws IOException {
 		assertEquals(expectedParent, advancement(id).get("parent").getAsString(), id);
 	}
