@@ -2,6 +2,13 @@
 
 All notable changes to Just Excavators are documented in this file.
 
+## [1.0.1] - 2026-10-04
+
+### Fixed
+
+- Restored Minecraft 26.1, 26.1.1, and 26.1.2 compatibility for the server-side excavation mixin.
+- Corrected recipe-unlock advancements for the Minecraft 26.1 data format so they load and unlock recipes normally.
+
 ## [1.0.0] - 2026-10-03
 
 ### Release target
