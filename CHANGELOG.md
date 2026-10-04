@@ -2,6 +2,13 @@
 
 All notable changes to Just Excavators are documented in this file.
 
+## [1.0.1] - 2026-10-04
+
+### Maintenance
+
+- Added regression coverage for the Minecraft 26.3 server mixin targets and recipe-unlock advancement format.
+- Synchronized the release version with the corrected Minecraft 26.1–26.1.2 builds.
+
 ## [1.0.0] - 2026-10-01
 
 ### Added
