@@ -3,6 +3,10 @@ plugins {
 	id 'maven-publish'
 }
 
+base {
+	archivesName = "just-excavators-mc${project.artifact_minecraft_version}"
+}
+
 loom {
 	splitEnvironmentSourceSets()
 
